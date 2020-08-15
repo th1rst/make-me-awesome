@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 import './assets/main.css'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { ActivityProvider } from "./context";
+import ScrollToTop from "./components/ScrollToTop";
 
 ReactDOM.render(
   <React.StrictMode>
