@@ -6,7 +6,9 @@ Realistically, the App won't have many users, so building a complete Backend for
 
 **Frontend:**
 - React
-- Tailwind CSS / Bootstrap / Custom CSS if needed
+- Tailwind CSS / Custom CSS if needed
+- React-Bootstrap
+- React-Icons
 - Eventually I'll be using ReCharts for displaying the different data in a more visually appealing way
 
 **Backend:**

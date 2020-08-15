@@ -3,10 +3,17 @@ import ReactDOM from 'react-dom';
 import './assets/main.css'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { ActivityProvider } from "./context";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ActivityProvider>
+      <Router>
+        <ScrollToTop>
+          <App />
+        </ScrollToTop>
+      </Router>
+    </ActivityProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
