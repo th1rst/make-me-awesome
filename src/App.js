@@ -7,6 +7,7 @@ import Overview from "./pages/Overview";
 import Error404 from "./pages/Error404";
 import Personal from "./pages/Personal";
 import SignUp from "./pages/SignUp";
+import ForgotPassword from "./pages/ForgotPassword"
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/personal" component={Personal} />
-      <Route exact path="/signup" component={SignUp} />
+      <Route exact path="/signup" component={SignUp}/>
+      <Route exact path="/forgot" component={ForgotPassword}/>
       <Route exact path="/activity" component={Activity} />
       <Route exact path="/settings" component={Settings} />
       <Route exact path="/overview" component={Overview} />
