@@ -10,7 +10,7 @@ export default class Login extends Component {
             <img
               className="absolute h-auto w-full object-cover"
               src="https://images.unsplash.com/photo-1504432842672-1a79f78e4084?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=975&q=80"
-              alt="my zomato"
+              alt="motivational"
             />
           </div>
           <div className="w-full xl:w-1/2 p-8">
