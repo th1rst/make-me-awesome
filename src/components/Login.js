@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link}  from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export default class Login extends Component {
   render() {
@@ -20,7 +20,9 @@ export default class Login extends Component {
                 <span className="text-gray-600 text-sm">
                   Don't have an account?
                 </span>
-                <span className="text-gray-700 text-sm font-semibold"><Link to="/signup"> Sign up</Link></span>
+                <span className="text-gray-700 text-sm font-semibold">
+                  <Link to="/signup"> Sign up</Link>
+                </span>
               </div>
               <div className="mb-4 mt-6">
                 <label
