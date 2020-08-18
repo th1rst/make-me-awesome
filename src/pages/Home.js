@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Login from "../components/Login";
+import Sidebar from "../components/Sidebar";
 
 export default class Home extends Component {
   render() {
