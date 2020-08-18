@@ -1,22 +1,34 @@
 import React, { Component } from "react";
 import Login from "../components/Login";
-import Sidebar from "../components/Sidebar";
+import { Redirect } from "react-router-dom";
 
 export default class Home extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false,
+    };
+  }
+
   render() {
     return (
       <div>
-        <h1 className="mt-10 font-mono text-center text-3xl">
-          <span role="img" aria-label="trophy">
-            🏆{" "}
-          </span>
-          Make Me Awesome
-          <span role="img" aria-label="trophy">
-            {" "}
-            🏆
-          </span>
-        </h1>
-        <Login />
+        {this.state.loggedIn === true ? (
+          <Redirect to="/overview" />
+        ) : (
+          <div>
+            <h1 className="mt-10 font-bold text-center text-3xl">
+              <span role="img" aria-label="trophy">
+                🏆
+              </span>
+              Make Me Awesome
+              <span role="img" aria-label="trophy">
+                🏆
+              </span>
+            </h1>
+            <Login />
+          </div>
+        )}
       </div>
     );
   }
