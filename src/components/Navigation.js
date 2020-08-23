@@ -1,18 +1,25 @@
 import React, { Component } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Sidebar from "./Sidebar";
+import UserOverview from "./UserOverview";
 
 export default class Navigation extends Component {
   constructor() {
     super();
     this.state = {
       isSidebarOpen: false,
+      isUserMenuOpen: false,
     };
   }
 
   handleSidebarExpand() {
     this.setState({ isSidebarOpen: !this.state.isSidebarOpen });
   }
+
+  handleUserMenuExpand() {
+    this.setState({ isUserMenuOpen: !this.state.isUserMenuOpen });
+  }
+
   render() {
     return (
       <div>
@@ -29,33 +36,19 @@ export default class Navigation extends Component {
 
             <ul className="flex items-center">
               <li>
-                <h1 className="pl-8 lg:pl-0 text-gray-700">Make Me Awesome</h1>
+                <h1 className="pl-8 lg:pl-0 font-bold text-gray-700">
+                  Make Me Awesome
+                </h1>
               </li>
             </ul>
 
             <ul className="flex items-center">
-              <li className="pr-6 cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="feather feather-bell"
-                >
-                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                </svg>
-              </li>
               <li className="h-10 w-10 cursor-pointer">
                 <img
                   className="h-full w-full rounded-full mx-auto object-cover"
                   src="https://images.unsplash.com/photo-1592439120548-78ea7b42398e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
                   alt="robot placeholder"
+                  onClick={() => this.handleUserMenuExpand()}
                 />
               </li>
             </ul>
@@ -63,6 +56,7 @@ export default class Navigation extends Component {
         </div>
 
         {this.state.isSidebarOpen === true ? <Sidebar /> : null}
+        {this.state.isUserMenuOpen === true ? <UserOverview /> : null}
       </div>
     );
   }

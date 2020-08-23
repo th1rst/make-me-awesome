@@ -4,7 +4,7 @@ export default class Sidebar extends Component {
   render() {
     return (
       <div>
-        <div className="h-screen flex w-full max-w-xs p-4 bg-white">
+        <div className="min-h-50 flex w-full max-w-xs p-4 bg-white absolute">
           <ul className="flex flex-col w-full">
             <li className="my-px">
               <a
