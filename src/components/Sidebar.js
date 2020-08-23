@@ -25,9 +25,6 @@ export default class Sidebar extends Component {
                   </svg>
                 </span>
                 <span className="ml-3">Dashboard</span>
-                <span className="flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-200 h-6 px-2 rounded-full ml-auto">
-                  3
-                </span>
               </a>
             </li>
             <li className="my-px">
