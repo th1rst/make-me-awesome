@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class UserOverview extends Component {
   render() {
@@ -14,20 +15,20 @@ export default class UserOverview extends Component {
             <p className="pt-2 text-lg font-semibold">User XYZ</p>
             <p className="text-sm text-gray-600">userxyz@gmail.com</p>
             <div className="mt-5">
-              <a
-                href="#"
+              <Link
+                to="/settings"
                 className="border rounded-full py-2 px-4 text-xs font-semibold text-gray-700 hover:bg-gray-100"
               >
                 Manage Account
-              </a>
+              </Link>
             </div>
           </div>
           <div>
-            <a href="#" className="px-4 py-2 pb-4 hover:bg-gray-100 flex">
+            <Link to="/FAQ" className="px-4 py-2 pb-4 hover:bg-gray-100 flex">
               <p className="text-sm font-medium text-gray-800 leading-none">
                 FAQ
               </p>
-            </a>
+            </Link>
             <a href="#" className="px-4 py-2 pb-4 hover:bg-gray-100 flex">
               <p className="text-sm font-medium text-gray-800 leading-none">
                 Logout

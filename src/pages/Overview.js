@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Sidebar from "../components/Sidebar";
 import Navigation from "../components/Navigation";
 
 export default class Overview extends Component {

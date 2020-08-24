@@ -7,7 +7,8 @@ import Overview from "./pages/Overview";
 import Error404 from "./pages/Error404";
 import Personal from "./pages/Personal";
 import SignUp from "./pages/SignUp";
-import ForgotPassword from "./pages/ForgotPassword"
+import ForgotPassword from "./pages/ForgotPassword";
+import FAQ from "./pages/FAQ"
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <Route exact path="/activity" component={Activity} />
       <Route exact path="/settings" component={Settings} />
       <Route exact path="/overview" component={Overview} />
+      <Route exact path="/FAQ" component={FAQ} />
       <Route component={Error404} />
     </Switch>
   );

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class Sidebar extends Component {
   render() {
@@ -80,29 +81,8 @@ export default class Sidebar extends Component {
               </span>
             </li>
             <li className="my-px">
-              <a
-                href="#"
-                className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-              >
-                <span className="flex items-center justify-center text-lg text-gray-400">
-                  <svg
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="h-6 w-6"
-                  >
-                    <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                  </svg>
-                </span>
-                <span className="ml-3">Profile</span>
-              </a>
-            </li>
-            <li className="my-px">
-              <a
-                href="#"
+              <Link
+                to="/settings"
                 className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
               >
                 <span className="flex items-center justify-center text-lg text-gray-400">
@@ -120,7 +100,7 @@ export default class Sidebar extends Component {
                   </svg>
                 </span>
                 <span className="ml-3">Settings</span>
-              </a>
+              </Link>
             </li>
             <li className="my-px">
               <a
