@@ -1,23 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import './assets/main.css'
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { ActivityProvider } from "./context";
+import "./assets/main.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
 import ScrollToTop from "./components/ScrollToTop";
+import Firebase from "./components/Firebase/Firebase";
+import FirebaseContext from "./components/Firebase/context"
 
 ReactDOM.render(
   <React.StrictMode>
-    <ActivityProvider>
+    <FirebaseContext.Provider value={new Firebase()}>
       <Router>
         <ScrollToTop>
           <App />
         </ScrollToTop>
       </Router>
-    </ActivityProvider>
+    </FirebaseContext.Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
