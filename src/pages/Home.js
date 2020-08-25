@@ -6,7 +6,7 @@ export default class Home extends Component {
   constructor() {
     super();
     this.state = {
-      loggedIn: true,
+      loggedIn: null,
     };
   }
 

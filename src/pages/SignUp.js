@@ -1,25 +1,61 @@
 import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+import FirebaseContext from "../components/Firebase/context"
+
+const defaultState = {
+  username: "",
+  email: "",
+  firstPassword: "",
+  secondPassword: "",
+  error: null,
+};
 
 export default class SignUp extends Component {
   constructor(props) {
     super(props);
-    state = {
-      username: "",
-      email: "",
-      firstPassword: "",
-      secondPassword: "",
-      error: null,
-    }
+    this.state = { ...defaultState };
   }
 
-  onSubmit = (event) => {};
+  onSubmit = (event) => {
+    const { username, email, firstPassword } = this.state;
 
-  onChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.props.firebase
+      .doCreateUserWithEmailAndPassword(email, firstPassword)
+      .then((authUser) => {
+        this.setState({ ...defaultState });
+        this.props.history.push("/overview");
+      })
+      .catch((error) => {
+        this.setState({ error });
+      });
+
+    event.preventDefault();
+  };
+
+  handleNameInput = (event) => {
+    this.setState({ username: event.target.value });
+  };
+
+  handleEmailInput = (event) => {
+    this.setState({ email: event.target.value });
+  };
+
+  handleFirstPasswordInput = (event) => {
+    this.setState({ firstPassword: event.target.value });
+  };
+
+  handleSecondPasswordInput = (event) => {
+    this.setState({ secondPassword: event.target.value });
   };
 
   render() {
-    const { username, email, firstPassword, secondPassword, error } = this.state;
+    const {
+      username,
+      email,
+      firstPassword,
+      secondPassword,
+      error,
+    } = this.state;
 
     const isInvalid =
       firstPassword !== secondPassword ||
@@ -40,16 +76,16 @@ export default class SignUp extends Component {
                     className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:shadow-outline h-10"
                     name="fullname"
                     value={username}
-                    onChange={this.onChange}
+                    onChange={this.handleNameInput}
                     placeholder="Full Name"
                   />
 
                   <input
-                    type="text"
+                    type="email"
                     className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:shadow-outline h-10"
                     name="email"
                     value={email}
-                    onChange={this.onChange}
+                    onChange={this.handleEmailInput}
                     placeholder="Email"
                   />
 
@@ -58,7 +94,7 @@ export default class SignUp extends Component {
                     className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:shadow-outline h-10"
                     name="password"
                     value={firstPassword}
-                    onChange={this.onChange}
+                    onChange={this.handleFirstPasswordInput}
                     placeholder="Password"
                   />
                   <input
@@ -66,13 +102,14 @@ export default class SignUp extends Component {
                     className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:shadow-outline h-10"
                     name="confirm_password"
                     value={secondPassword}
-                    onChange={this.onChange}
+                    onChange={this.handleSecondPasswordInput}
                     placeholder="Confirm Password"
                   />
 
                   <button
+                    disabled={isInvalid}
                     type="submit"
-                    className="w-full text-center py-3 rounded bg-green text-white hover:bg-green-dark focus:outline-none my-1"
+                    className="w-full text-center py-3 rounded bg-gray-300 text-black hover:bg-gray-500 my-1"
                   >
                     Create Account
                   </button>
@@ -81,33 +118,33 @@ export default class SignUp extends Component {
 
                 <div className="text-center text-sm text-grey-dark mt-4">
                   By signing up, you agree to the
-                  <a
+                  <Link
+                    to="/termsofservice"
                     className="no-underline border-b border-grey-dark text-grey-dark"
-                    href="#"
                   >
                     {" "}
                     Terms of Service
-                  </a>{" "}
+                  </Link>{" "}
                   and
-                  <a
+                  <Link
+                    to="/privacypolicy"
                     className="no-underline border-b border-grey-dark text-grey-dark"
-                    href="#"
                   >
                     {" "}
                     Privacy Policy
-                  </a>
+                  </Link>
                 </div>
               </div>
 
               <div className="text-grey-dark mt-6">
                 Already have an account?
-                <a
+                <Link
+                  to="/"
                   className="no-underline border-b border-blue text-blue"
-                  href="../login/"
                 >
                   {" "}
                   Log in
-                </a>
+                </Link>
                 .
               </div>
             </div>

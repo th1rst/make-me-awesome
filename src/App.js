@@ -9,6 +9,8 @@ import Personal from "./pages/Personal";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import FAQ from "./pages/FAQ"
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
       <Route exact path="/settings" component={Settings} />
       <Route exact path="/overview" component={Overview} />
       <Route exact path="/FAQ" component={FAQ} />
+      <Route exact path="/termsofservice" component={TermsOfService} />
+      <Route exact path="/privacypolicy" component={PrivacyPolicy} />
       <Route component={Error404} />
     </Switch>
   );
