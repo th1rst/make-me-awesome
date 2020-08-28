@@ -172,4 +172,4 @@ const SignUpForm = compose(withRouter, withFirebase)(SignUpFormBase);
 
 export default SignUpPage;
 
-export { SignUpFormBase, SignUpLink };
+export { SignUpForm, SignUpLink };

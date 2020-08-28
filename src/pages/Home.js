@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Login from "../components/Login";
 import { Redirect } from "react-router-dom";
+import SignInPage from "../components/Login";
 
 export default class Home extends Component {
   constructor() {
@@ -26,7 +26,7 @@ export default class Home extends Component {
                 🏆
               </span>
             </h1>
-            <Login />
+            <SignInPage />
           </div>
         )}
       </div>
