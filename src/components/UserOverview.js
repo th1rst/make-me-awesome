@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import SignOutButton from "../components/SignOutButton"
 
 export default class UserOverview extends Component {
   render() {
@@ -29,11 +30,9 @@ export default class UserOverview extends Component {
                 FAQ
               </p>
             </Link>
-            <a href="#" className="px-4 py-2 pb-4 hover:bg-gray-100 flex">
-              <p className="text-sm font-medium text-gray-800 leading-none">
-                Logout
-              </p>
-            </a>
+            <div className="px-4 py-2 pb-4 hover:bg-gray-100 flex">
+             <SignOutButton />
+            </div>
           </div>
         </div>
       </div>
