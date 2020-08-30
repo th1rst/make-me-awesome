@@ -1,7 +1,36 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { withFirebase } from "../components/Firebase/context";
+
+const defaultState = {
+  email: "",
+  error: null,
+};
 
 export default class ForgotPassword extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { ...defaultState };
+  }
+ 
+  onSubmit = event => {
+    const { email } = this.state;
+ 
+    this.props.firebase
+      .doPasswordReset(email)
+      .then(() => {
+        this.setState({ ...defaultState });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+ 
+    event.preventDefault();
+  };
+ 
+  onChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
   render() {
     return (
       <div>
@@ -19,7 +48,7 @@ export default class ForgotPassword extends Component {
             />
           </div>
           <div className="w-full xl:w-1/2 p-8">
-            <form method="post" action="#" onSubmit="return false">
+            <form onSubmit={this.onSubmit}>
               <h1 className=" text-2xl font-bold">Just one more step.</h1>
               <div className="mb-4 mt-6">
                 <label
@@ -30,18 +59,22 @@ export default class ForgotPassword extends Component {
                 </label>
                 <input
                   className="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline h-10"
-                  id="email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
                   type="text"
                   placeholder="Your account's email address"
                 />
               </div>
               <div className="flex w-full mt-8">
                 <button
+                  disabled={isInvalid}
                   className="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10"
-                  type="button"
+                  type="submit"
                 >
                   Submit
                 </button>
+                {error && <p>{error.message}</p>}
               </div>
             </form>
           </div>
