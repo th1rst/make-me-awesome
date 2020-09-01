@@ -2,12 +2,19 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withFirebase } from "../components/Firebase/context";
 
+const ForgotPasswordPage = () => (
+  <div>
+    <h1>PasswordForget</h1>
+    <PasswordForgetForm />
+  </div>
+);
+
 const defaultState = {
   email: "",
   error: null,
 };
 
-export default class ForgotPassword extends Component {
+class PasswordForgetFormBase extends Component {
   constructor(props) {
     super(props);
     this.state = { ...defaultState };
@@ -32,6 +39,9 @@ export default class ForgotPassword extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   render() {
+    const { email, error } = this.state;
+    const isInvalid = email === '';
+
     return (
       <div>
         <div>
@@ -83,3 +93,15 @@ export default class ForgotPassword extends Component {
     );
   }
 }
+
+const PasswordForgetLink = () => (
+  <p>
+    <Link to="/forgotpassword">Forgot Password?</Link>
+  </p>
+);
+
+export default ForgotPasswordPage;
+ 
+const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
+ 
+export { PasswordForgetForm, PasswordForgetLink };
