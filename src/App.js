@@ -37,13 +37,13 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/personal" component={Personal} />
+        <Route exact path="/" component={Home} authUser={this.state.authUser}/>
+        <Route exact path="/personal" component={Personal} authUser={this.state.authUser}/>
         <Route exact path="/signup" component={SignUpPage} />
         <Route exact path="/forgot" component={ForgotPasswordPage} />
-        <Route exact path="/activity" component={Activity} />
-        <Route exact path="/settings" component={Settings} />
-        <Route exact path="/overview" component={Overview} />
+        <Route exact path="/activity" component={Activity} authUser={this.state.authUser}/>
+        <Route exact path="/settings" component={Settings} authUser={this.state.authUser}/>
+        <Route exact path="/overview" component={Overview} authUser={this.state.authUser}/>
         <Route exact path="/FAQ" component={FAQ} />
         <Route exact path="/termsofservice" component={TermsOfService} />
         <Route exact path="/privacypolicy" component={PrivacyPolicy} />
