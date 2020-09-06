@@ -4,7 +4,6 @@ import { withFirebase } from "../components/Firebase/context";
 
 const ForgotPasswordPage = () => (
   <div>
-    <h1>PasswordForget</h1>
     <PasswordForgetForm />
   </div>
 );
@@ -96,7 +95,7 @@ class PasswordForgetFormBase extends Component {
 
 const PasswordForgetLink = () => (
   <p>
-    <Link to="/forgotpassword">Forgot Password?</Link>
+    <Link to="/forgot">Forgot Password?</Link>
   </p>
 );
 

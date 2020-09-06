@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import FirebaseContext, { withFirebase } from "../components/Firebase/context";
+import { PasswordForgetLink } from "../pages/ForgotPasswordPage";
 
 const SignInPage = () => (
   <div>
@@ -108,12 +109,9 @@ class SignInFormBase extends Component {
                   type="password"
                   placeholder="Password"
                 />
-                <Link
-                  className="inline-block align-baseline text-sm text-gray-600 hover:text-gray-800"
-                  to="/forgot"
-                >
+                <PasswordForgetLink className="inline-block align-baseline text-sm text-gray-600 hover:text-gray-800">
                   Forgot Password?
-                </Link>
+                </PasswordForgetLink>
               </div>
               <div className="flex w-full mt-8">
                 <button
