@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, Redirect } from "react-router-dom";
 import { compose } from "recompose";
 import FirebaseContext, { withFirebase } from "../components/Firebase/context";
 import { PasswordForgetLink } from "../pages/ForgotPasswordPage";
@@ -16,6 +16,7 @@ const defaultState = {
   email: "",
   password: "",
   error: null,
+  isLoggedIn: false,
 };
 
 class SignInFormBase extends Component {
@@ -29,9 +30,13 @@ class SignInFormBase extends Component {
 
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        this.setState({ ...defaultState });
-        this.props.history.push("/overview");
+      .then(() => {
+        this.setState({
+          email: email,
+          password: password,
+          error: null,
+          isLoggedIn: true,
+        });
       })
       .catch((error) => {
         this.setState({ error });
@@ -49,15 +54,13 @@ class SignInFormBase extends Component {
   };
 
   render() {
-    const { 
-      email,
-      password,
-      error
-    } = this.state;
+    const { email, password, error } = this.state;
 
     const isInvalid = password === "" || email === "";
 
-    return (
+    return this.state.isLoggedIn ? (
+      <Redirect to="/overview" />
+    ) : (
       <div>
         <div className="container mt-10 max-w-md mx-auto xl:max-w-3xl h-full flex bg-white rounded-lg shadow-lg overflow-hidden border-4">
           <div className="relative hidden xl:block xl:w-1/2 h-full">

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Navigation from "../components/Navigation";
 import AuthUserContext from "../components/Session/Context";
 import withAuthorization from "../components/Session/withAuthorization";

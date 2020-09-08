@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Activity from "./pages/Activity";
@@ -12,7 +12,6 @@ import FAQ from "./pages/FAQ";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import FirebaseTest from "./pages/FirebaseTest";
-import AuthUserContext from "./components/Session/Context";
 import withAuthentication from "./components/Session/withAuthentication";
 
 const App = () => (

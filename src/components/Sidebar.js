@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import SignOutButton from "./SignOutButton";
 
 export default class Sidebar extends Component {
   render() {
@@ -120,7 +121,7 @@ export default class Sidebar extends Component {
                     <path d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
                   </svg>
                 </span>
-                <span className="ml-3">Logout</span>
+                <span className="ml-3"><SignOutButton>Logout</SignOutButton></span>
               </a>
             </li>
           </ul>
