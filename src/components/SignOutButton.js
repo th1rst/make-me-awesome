@@ -1,5 +1,6 @@
 import React from "react";
 import { withFirebase } from "./Firebase/context";
+import { Link } from "react-router-dom";
 
 const SignOutButton = ({ firebase }) => (
   <button
@@ -7,7 +8,7 @@ const SignOutButton = ({ firebase }) => (
     type="button"
     onClick={firebase.doSignOut}
   >
-    <p>Logout</p>
+    <Link to="/">Logout</Link>
   </button>
 );
 
