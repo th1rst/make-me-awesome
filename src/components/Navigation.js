@@ -24,7 +24,7 @@ export default class Navigation extends Component {
   render() {
     return (
       <div>
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col shadow-xl">
           <nav className="px-4 flex justify-between bg-white h-16 border-b-2">
             <ul className="flex items-center">
               <li className="h-6 w-6 cursor-pointer">
