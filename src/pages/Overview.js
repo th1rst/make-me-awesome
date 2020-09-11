@@ -2,16 +2,16 @@ import React from "react";
 import Navigation from "../components/Navigation";
 import AuthUserContext from "../components/Session/Context";
 import withAuthorization from "../components/Session/withAuthorization";
-import NewActivityModalButton from "../components/NewActivityModalButton"
+import NewActivityModalButton from "../components/NewActivityModalButton";
 
 const Overview = () => (
   <AuthUserContext.Consumer>
     {(authUser) => (
       <div>
         <Navigation />
-
+        
         <div
-          className="w-full bg-cover bg-center"
+          className="w-full bg-cover bg-center shadow-xl"
           style={{
             height: "32rem",
             backgroundImage: `url("https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")`,
@@ -27,21 +27,12 @@ const Overview = () => (
               </h1>
 
               <NewActivityModalButton />
-
-  
-
-
-
-
             </div>
           </div>
         </div>
       </div>
     )}
   </AuthUserContext.Consumer>
-
-  /* Possible future Banner picture: https://images.unsplash.com/photo-1525706732602-52592370085e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80
-                                     https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80   */
 );
 
 const condition = (authUser) => !!authUser;
