@@ -1,5 +1,6 @@
 import app from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -15,8 +16,14 @@ class Firebase {
   constructor() {
     app.initializeApp(config);
 
+    this.fieldValue = app.firestore.FieldValue;
+
+    //Firebase API's
     this.auth = app.auth();
+    this.db = app.firestore();
   }
+
+  // Auth API
 
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
@@ -30,6 +37,41 @@ class Firebase {
 
   doPasswordUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
+
+  onAuthUserListener = (next, fallback) =>
+    this.auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        this.user(authUser.uid)
+          .get()
+          .then((snapshot) => {
+            const dbUser = snapshot.data();
+
+            if (!dbUser.roles) {
+              dbUser.roles = {};
+            }
+
+            authUser = {
+              uid: authUser.uid,
+              email: authUser.email,
+              emailVerified: authUser.emailVerified,
+              providerData: authUser.providerData,
+              ...dbUser,
+            };
+
+            next(authUser);
+          });
+      } else {
+        fallback();
+      }
+    });
+
+  //User API
+  user = (uid) => this.db.doc(`users/${uid}`);
+  users = () => this.db.collection("users");
+
+  //Activities API
+  activity = (uid) => this.db.doc(`activities/${uid}`);
+  activities = () => this.db.collection("activities");
 }
 
 export default Firebase;

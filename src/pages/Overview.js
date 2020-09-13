@@ -9,7 +9,7 @@ const Overview = () => (
     {(authUser) => (
       <div>
         <Navigation />
-        
+
         <div
           className="w-full bg-cover bg-center shadow-xl"
           style={{
@@ -28,6 +28,12 @@ const Overview = () => (
 
               <NewActivityModalButton />
             </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <h1 className="my-4 font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
+              Overview
+            </h1>
+            <span className=" w-24 h-1 bg-blue-400 rounded-full" />
           </div>
         </div>
       </div>
