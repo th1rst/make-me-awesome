@@ -3,6 +3,7 @@ import Navigation from "../components/Navigation";
 import AuthUserContext from "../components/Session/Context";
 import withAuthorization from "../components/Session/withAuthorization";
 import NewActivityModalButton from "../components/NewActivityModalButton";
+import AllActivities from "../components/AllActivities"
 
 const Overview = () => (
   <AuthUserContext.Consumer>
@@ -30,10 +31,11 @@ const Overview = () => (
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <h1 className="my-4 font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
+            <h1 className="font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
               Overview
             </h1>
-            <span className=" w-24 h-1 bg-blue-400 rounded-full" />
+            <span className="my-4 w-24 h-1 bg-blue-400 rounded-full" />
+            <div><AllActivities /></div>
           </div>
         </div>
       </div>
