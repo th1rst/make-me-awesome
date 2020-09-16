@@ -11,7 +11,6 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import FAQ from "./pages/FAQ";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
-import FirebaseTest from "./pages/FirebaseTest";
 import withAuthentication from "./components/Session/withAuthentication";
 
 const App = () => (
@@ -26,7 +25,6 @@ const App = () => (
       <Route exact path="/FAQ" component={FAQ} />
       <Route exact path="/termsofservice" component={TermsOfService} />
       <Route exact path="/privacypolicy" component={PrivacyPolicy} />
-      <Route exact path="/firebasetest" component={FirebaseTest} />
       <Route component={Error404} />
     </Switch>
 );

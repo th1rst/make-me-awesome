@@ -1,26 +1,38 @@
 import React, { Component } from "react";
 import AuthUserContext from "./Session/Context";
-import { withFirebase } from "../components/Firebase/context"
+import FirebaseContext, { withFirebase } from "../components/Firebase/context";
 
-export default class AllActivities extends Component {
+class AllActivities extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
+
+  sendActivity = () => {
+    this.props.firebase.db
+      .collection("activities")
+      .add({ title: "first activity", description: "new activity!" })
+      .then((documentReference) => {
+        console.log("document reference ID", documentReference.id);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   render() {
     const { activities, loading } = this.state;
 
     return (
-      <AuthUserContext.Consumer>
-        {(authUser) => (
+      <FirebaseContext.Consumer>
+        {(firebase) => (
           <div>
-            <h1>Hi from All Activities</h1>
-            <p>{activities}</p>
+            <button onClick={this.sendActivity}>click here to send</button>
           </div>
         )}
-      </AuthUserContext.Consumer>
+      </FirebaseContext.Consumer>
     );
   }
 }
+
+export default withFirebase(AllActivities);
