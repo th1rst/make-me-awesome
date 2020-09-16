@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AuthUserContext from "./Session/Context";
-import FirebaseContext, { withFirebase } from "../components/Firebase/context";
+import { withFirebase } from "../components/Firebase/context";
 
 class AllActivities extends Component {
   constructor(props) {
@@ -11,7 +11,13 @@ class AllActivities extends Component {
   sendActivity = () => {
     this.props.firebase.db
       .collection("activities")
-      .add({ title: "first activity", description: "new activity!" })
+      .add({
+        //test values
+        category: "productive",
+        date: "09162020",
+        duration: "120",
+        name: "Sport",
+      })
       .then((documentReference) => {
         console.log("document reference ID", documentReference.id);
       })
@@ -24,13 +30,9 @@ class AllActivities extends Component {
     const { activities, loading } = this.state;
 
     return (
-      <FirebaseContext.Consumer>
-        {(firebase) => (
-          <div>
-            <button onClick={this.sendActivity}>click here to send</button>
-          </div>
-        )}
-      </FirebaseContext.Consumer>
+      <div>
+        <button onClick={this.sendActivity}>click here to send</button>
+      </div>
     );
   }
 }

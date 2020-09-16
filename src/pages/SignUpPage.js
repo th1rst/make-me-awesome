@@ -1,15 +1,7 @@
+import { auth } from "firebase";
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import { compose } from "recompose";
-import FirebaseContext, { withFirebase } from "../components/Firebase/context";
-
-const SignUpPage = () => (
-  <div>
-    <FirebaseContext.Consumer>
-      {(firebase) => <SignUpFormBase firebase={firebase} />}
-    </FirebaseContext.Consumer>
-  </div>
-);
+import { Link } from "react-router-dom";
+import { withFirebase } from "../components/Firebase/context";
 
 const defaultState = {
   username: "",
@@ -19,7 +11,7 @@ const defaultState = {
   error: null,
 };
 
-class SignUpFormBase extends Component {
+class SignUpPage extends Component {
   constructor(props) {
     super(props);
     this.state = { ...defaultState };
@@ -28,15 +20,30 @@ class SignUpFormBase extends Component {
   onSubmit = (event) => {
     const { username, email, firstPassword } = this.state;
 
+    //create FireBASE user
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, firstPassword)
-      .then((authUser) => {
-        this.setState({ ...defaultState });
-        this.props.history.push("/overview");
+
+      //create corresponding FireSTORE (database) entry
+      .then(() => {
+        this.props.firebase.db
+          .collection("users")
+          .doc(`${username}`)
+          .set({
+            name: username,
+            email: email,
+          })
+          .catch((error) => {
+            console.log(
+              "Something went wrong with added user to firestore: ",
+              error
+            );
+          });
       })
       .catch((error) => {
         this.setState({ error });
       });
+    this.setState({ ...defaultState });
 
     event.preventDefault();
   };
@@ -82,10 +89,10 @@ class SignUpFormBase extends Component {
                 <input
                   type="text"
                   className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:shadow-outline h-10"
-                  name="fullname"
+                  name="username"
                   value={username}
                   onChange={this.handleNameInput}
-                  placeholder="Full Name"
+                  placeholder="Username"
                 />
 
                 <input
@@ -168,8 +175,6 @@ const SignUpLink = () => (
   </p>
 );
 
-const SignUpForm = compose(withRouter, withFirebase)(SignUpFormBase);
+export default withFirebase(SignUpPage);
 
-export default SignUpPage;
-
-export { SignUpForm, SignUpLink };
+export { SignUpPage, SignUpLink };

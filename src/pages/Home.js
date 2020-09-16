@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import SignInPage from "../components/Login";
 
 export default class Home extends Component {
