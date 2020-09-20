@@ -19,17 +19,23 @@ class SignUpPage extends Component {
 
   onSubmit = (event) => {
     const { username, email, firstPassword } = this.state;
+    let tempUserID = null;
 
     //create FireBASE user
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, firstPassword)
+      //await UserID from Firebase auth
+      .then(async () => {
+        tempUserID = await this.props.firebase.auth.currentUser.uid;
+      })
 
-      //create corresponding FireSTORE (database) entry
+      //create corresponding FireSTORE (database) entry with UserID
       .then(() => {
         this.props.firebase.db
           .collection("users")
-          .doc(`${username}`)
+          .doc(`${tempUserID}`)
           .set({
+            userID: tempUserID,
             name: username,
             email: email,
           })
