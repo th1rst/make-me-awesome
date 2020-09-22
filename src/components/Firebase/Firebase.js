@@ -41,21 +41,18 @@ class Firebase {
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        this.user(authUser.uid)
+        this.db
+          .collection("users")
+          .doc("PUjsrZ1aiShQBd7JwfZkNW7WTLf2")
           .get()
           .then((snapshot) => {
-            const dbUser = snapshot.data();
-
-            if (!dbUser.roles) {
-              dbUser.roles = {};
-            }
-
+            const userData = snapshot.data()
+          
             authUser = {
               uid: authUser.uid,
               email: authUser.email,
-              emailVerified: authUser.emailVerified,
-              providerData: authUser.providerData,
-              ...dbUser,
+              name: userData.name,
+              userData: [...userData],
             };
 
             next(authUser);
@@ -64,14 +61,6 @@ class Firebase {
         fallback();
       }
     });
-
-  //User API
-  user = (uid) => this.db.doc(`users/${uid}`);
-  users = () => this.db.collection("users");
-
-  //Activities API
-  activity = (uid) => this.db.doc(`activities/${uid}`);
-  activities = () => this.db.collection("activities");
-}
+    user = (uid) => this.db.doc(`users/${uid}`)}
 
 export default Firebase;

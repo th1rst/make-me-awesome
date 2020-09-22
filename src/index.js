@@ -6,7 +6,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import ScrollToTop from "./components/ScrollToTop";
 import Firebase from "./components/Firebase/Firebase";
-import FirebaseContext, { withFirebase } from "./components/Firebase/context"
+import FirebaseContext from "./components/Firebase/context";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -38,6 +38,7 @@ class SignUpPage extends Component {
             userID: tempUserID,
             name: username,
             email: email,
+            activities: null,
           })
           .catch((error) => {
             console.log(
