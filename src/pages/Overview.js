@@ -9,20 +9,32 @@ class Overview extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userData: null,
       username: null,
+      loading: true,
     };
   }
-
   componentDidMount() {
-    this.props.firebase.db
-    .collection("users")
-    .doc("PUjsrZ1aiShQBd7JwfZkNW7WTLf2")
-    .get()
-    .then((snapshot) => {
-      this.setState ({ username: snapshot.data().name })
-    })
+    if (this.state.userData) {
+      return;
+    }
+    this.setState({ loading: true });
+
+    this.unsubscribe = this.props.firebase
+      .user(this.props.firebase.authUser.uid)
+      .onSnapshot((snapshot) => {
+        this.setState({
+          userData: snapshot.data(),
+          username: snapshot.data().name,
+          activities: snapshot.data().activities,
+          loading: false,
+        });
+      });
   }
 
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
 
   render() {
     return (
@@ -56,6 +68,7 @@ class Overview extends Component {
                 </h1>
                 <span className="my-4 w-24 h-1 bg-blue-400 rounded-full" />
                 <div>
+                  All Activities so far: {this.state.activities}
                   <AllActivities />
                 </div>
               </div>

@@ -21,6 +21,7 @@ class Firebase {
     //Firebase API's
     this.auth = app.auth();
     this.db = app.firestore();
+    this.authUser = JSON.parse(localStorage.getItem("authUser"))
   }
 
   // Auth API
@@ -46,13 +47,11 @@ class Firebase {
           .doc("PUjsrZ1aiShQBd7JwfZkNW7WTLf2")
           .get()
           .then((snapshot) => {
-            const userData = snapshot.data()
-          
+            const userData = snapshot.data();
+
             authUser = {
               uid: authUser.uid,
               email: authUser.email,
-              name: userData.name,
-              userData: [...userData],
             };
 
             next(authUser);
@@ -61,6 +60,8 @@ class Firebase {
         fallback();
       }
     });
-    user = (uid) => this.db.doc(`users/${uid}`)}
+
+  user = (uid) => this.db.collection("users").doc(`${uid}`);
+}
 
 export default Firebase;
