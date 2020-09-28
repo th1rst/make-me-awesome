@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Navigation from "../components/Navigation";
-import AuthUserContext from "../components/Session/Context";
 import withAuthorization from "../components/Session/withAuthorization";
-import NewActivityModalButton from "../components/NewActivityModalButton";
+import NewActivityModal from "../components/NewActivityModal";
 import AllActivities from "../components/AllActivities";
 
 class Overview extends Component {
@@ -57,7 +56,7 @@ class Overview extends Component {
                 </span>
               </h1>
 
-              <NewActivityModalButton />
+              <NewActivityModal />
             </div>
           </div>
           <div className="flex flex-col items-center">

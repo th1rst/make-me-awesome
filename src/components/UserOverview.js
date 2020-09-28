@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import SignOutButton from "../components/SignOutButton"
+import withAuthorization from "./Session/withAuthorization";
 
-export default class UserOverview extends Component {
+class UserOverview extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div className="w-64 max-h-50 absolute right-0 mr-2">
@@ -14,7 +18,7 @@ export default class UserOverview extends Component {
               alt="user placeholder"
             />
             <p className="pt-2 text-lg font-semibold">User XYZ</p>
-            <p className="text-sm text-gray-600">userxyz@gmail.com</p>
+            <p className="text-sm text-gray-600">{this.props.firebase.authUser.email}</p>
             <div className="mt-5">
               <Link
                 to="/settings"
@@ -39,3 +43,7 @@ export default class UserOverview extends Component {
     );
   }
 }
+
+const condition = (authUser) => !!authUser;
+
+export default withAuthorization(condition)(UserOverview)

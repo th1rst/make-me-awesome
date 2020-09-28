@@ -1,0 +1,114 @@
+import React, { Component } from "react";
+import { withFirebase } from "./Firebase/context";
+
+const defaultState = {
+  showModal: false,
+  activityName: "",
+  error: null,
+};
+
+class NewActivityModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { ...defaultState };
+  }
+
+  onSubmit = (event) => {
+    //redirect to /activity {SingleActivity} component with props
+
+    this.setState({ ...defaultState });
+
+    event.preventDefault();
+  };
+
+  handleShowModal() {
+    this.setState({ showModal: !this.state.showModal });
+  }
+
+  handleActivityNameInput = (event) => {
+    this.setState({ activityName: event.target.value });
+  };
+
+  render() {
+    const { activityName } = this.state;
+
+    const isInvalid = activityName === "";
+
+    return (
+      <>
+        <button
+          className="mt-4 px-4 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+          type="button"
+          style={{ transition: "all .15s ease" }}
+          onClick={() => this.handleShowModal()}
+        >
+          Start Activity
+        </button>
+        {this.state.showModal ? (
+          <>
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+              <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  {/*header*/}
+                  <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                    <h3 className="text-3xl font-semibold">
+                      Start a new activity
+                    </h3>
+                    <button
+                      className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                      onClick={() => this.handleShowModal()}
+                    >
+                      <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                        ×
+                      </span>
+                    </button>
+                  </div>
+
+                  {/*body*/}
+                  <div className="relative p-6 flex-auto">
+                    <p className="my-4 text-gray-600 text-lg leading-relaxed">
+                      <form onSubmit={this.onSubmit}>
+                        <input
+                          type="text"
+                          className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:shadow-outline h-10"
+                          name="Activity Name"
+                          value={activityName}
+                          onChange={this.handleActivityNameInput}
+                          placeholder="Activity Name"
+                        />
+                      </form>
+                    </p>
+                  </div>
+
+                  {/*footer*/}
+                  <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
+                    <button
+                      className="text-red-400 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                      type="button"
+                      style={{ transition: "all .15s ease" }}
+                      onClick={() => this.handleShowModal()}
+                    >
+                      Close
+                    </button>
+                    <button
+                      disabled={isInvalid}
+                      className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                      type="button"
+                      style={{ transition: "all .15s ease" }}
+                      onClick={() => this.handleShowModal()}
+                    >
+                      Start
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          </>
+        ) : null}
+      </>
+    );
+  }
+}
+
+export default withFirebase(NewActivityModal);

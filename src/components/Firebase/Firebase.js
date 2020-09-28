@@ -44,7 +44,7 @@ class Firebase {
       if (authUser) {
         this.db
           .collection("users")
-          .doc("PUjsrZ1aiShQBd7JwfZkNW7WTLf2")
+          .doc(`${authUser.uid}`)
           .get()
           .then((snapshot) => {
             const userData = snapshot.data();
