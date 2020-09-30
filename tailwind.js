@@ -1,4 +1,6 @@
-module.exports = {
+const windmill = require('@windmill/react-ui/config')
+
+module.exports = windmill ({
   purge: [],
   target: 'relaxed',
   prefix: '',
@@ -758,4 +760,4 @@ module.exports = {
   },
   corePlugins: {},
   plugins: [],
-}
+})

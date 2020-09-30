@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { withFirebase } from "./Firebase/context";
+import { Label, Select, Input, Button } from "@windmill/react-ui";
 
 const defaultState = {
   showModal: false,
   activityName: "",
+  categoryName: "",
+  activityType: "",
   error: null,
 };
 
@@ -13,21 +16,33 @@ class NewActivityModal extends Component {
     this.state = { ...defaultState };
   }
 
-  onSubmit = (event) => {
-    //redirect to /activity {SingleActivity} component with props
-
-    this.setState({ ...defaultState });
-
-    event.preventDefault();
-  };
-
   handleShowModal() {
     this.setState({ showModal: !this.state.showModal });
+  }
+
+  handleCloseModal() {
+    this.setState({ ...defaultState });
   }
 
   handleActivityNameInput = (event) => {
     this.setState({ activityName: event.target.value });
   };
+
+  handleCategoryInput = (event) => {
+    this.setState({ categoryName: event.target.value });
+  };
+
+  handleTypeInput = (event) => {
+    this.setState({ activityType: event.target.value });
+  };
+
+  handleStartActivity() {
+    this.setState({ ...defaultState });
+    console.log("Activity Started!!!");
+
+    // WIP
+    // redirect to /activity {SingleActivity} component with props
+  }
 
   render() {
     const { activityName } = this.state;
@@ -66,18 +81,40 @@ class NewActivityModal extends Component {
 
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
-                    <p className="my-4 text-gray-600 text-lg leading-relaxed">
-                      <form onSubmit={this.onSubmit}>
-                        <input
-                          type="text"
-                          className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:shadow-outline h-10"
-                          name="Activity Name"
-                          value={activityName}
-                          onChange={this.handleActivityNameInput}
-                          placeholder="Activity Name"
-                        />
-                      </form>
-                    </p>
+                    <Label>
+                      <span className="font-bold">Name</span>
+                      <Input
+                        className="mb-5 mt-1"
+                        placeholder="Activity Name"
+                        value={activityName}
+                        onChange={this.handleActivityNameInput}
+                      />
+                    </Label>
+
+                    <Label>
+                      <span className="font-bold">Category</span>
+                      <Select
+                        className="mb-5 mt-1"
+                        onChange={this.handleCategoryInput}
+                      >
+                        <option>Work</option>
+                        <option>Leisure Time</option>
+                        <option>Workout</option>
+                        <option>Stuff</option>
+                        <option>More Stuff</option>
+                      </Select>
+                    </Label>
+
+                    <Label>
+                      <span className="font-bold">Type</span>
+                      <Select
+                        className="mb-5 mt-1"
+                        onChange={this.handleTypeInput}
+                      >
+                        <option>Timer</option>
+                        <option>Counter</option>
+                      </Select>
+                    </Label>
                   </div>
 
                   {/*footer*/}
@@ -86,19 +123,17 @@ class NewActivityModal extends Component {
                       className="text-red-400 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
                       type="button"
                       style={{ transition: "all .15s ease" }}
-                      onClick={() => this.handleShowModal()}
+                      onClick={() => this.handleCloseModal()}
                     >
                       Close
                     </button>
-                    <button
+                    <Button
+                      className="bg-green-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                       disabled={isInvalid}
-                      className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                      type="button"
-                      style={{ transition: "all .15s ease" }}
-                      onClick={() => this.handleShowModal()}
+                      onClick={() => this.handleStartActivity()}
                     >
                       Start
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </div>
