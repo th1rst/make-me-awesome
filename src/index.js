@@ -8,13 +8,14 @@ import ScrollToTop from "./components/ScrollToTop";
 import Firebase from "./components/Firebase/Firebase";
 import FirebaseContext from "./components/Firebase/context";
 import { Windmill } from "@windmill/react-ui";
+import customTheme from "./customWindmillTheme";
 
 ReactDOM.render(
   <React.StrictMode>
     <FirebaseContext.Provider value={new Firebase()}>
       <Router>
         <ScrollToTop>
-          <Windmill>
+          <Windmill theme={customTheme}>
             <App />
           </Windmill>
         </ScrollToTop>

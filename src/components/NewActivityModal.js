@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { withFirebase } from "./Firebase/context";
+import { Link } from "react-router-dom";
 import { Label, Select, Input, Button } from "@windmill/react-ui";
+
+const defaultCategories = ["Work", "Leisure Time", "Workout"];
+
+const defaultActivityTypes = ["Timer", "Counter"];
 
 const defaultState = {
   showModal: false,
   activityName: "",
-  categoryName: "",
-  activityType: "",
+  categoryName: defaultCategories[0],
+  activityType: defaultActivityTypes[0],
   error: null,
 };
 
@@ -36,17 +41,8 @@ class NewActivityModal extends Component {
     this.setState({ activityType: event.target.value });
   };
 
-  handleStartActivity() {
-    this.setState({ ...defaultState });
-    console.log("Activity Started!!!");
-
-    // WIP
-    // redirect to /activity {SingleActivity} component with props
-  }
-
   render() {
     const { activityName } = this.state;
-
     const isInvalid = activityName === "";
 
     return (
@@ -97,11 +93,11 @@ class NewActivityModal extends Component {
                         className="mb-5 mt-1"
                         onChange={this.handleCategoryInput}
                       >
-                        <option>Work</option>
-                        <option>Leisure Time</option>
-                        <option>Workout</option>
-                        <option>Stuff</option>
-                        <option>More Stuff</option>
+                        {defaultCategories.map((entry) => (
+                          <option value={entry} key={entry}>
+                            {entry}
+                          </option>
+                        ))}
                       </Select>
                     </Label>
 
@@ -111,8 +107,11 @@ class NewActivityModal extends Component {
                         className="mb-5 mt-1"
                         onChange={this.handleTypeInput}
                       >
-                        <option>Timer</option>
-                        <option>Counter</option>
+                        {defaultActivityTypes.map((type) => (
+                          <option value={type} key={type}>
+                            {type}
+                          </option>
+                        ))}
                       </Select>
                     </Label>
                   </div>
@@ -127,13 +126,23 @@ class NewActivityModal extends Component {
                     >
                       Close
                     </button>
-                    <Button
-                      className="bg-green-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                      disabled={isInvalid}
-                      onClick={() => this.handleStartActivity()}
+                    <Link
+                      to={{
+                        pathname: "/activity",
+                        state: {
+                          activityName: this.state.activityName,
+                          categoryName: this.state.categoryName,
+                          activityType: this.state.activityType,
+                        },
+                      }}
                     >
-                      Start
-                    </Button>
+                      <Button
+                        className="bg-green-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                        disabled={isInvalid}
+                      >
+                        Start
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
