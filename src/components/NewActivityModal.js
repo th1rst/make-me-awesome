@@ -17,7 +17,6 @@ const defaultState = {
   categoryName: defaultCategories[0],
   activityType: defaultActivityTypes[0],
   productivityType: defaultProductivityTypes[0],
-  error: null,
 };
 
 class NewActivityModal extends Component {
@@ -47,7 +46,7 @@ class NewActivityModal extends Component {
     return (
       <>
         <button
-          className="mt-4 px-4 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+          className="mt-10 px-4 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
           type="button"
           style={{ transition: "all .15s ease" }}
           onClick={() => this.handleShowModal()}
@@ -81,9 +80,14 @@ class NewActivityModal extends Component {
                       <Input
                         name="activityName"
                         className="mb-5 mt-1"
-                        placeholder="Activity Name"
+                        placeholder={
+                          isInvalid
+                            ? "Please name your Activity"
+                            : `${this.state.activityName}`
+                        }
                         value={activityName}
                         onChange={this.handleInput}
+                        valid={!isInvalid}
                       />
                     </Label>
 
@@ -146,12 +150,7 @@ class NewActivityModal extends Component {
                     <Link
                       to={{
                         pathname: "/activity",
-                        state: {
-                          activityName: this.state.activityName,
-                          categoryName: this.state.categoryName,
-                          activityType: this.state.activityType,
-                          productivityType: this.state.productivityType,
-                        },
+                        state: { ...this.state },
                       }}
                     >
                       <Button
