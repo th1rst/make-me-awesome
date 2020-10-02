@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import AuthUserContext from "./Session/Context";
-import { withFirebase } from "../components/Firebase/context";
+import AuthUserContext from "../Session/Context";
+import { withFirebase } from "../Firebase/context";
 
 class AllActivities extends Component {
   constructor(props) {

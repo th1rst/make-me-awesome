@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Navigation from "../components/Navigation";
 import withAuthorization from "../components/Session/withAuthorization";
 import NewActivityModal from "../components/NewActivityModal";
-import AllActivities from "../components/AllActivities";
+import AllActivities from "../components/Activities/AllActivities";
 
 class Overview extends Component {
   constructor(props) {
@@ -49,7 +49,7 @@ class Overview extends Component {
   render() {
     return (
       <div>
-        
+
         <Navigation />
 
         <div

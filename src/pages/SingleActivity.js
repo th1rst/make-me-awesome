@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withFirebase } from "../components/Firebase/context";
 import Navigation from "../components/Navigation";
+import TimerActivity from "../components/Activities/TimerActivity";
+import CounterActivity from "../components/Activities/CounterActivity";
 
 class SingleActivity extends Component {
   constructor(props) {
@@ -8,16 +10,28 @@ class SingleActivity extends Component {
   }
 
   render() {
+    const { activityName, categoryName, activityType, productivityType } = {
+      ...this.props.location.state,
+    };
+
     return (
       <div>
-        {this.props.location.state.activityName ? (
+        {activityName ? (
           <div>
             <Navigation />
             <h1>Hello from Activity Page!</h1>
-            <p>Name: {this.props.location.state.activityName}</p>
-            <p>Category: {this.props.location.state.categoryName}</p>
-            <p>Type: {this.props.location.state.activityType}</p>
-            <p>Productiveness: {this.props.location.state.productivityType}</p>
+            <p>Name: {activityName}</p>
+            <p>Category: {categoryName}</p>
+            <p>Type: {activityType}</p>
+            <p>Productiveness: {productivityType}</p>
+
+            <div>
+              {activityType === "Timer" ? (
+                <TimerActivity />
+              ) : (
+                <CounterActivity />
+              )}
+            </div>
           </div>
         ) : (
           <h1>Please start your activity correctly.</h1>
