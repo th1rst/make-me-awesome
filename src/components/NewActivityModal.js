@@ -51,7 +51,7 @@ class NewActivityModal extends Component {
           style={{ transition: "all .15s ease" }}
           onClick={() => this.handleShowModal()}
         >
-          Start Activity
+          Start Live Activity
         </button>
         {this.state.showModal ? (
           <>

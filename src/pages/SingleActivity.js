@@ -3,10 +3,24 @@ import { withFirebase } from "../components/Firebase/context";
 import Navigation from "../components/Navigation";
 import TimerActivity from "../components/Activities/TimerActivity";
 import CounterActivity from "../components/Activities/CounterActivity";
+import { Badge } from "@windmill/react-ui";
 
 class SingleActivity extends Component {
   constructor(props) {
     super(props);
+  }
+
+  checkProductivity(type) {
+    switch (type) {
+      case "Productive":
+        return <Badge type="success">{type}</Badge>;
+      case "Neutral / Necessary":
+        return <Badge type="neutral">{type}</Badge>;
+      case "Unproductive":
+        return <Badge type="danger">{type}</Badge>;
+      default:
+        break;
+    }
   }
 
   render() {
@@ -19,13 +33,16 @@ class SingleActivity extends Component {
         {activityName ? (
           <div>
             <Navigation />
-            <h1>Hello from Activity Page!</h1>
-            <p>Name: {activityName}</p>
-            <p>Category: {categoryName}</p>
-            <p>Type: {activityType}</p>
-            <p>Productiveness: {productivityType}</p>
+            <h1 className="mt-3 text-4xl underline font-bold text-center">
+              {activityName}
+            </h1>
+            <div className="my-3 text-center">
+              {this.checkProductivity(productivityType)}
+            </div>
 
-            <div>
+            <p className="text-center">Category: {categoryName}</p>
+
+            <div className="flex justify-center">
               {activityType === "Timer" ? (
                 <TimerActivity />
               ) : (

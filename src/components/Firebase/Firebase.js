@@ -52,6 +52,7 @@ class Firebase {
             authUser = {
               uid: authUser.uid,
               email: authUser.email,
+              photoUrl: authUser.photoURL
             };
 
             next(authUser);

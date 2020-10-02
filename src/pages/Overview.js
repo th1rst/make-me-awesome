@@ -8,6 +8,7 @@ class Overview extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      authUser: JSON.parse(localStorage.getItem("authUser")),
       userData: null,
       username: null,
       activities: [],
@@ -16,14 +17,10 @@ class Overview extends Component {
     };
   }
   componentDidMount() {
-    if (this.state.userData) {
-      return;
-    }
-
     this.getQuote();
 
-    this.unsubscribe = this.props.firebase
-      .user(this.props.firebase.authUser.uid)
+    this.listener = this.props.firebase
+      .user(this.state.authUser.uid)
       .onSnapshot((snapshot) => {
         this.setState({
           userData: snapshot.data(),
@@ -34,9 +31,6 @@ class Overview extends Component {
       });
   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
 
   getQuote = async function () {
     const random = Math.floor(Math.random() * 500);
@@ -75,7 +69,7 @@ class Overview extends Component {
             </h2>
           </div>
           <div className="flex flex-col items-center">
-            <h1 className="font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
+            <h1 className="mt-4 font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
               Overview
             </h1>
             <span className="my-4 w-24 h-1 bg-blue-400 rounded-full" />

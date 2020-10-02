@@ -55,20 +55,10 @@ class SignUpPage extends Component {
     event.preventDefault();
   };
 
-  handleNameInput = (event) => {
-    this.setState({ username: event.target.value });
-  };
-
-  handleEmailInput = (event) => {
-    this.setState({ email: event.target.value });
-  };
-
-  handleFirstPasswordInput = (event) => {
-    this.setState({ firstPassword: event.target.value });
-  };
-
-  handleSecondPasswordInput = (event) => {
-    this.setState({ secondPassword: event.target.value });
+  handleInput = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   };
 
   render() {
@@ -98,7 +88,7 @@ class SignUpPage extends Component {
                   className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:shadow-outline h-10"
                   name="username"
                   value={username}
-                  onChange={this.handleNameInput}
+                  onChange={this.handleInput}
                   placeholder="Username"
                 />
 
@@ -107,24 +97,24 @@ class SignUpPage extends Component {
                   className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:shadow-outline h-10"
                   name="email"
                   value={email}
-                  onChange={this.handleEmailInput}
+                  onChange={this.handleInput}
                   placeholder="Email"
                 />
 
                 <input
                   type="password"
                   className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:shadow-outline h-10"
-                  name="password"
+                  name="firstPassword"
                   value={firstPassword}
-                  onChange={this.handleFirstPasswordInput}
+                  onChange={this.handleInput}
                   placeholder="Password"
                 />
                 <input
                   type="password"
                   className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:shadow-outline h-10"
-                  name="confirm_password"
+                  name="secondPassword"
                   value={secondPassword}
-                  onChange={this.handleSecondPasswordInput}
+                  onChange={this.handleInput}
                   placeholder="Confirm Password"
                 />
 

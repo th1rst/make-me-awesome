@@ -1,7 +1,41 @@
 import React, { Component } from "react";
 import Timer from "react-compound-timer";
+import { withFirebase } from "../Firebase/context";
+import { Button } from "@windmill/react-ui";
+import { Link } from "react-router-dom";
 
-export default class TimerActivity extends Component {
+class TimerActivity extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  sendActivity = () => {
+    /*
+    
+    commented out to not bloat the database. code is working
+
+
+    this.props.firebase.db
+      .collection("activities")
+      .add({
+        //test values
+        category: "productive",
+        date: "09162020",
+        duration: "120",
+        name: "Sport",
+      })
+      .then((documentReference) => {
+        console.log("document reference ID", documentReference.id);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    
+    */
+    console.log("activity saved!");
+  };
+
   render() {
     return (
       <div>
@@ -29,7 +63,24 @@ export default class TimerActivity extends Component {
             </>
           )}
         </Timer>
+        <Link to="/overview">
+          <Button
+            className="font-bold mr-1 mb-1"
+            style={{ backgroundColor: "#cc0000" }}
+          >
+            Cancel
+          </Button>
+        </Link>
+
+        <Button
+          className="font-bold outline-none focus:outline-none mr-1 mb-1"
+          onClick={this.sendActivity}
+        >
+          Save Activity
+        </Button>
       </div>
     );
   }
 }
+
+export default withFirebase(TimerActivity);
