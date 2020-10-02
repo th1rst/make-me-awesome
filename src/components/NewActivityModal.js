@@ -4,14 +4,19 @@ import { Link } from "react-router-dom";
 import { Label, Select, Input, Button } from "@windmill/react-ui";
 
 const defaultCategories = ["Work", "Leisure Time", "Workout"];
-
 const defaultActivityTypes = ["Timer", "Counter"];
+const defaultProductivityTypes = [
+  "Productive",
+  "Neutral / Necessary",
+  "Unproductive",
+];
 
 const defaultState = {
   showModal: false,
   activityName: "",
   categoryName: defaultCategories[0],
   activityType: defaultActivityTypes[0],
+  productivityType: defaultProductivityTypes[0],
   error: null,
 };
 
@@ -29,16 +34,10 @@ class NewActivityModal extends Component {
     this.setState({ ...defaultState });
   }
 
-  handleActivityNameInput = (event) => {
-    this.setState({ activityName: event.target.value });
-  };
-
-  handleCategoryInput = (event) => {
-    this.setState({ categoryName: event.target.value });
-  };
-
-  handleTypeInput = (event) => {
-    this.setState({ activityType: event.target.value });
+  handleInput = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   };
 
   render() {
@@ -80,18 +79,20 @@ class NewActivityModal extends Component {
                     <Label>
                       <span className="font-bold">Name</span>
                       <Input
+                        name="activityName"
                         className="mb-5 mt-1"
                         placeholder="Activity Name"
                         value={activityName}
-                        onChange={this.handleActivityNameInput}
+                        onChange={this.handleInput}
                       />
                     </Label>
 
                     <Label>
                       <span className="font-bold">Category</span>
                       <Select
+                        name="categoryName"
                         className="mb-5 mt-1"
-                        onChange={this.handleCategoryInput}
+                        onChange={this.handleInput}
                       >
                         {defaultCategories.map((entry) => (
                           <option value={entry} key={entry}>
@@ -104,10 +105,26 @@ class NewActivityModal extends Component {
                     <Label>
                       <span className="font-bold">Type</span>
                       <Select
+                        name="activityType"
                         className="mb-5 mt-1"
-                        onChange={this.handleTypeInput}
+                        onChange={this.handleInput}
                       >
                         {defaultActivityTypes.map((type) => (
+                          <option value={type} key={type}>
+                            {type}
+                          </option>
+                        ))}
+                      </Select>
+                    </Label>
+
+                    <Label>
+                      <span className="font-bold">Productivity</span>
+                      <Select
+                        name="productivityType"
+                        className="mb-5 mt-1"
+                        onChange={this.handleInput}
+                      >
+                        {defaultProductivityTypes.map((type) => (
                           <option value={type} key={type}>
                             {type}
                           </option>
@@ -133,6 +150,7 @@ class NewActivityModal extends Component {
                           activityName: this.state.activityName,
                           categoryName: this.state.categoryName,
                           activityType: this.state.activityType,
+                          productivityType: this.state.productivityType,
                         },
                       }}
                     >

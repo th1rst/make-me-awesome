@@ -17,6 +17,7 @@ class SingleActivity extends Component {
             <p>Name: {this.props.location.state.activityName}</p>
             <p>Category: {this.props.location.state.categoryName}</p>
             <p>Type: {this.props.location.state.activityType}</p>
+            <p>Productiveness: {this.props.location.state.productivityType}</p>
           </div>
         ) : (
           <h1>Please start your activity correctly.</h1>
