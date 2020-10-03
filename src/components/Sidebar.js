@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import NewActivityModal from "./NewActivityModal";
+import NewActivityModal from "../components/Activities/NewActivityModal";
 import SignOutButton from "./SignOutButton";
 
 export default class Sidebar extends Component {

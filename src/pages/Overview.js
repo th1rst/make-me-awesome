@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Navigation from "../components/Navigation";
 import withAuthorization from "../components/Session/withAuthorization";
-import NewActivityModal from "../components/NewActivityModal";
+import NewActivityModal from "../components/Activities/NewActivityModal";
 import AllActivities from "../components/Activities/AllActivities";
 
 class Overview extends Component {

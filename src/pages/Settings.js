@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import { withFirebase } from "../components/Firebase/context";
 import Navigation from "../components/Navigation";
 import { Label, Input } from "@windmill/react-ui";
+import SettingsModal from "../components/Settings/SettingsModal";
 
 class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
       photoUrlInput: "",
+      showModal: false,
+      hasError: false,
+      errorMessage: "",
     };
 
     this.updatePhoto = this.updatePhoto.bind(this);
@@ -27,11 +31,12 @@ class Settings extends Component {
       .updateProfile({
         photoURL: this.state.photoUrlInput,
       })
-      .then(function () {
-        console.log("SUCCESS");
+      .then(() => {
+        this.setState({ showModal: true });
       })
       .catch(function (error) {
         console.error(error);
+        this.setState({ hasError: true, errorMessage: error });
       });
   }
 
@@ -53,13 +58,15 @@ class Settings extends Component {
 
         <button onClick={this.updatePhoto}>CLICKME</button>
 
-
-
-
+        {this.state.showModal ? (
+          <SettingsModal
+            error={this.state.hasError}
+            errorMessage={this.state.errorMessage}
+          />
+        ) : null}
       </div>
-      
     );
   }
 }
 
-export default withFirebase(Settings)
+export default withFirebase(Settings);

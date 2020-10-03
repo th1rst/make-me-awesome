@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withFirebase } from "./Firebase/context";
+import { withFirebase } from "../Firebase/context";
 import { Link } from "react-router-dom";
 import { Label, Select, Input, Button } from "@windmill/react-ui";
 
