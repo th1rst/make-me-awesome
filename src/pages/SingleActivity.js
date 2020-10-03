@@ -33,7 +33,7 @@ class SingleActivity extends Component {
         {activityName ? (
           <div>
             <Navigation />
-            <h1 className="mt-3 text-4xl underline font-bold text-center">
+            <h1 className="mt-3 text-4xl md:text-3xl underline font-semibold uppercase text-center">
               {activityName}
             </h1>
             <div className="my-3 text-center">

@@ -3,6 +3,7 @@ import Timer from "react-compound-timer";
 import { withFirebase } from "../Firebase/context";
 import { Button } from "@windmill/react-ui";
 import { Link } from "react-router-dom";
+import { FiPlayCircle, FiPauseCircle, FiTrash2 } from "react-icons/fi"
 
 class TimerActivity extends Component {
   constructor(props) {
@@ -43,10 +44,9 @@ class TimerActivity extends Component {
           hello from TIMERActivity!
         </h1>
         <Timer startImmediately={false}>
-          {({ start, resume, pause, stop, reset, timerState }) => (
+          {({ start, stop, reset, timerState }) => (
             <>
               <div>
-                <Timer.Days /> days
                 <Timer.Hours /> hours
                 <Timer.Minutes /> minutes
                 <Timer.Seconds /> seconds
@@ -58,31 +58,19 @@ class TimerActivity extends Component {
                   className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
                   onClick={start}
                 >
-                  Start
-                </button>
-                <button
-                  className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
-                  onClick={pause}
-                >
-                  Pause
-                </button>
-                <button
-                  className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
-                  onClick={resume}
-                >
-                  Resume
+                  <FiPlayCircle className="w-8 h-6"/>
                 </button>
                 <button
                   className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
                   onClick={stop}
                 >
-                  Stop
+                  <FiPauseCircle className="w-8 h-6"/>
                 </button>
                 <button
                   className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
                   onClick={reset}
                 >
-                  Reset
+                  <FiTrash2 className="w-8 h-6"/>
                 </button>
               </div>
             </>

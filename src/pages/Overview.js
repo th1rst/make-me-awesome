@@ -31,7 +31,6 @@ class Overview extends Component {
       });
   }
 
-
   getQuote = async function () {
     const random = Math.floor(Math.random() * 500);
 
@@ -43,7 +42,6 @@ class Overview extends Component {
   render() {
     return (
       <div>
-
         <Navigation />
 
         <div
@@ -64,7 +62,7 @@ class Overview extends Component {
 
               <NewActivityModal />
             </div>
-            <h2 className="italic text-white text-center text-xl font-serif md:text-2xl">
+            <h2 className="mx-4 italic text-white text-center text-xl font-serif md:text-2xl">
               &quot;{this.state.randomQuote}&quot;
             </h2>
           </div>

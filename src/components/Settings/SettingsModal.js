@@ -16,10 +16,7 @@ class SettingsModal extends Component {
   }
 
   render() {
-    const successMessage =
-      "Sucessfully updated profile picture. It may take a while for changes to be in effect.";
-    const errorMessage = this.props.errorMessage;
-
+    console.log(this.props);
     return (
       <>
         {this.state.showModal ? (
@@ -29,7 +26,7 @@ class SettingsModal extends Component {
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                    {!this.state.hasError ? (
+                    {!this.props.hasError ? (
                       <h3 className="text-3xl font-semibold">Success!</h3>
                     ) : (
                       <h3 className="text-3xl font-semibold">Error!</h3>
@@ -48,9 +45,9 @@ class SettingsModal extends Component {
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
                     {!this.props.hasError ? (
-                      <p>{successMessage}</p>
+                      <p>{this.props.successMessage}</p>
                     ) : (
-                      <p>{errorMessage}</p>
+                      <p>{this.props.errorMessage}</p>
                     )}
                   </div>
 
