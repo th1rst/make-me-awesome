@@ -3,6 +3,7 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 import { compose } from "recompose";
 import FirebaseContext, { withFirebase } from "../components/Firebase/context";
 import { PasswordForgetLink } from "../pages/ForgotPasswordPage";
+import BackgroundSlider from "./BackgroundSlider";
 
 const SignInPage = () => (
   <div>
@@ -64,11 +65,7 @@ class SignInFormBase extends Component {
       <div>
         <div className="container mt-10 max-w-md mx-auto xl:max-w-3xl h-full flex bg-white rounded-lg shadow-lg overflow-hidden border-4">
           <div className="relative hidden xl:block xl:w-1/2 h-full">
-            <img
-              className="absolute h-auto w-full object-cover"
-              src="https://images.unsplash.com/photo-1504432842672-1a79f78e4084?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=975&q=80"
-              alt="motivational"
-            />
+            <BackgroundSlider />
           </div>
           <div className="w-full xl:w-1/2 p-8">
             <form onSubmit={this.onSubmit}>

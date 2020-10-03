@@ -54,11 +54,36 @@ class TimerActivity extends Component {
               <div>{timerState}</div>
               <br />
               <div>
-                <button onClick={start}>Start</button>
-                <button onClick={pause}>Pause</button>
-                <button onClick={resume}>Resume</button>
-                <button onClick={stop}>Stop</button>
-                <button onClick={reset}>Reset</button>
+                <button
+                  className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                  onClick={start}
+                >
+                  Start
+                </button>
+                <button
+                  className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                  onClick={pause}
+                >
+                  Pause
+                </button>
+                <button
+                  className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                  onClick={resume}
+                >
+                  Resume
+                </button>
+                <button
+                  className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                  onClick={stop}
+                >
+                  Stop
+                </button>
+                <button
+                  className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                  onClick={reset}
+                >
+                  Reset
+                </button>
               </div>
             </>
           )}

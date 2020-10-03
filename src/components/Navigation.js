@@ -50,9 +50,11 @@ class Navigation extends Component {
 
             <ul className="flex items-center">
               <li>
-                <h1 className="pl-8 lg:pl-0 font-bold text-gray-700">
-                  Make Me Awesome
-                </h1>
+                <Link to="/overview">
+                  <h1 className="pl-8 lg:pl-0 font-bold text-gray-700">
+                    Make Me Awesome
+                  </h1>
+                </Link>
               </li>
             </ul>
 
@@ -68,7 +70,7 @@ class Navigation extends Component {
                         ? `${this.state.authUser.photoURL}`
                         : `${defaultImage}`
                     }
-                    alt="robot placeholder"
+                    alt="userImg"
                     onClick={() => this.handleUserMenuExpand()}
                   />
                 )}
