@@ -72,7 +72,6 @@ class Overview extends Component {
             </h1>
             <span className="my-4 w-24 h-1 bg-blue-400 rounded-full" />
             <div>
-              All Activities so far: {this.state.activities}
               <AllActivities />
             </div>
           </div>

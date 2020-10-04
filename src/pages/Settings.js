@@ -13,7 +13,6 @@ class Settings extends Component {
       newEmailInput: "",
       currentEmailInput: "",
       showModal: false,
-      hasError: false,
       hasPhotoChanges: false,
       hasEmailChanges: false,
       errorMessage: "",
@@ -31,7 +30,7 @@ class Settings extends Component {
   };
 
   updatePhoto() {
-    if (this.state.photoUrlInput != "") {
+    if (this.state.photoUrlInput !== "") {
       var user = this.props.firebase.auth.currentUser;
 
       user
@@ -60,11 +59,17 @@ class Settings extends Component {
         this.setState({
           successMessage: "Sucessfully updated your email address.",
           showModal: true,
+          currentEmailInput: "",
+          newEmailInput: "",
+          isEditingEmail: false,
         });
       })
       .catch((error) => {
-        console.log(error)
-        this.setState({ hasError: true, errorMessage: error.message, showModal: true, });
+        console.log(error);
+        this.setState({
+          errorMessage: error.message,
+          showModal: true,
+        });
       });
   }
 
@@ -79,7 +84,6 @@ class Settings extends Component {
     const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regexp.test(email);
   }
-
 
   render() {
     return (
@@ -98,6 +102,13 @@ class Settings extends Component {
             onChange={this.handleInput}
           />
         </Label>
+
+        <Button
+          className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded-lg shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+          onClick={this.updatePhoto}
+        >
+          Apply
+        </Button>
 
         {this.state.isEditingEmail ? (
           <Label>
@@ -158,7 +169,7 @@ class Settings extends Component {
           className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded-lg shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
           onClick={this.updateEmail}
         >
-          Save Changes
+          Apply
         </Button>
 
         {this.state.showModal ? (

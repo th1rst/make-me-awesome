@@ -3,7 +3,7 @@ import Timer from "react-compound-timer";
 import { withFirebase } from "../Firebase/context";
 import { Button } from "@windmill/react-ui";
 import { Link } from "react-router-dom";
-import { FiPlayCircle, FiPauseCircle, FiTrash2 } from "react-icons/fi"
+import { FiPlayCircle, FiPauseCircle, FiTrash2 } from "react-icons/fi";
 
 class TimerActivity extends Component {
   constructor(props) {
@@ -58,19 +58,19 @@ class TimerActivity extends Component {
                   className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
                   onClick={start}
                 >
-                  <FiPlayCircle className="w-8 h-6"/>
+                  <FiPlayCircle className="w-8 h-6" />
                 </button>
                 <button
                   className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
                   onClick={stop}
                 >
-                  <FiPauseCircle className="w-8 h-6"/>
+                  <FiPauseCircle className="w-8 h-6" />
                 </button>
                 <button
                   className="mx-2 my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
                   onClick={reset}
                 >
-                  <FiTrash2 className="w-8 h-6"/>
+                  <FiTrash2 className="w-8 h-6" />
                 </button>
               </div>
             </>
