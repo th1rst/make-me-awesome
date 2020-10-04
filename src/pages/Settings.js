@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withFirebase } from "../components/Firebase/context";
+import withAuthorization from "../components/Session/withAuthorization";
 import Navigation from "../components/Navigation";
 import { Label, Input, Button, HelperText } from "@windmill/react-ui";
 import SettingsModal from "../components/Settings/SettingsModal";
@@ -184,4 +184,6 @@ class Settings extends Component {
   }
 }
 
-export default withFirebase(Settings);
+const condition = (authUser) => !!authUser;
+
+export default withAuthorization(condition)(Settings);

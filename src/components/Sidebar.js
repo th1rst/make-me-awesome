@@ -9,7 +9,7 @@ export default class Sidebar extends Component {
         <div className="min-h-50 flex w-full max-w-xs p-4 bg-white absolute">
           <ul className="flex flex-col w-full">
             <li className="my-px">
-              <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 bg-gray-100">
+              <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
                 <span className="flex items-center justify-center text-lg text-gray-400">
                   <svg
                     fill="none"

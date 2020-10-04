@@ -17,7 +17,7 @@ class AllActivities extends Component {
             Last 7 Days
           </h1>
         </div>
-        <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
+        <div className="flex justify-center flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
           <div className="mx-5 mb-16 w-70 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
             <div className="inline-flex">
               <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-purple-100">
