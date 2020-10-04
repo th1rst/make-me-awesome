@@ -65,7 +65,6 @@ class Settings extends Component {
         });
       })
       .catch((error) => {
-        console.log(error);
         this.setState({
           errorMessage: error.message,
           showModal: true,
@@ -103,12 +102,12 @@ class Settings extends Component {
           />
         </Label>
 
-        <Button
-          className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded-lg shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+        <button
+          className="w-26 h-12 m-2 bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
           onClick={this.updatePhoto}
         >
-          Apply
-        </Button>
+          <span className="mr-2">Apply</span>
+        </button>
 
         {this.state.isEditingEmail ? (
           <Label>
@@ -165,12 +164,12 @@ class Settings extends Component {
           </Label>
         )}
 
-        <Button
-          className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded-lg shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+        <button
+          className="w-26 h-12 m-2 bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
           onClick={this.updateEmail}
         >
-          Apply
-        </Button>
+          <span className="mr-2">Apply</span>
+        </button>
 
         {this.state.showModal ? (
           <SettingsModal
