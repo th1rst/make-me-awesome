@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase/context";
 import { Link } from "react-router-dom";
-import { Label, Select, Input, Button } from "@windmill/react-ui";
+import { Label, Select, Input, HelperText } from "@windmill/react-ui";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { DatePicker } from "react-rainbow-components";
 
 const defaultCategories = ["Work", "Leisure Time", "Workout"];
 const defaultActivityTypes = ["Timer", "Counter"];
@@ -18,9 +19,10 @@ const defaultState = {
   categoryName: defaultCategories[0],
   activityType: defaultActivityTypes[0],
   productivityType: defaultProductivityTypes[0],
+  date: new Date(),
 };
 
-class NewActivityModal extends Component {
+class ManualActivityModal extends Component {
   constructor(props) {
     super(props);
     this.state = { ...defaultState };
@@ -39,6 +41,32 @@ class NewActivityModal extends Component {
       [event.target.name]: event.target.value,
     });
   };
+
+  checkProductivity(type) {
+    switch (type) {
+      case "Productive":
+        return "text-green-500";
+      case "Neutral / Necessary":
+        return "text-yellow-400";
+      case "Unproductive":
+        return "text-red-500";
+      default:
+        break;
+    }
+  }
+
+  validateNumbersOnly(input) {
+    const regexp = /^[0-9\b]+$/;
+    return regexp.test(input);
+  }
+
+  calculateActivityTime() {
+    //only return value if there is something to calculate, otherwise return/display 0
+    if (this.state.howOftenCount * this.state.howLongPerCount) {
+      return this.state.howOftenCount * this.state.howLongPerCount;
+    }
+    return 0;
+  }
 
   render() {
     const { activityName } = this.state;
@@ -115,21 +143,62 @@ class NewActivityModal extends Component {
                         ))}
                       </Select>
                     </Label>
-                    
+
                     {this.state.activityType === "Timer" ? (
                       <Label>
-                        <span className="font-bold">Duration (Minutes)</span>
+                        <span className="font-bold">Duration (minutes)</span>
                         <Input
                           name="activityDuration"
                           className="mb-5 mt-1"
-                          placeholder={`How long did you do ${this.state.categoryName} ?`}
+                          placeholder={`How long did you do ${
+                            this.state.activityName
+                              ? this.state.activityName
+                              : "(Name)"
+                          } for (in minutes)?`}
                           value={this.state.activityDuration}
                           onChange={this.handleInput}
                           valid={!isInvalid}
                         />
                       </Label>
-                    ) : null}
-
+                    ) : (
+                      <>
+                        <Label>
+                          <span className="font-bold">
+                            How many times did you do{" "}
+                            {this.state.activityName ? (
+                              this.state.activityName
+                            ) : (
+                              <i>(Activity Name)</i>
+                            )}
+                          </span>
+                          <Input
+                            name="howOftenCount"
+                            className="mb-5 mt-1"
+                            placeholder="Only numbers allowed"
+                            value={this.state.howOftenCount}
+                            onChange={this.handleInput}
+                            valid={this.validateNumbersOnly(
+                              this.state.howOftenCount
+                            )}
+                          />
+                        </Label>
+                        <Label>
+                          <span className="font-bold">
+                            How long each time (in minutes)?
+                          </span>
+                          <Input
+                            name="howLongPerCount"
+                            className="mb-5 mt-1"
+                            placeholder="Only numbers allowed"
+                            value={this.state.howLongPerCount}
+                            onChange={this.handleInput}
+                            valid={this.validateNumbersOnly(
+                              this.state.howLongPerCount
+                            )}
+                          />
+                        </Label>
+                      </>
+                    )}
 
                     <Label>
                       <span className="font-bold">Productivity</span>
@@ -145,9 +214,35 @@ class NewActivityModal extends Component {
                         ))}
                       </Select>
                     </Label>
+
+                    <Label>
+                      <span className="font-bold">When?</span>
+                      <DatePicker
+                        value={this.state.date}
+                        onChange={(value) => this.setState({ date: value })}
+                      />
+                    </Label>
                   </div>
 
                   {/*footer*/}
+                  {this.state.activityType === "Timer" ? null : (
+                    /* Returns i.e.: "Total time spent on unproductive activity Watching TV: 210 Minutes.*/
+
+                    <HelperText
+                      //switch text colors based on ProductivityType
+                      className={`font-bold ${this.checkProductivity(
+                        this.state.productivityType
+                      )} italic mb-2`}
+                    >
+                      Total time spent on{" "}
+                      {this.state.productivityType.toLowerCase()} activity{" "}
+                      {this.state.activityName
+                        ? this.state.activityName
+                        : "(Name)"}
+                      : {this.calculateActivityTime()} Minutes.
+                    </HelperText>
+                  )}
+
                   <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
                     <button
                       className="text-red-500 hover:text-red-700 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 transition duration-100"
@@ -162,7 +257,9 @@ class NewActivityModal extends Component {
                       disabled={isInvalid}
                       onClick={this.sendActivity}
                     >
-                      <span className="mr-2">Save Activity</span>
+                      <span className="mr-2 text-sm sm:text-md">
+                        Save Activity
+                      </span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -187,4 +284,4 @@ class NewActivityModal extends Component {
   }
 }
 
-export default withFirebase(NewActivityModal);
+export default withFirebase(ManualActivityModal);
