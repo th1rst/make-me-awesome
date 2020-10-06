@@ -47,11 +47,11 @@ class NewActivityModal extends Component {
     return (
       <>
         <button
-          className="mt-10 px-4 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500 transition duration-100"
+          className="mt-10 px-4 py-2 bg-blue-400 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500 transition duration-100"
           type="button"
           onClick={() => this.handleShowModal()}
         >
-          Start Live Activity
+          Manual Entry
         </button>
         {this.state.showModal ? (
           <>
@@ -61,7 +61,7 @@ class NewActivityModal extends Component {
                   {/*header*/}
                   <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
                     <h3 className="text-2xl md:text-3xl uppercase font-semibold">
-                      Start a new activity
+                      Manually enter an activity
                     </h3>
                     <button onClick={() => this.handleShowModal()}>
                       <AiFillCloseCircle className="h-6 w-6 block outline-none text-red-500 hover:text-red-600 transition duration-150" />
@@ -115,6 +115,21 @@ class NewActivityModal extends Component {
                         ))}
                       </Select>
                     </Label>
+                    
+                    {this.state.activityType === "Timer" ? (
+                      <Label>
+                        <span className="font-bold">Duration (Minutes)</span>
+                        <Input
+                          name="activityDuration"
+                          className="mb-5 mt-1"
+                          placeholder={`How long did you do ${this.state.categoryName} ?`}
+                          value={this.state.activityDuration}
+                          onChange={this.handleInput}
+                          valid={!isInvalid}
+                        />
+                      </Label>
+                    ) : null}
+
 
                     <Label>
                       <span className="font-bold">Productivity</span>
@@ -141,19 +156,25 @@ class NewActivityModal extends Component {
                     >
                       Close
                     </button>
-                    <Link
-                      to={{
-                        pathname: "/activity",
-                        state: { ...this.state },
-                      }}
+
+                    <button
+                      className="w-26 h-12 m-2 bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center transition duration-100"
+                      disabled={isInvalid}
+                      onClick={this.sendActivity}
                     >
-                      <Button
-                        className="bg-green-600 hover:bg-green-700 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow outline-none focus:outline-none mr-1 mb-1"
-                        disabled={isInvalid}
+                      <span className="mr-2">Save Activity</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
                       >
-                        Start
-                      </Button>
-                    </Link>
+                        <path
+                          fill="currentcolor"
+                          d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+                        ></path>
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </div>

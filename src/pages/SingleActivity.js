@@ -8,7 +8,6 @@ import {
   FiPlayCircle,
   FiPauseCircle,
   FiTrash2,
-  FiStopCircle,
   FiSave,
   FiMinusSquare,
   FiPlusSquare,
@@ -119,10 +118,25 @@ class SingleActivity extends Component {
                   <div className="absolute inset-0 w-full h-full bg-indigo-900 opacity-75"></div>
                   <div className="absolute inset-0 w-full h-full flex items-center justify-center fill-current text-white">
                     <div className="flex flex-col justify-evenly text-center">
-                      <h1 className="mt-3 text-4xl font-semibold uppercase text-center">
+                      <h1 className="my-3 text-4xl font-semibold uppercase text-center">
                         {activityName}
                       </h1>
-                      <FaRegClock className="w-20 h-20 self-center" />
+                      {activityType === "Timer" ? (
+                        <>
+                          <FaRegClock className="w-20 h-20 self-center" />
+                          <h1 className="mt-2 text-2xl font-semibold uppercase text-center">
+                            {activityType}
+                          </h1>
+                        </>
+                      ) : (
+                        <>
+                          <FiPlusSquare className="w-20 h-20 self-center" />
+                          <h1 className="mt-2 text-2xl font-semibold uppercase text-center">
+                            {activityType}
+                          </h1>
+                        </>
+                      )}
+
                       <div className="my-3">
                         {this.checkProductivity(productivityType)}
                       </div>
@@ -154,7 +168,7 @@ class SingleActivity extends Component {
                             </div>
                             <div className="flex flex-row flex-wrap justify-evenly">
                               <button
-                                className="w-28 h-12 flex items-center justify-center pl-2 m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                                className="w-28 h-12 flex items-center justify-center pl-2 m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                                 onClick={start}
                               >
                                 <FiPlayCircle className="w-10 h-6" />
@@ -162,14 +176,14 @@ class SingleActivity extends Component {
                               </button>
 
                               <button
-                                className="w-28 h-12 flex items-center justify-center pl-2 m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                                className="w-28 h-12 flex items-center justify-center pl-2 m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                                 onClick={stop}
                               >
                                 <FiPauseCircle className="w-10 h-6" />
                                 Pause
                               </button>
                               <button
-                                className="w-28 h-12 flex items-center justify-center pl-2 m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                                className="w-28 h-12 flex items-center justify-center pl-2 m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                                 onClick={() => {
                                   stop();
                                   reset();
@@ -179,7 +193,7 @@ class SingleActivity extends Component {
                                 Reset
                               </button>
                               <button
-                                className="w-28 h-12 flex items-center justify-center pl-2 m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                                className="w-28 h-12 flex items-center justify-center pl-2 m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                                 onClick={() => {
                                   stop();
                                   this.saveActivityTime(getTime());
@@ -198,7 +212,7 @@ class SingleActivity extends Component {
 
                         <div className="flex flex-row items-center justify-evenly mx-auto">
                           <button
-                            className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg"
+                            className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                             onClick={() => {
                               this.calculateCounterTime();
                               this.setState({
@@ -213,7 +227,7 @@ class SingleActivity extends Component {
                             Count: {this.state.activityCount}
                           </div>
                           <button
-                            className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg"
+                            className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                             onClick={() => {
                               this.calculateCounterTime();
                               this.setState({
@@ -226,7 +240,7 @@ class SingleActivity extends Component {
                         </div>
                         <div className="flex flex-row items-center justify-evenly">
                           <button
-                            className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg"
+                            className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                             onClick={() => {
                               this.calculateCounterTime();
                               this.setState({
@@ -243,7 +257,7 @@ class SingleActivity extends Component {
                           </div>
 
                           <button
-                            className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg"
+                            className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                             onClick={() => {
                               this.calculateCounterTime();
                               this.setState({
@@ -291,7 +305,7 @@ class SingleActivity extends Component {
                   <div className="mt-2 flex flex-row justify-evenly flex-wrap">
                     <button
                       type="button"
-                      className="w-26 h-12 m-2 bg-white text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+                      className="w-26 h-12 m-2 bg-white text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center transition duration-100"
                       onClick={() => this.handleShowWarningModal()}
                     >
                       <span className="mr-2">Close</span>
@@ -309,7 +323,7 @@ class SingleActivity extends Component {
                     </button>
 
                     <button
-                      className="w-26 h-12 m-2 bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+                      className="w-26 h-12 m-2 bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center transition duration-100"
                       onClick={this.sendActivity}
                     >
                       <span className="mr-2">Save Activity</span>
@@ -328,7 +342,9 @@ class SingleActivity extends Component {
                   </div>
                 </form>
               </div>
-              {/* WARNING MODAL ON CLOSE */}
+
+              {/* ---------- WARNING MODAL ON CLOSE ----------*/}
+
               {this.state.showWarningModal ? (
                 <div
                   className="absolute top-0 flex items-center justify-center w-screen h-screen"

@@ -3,6 +3,7 @@ import Navigation from "../components/Navigation";
 import withAuthorization from "../components/Session/withAuthorization";
 import NewActivityModal from "../components/Activities/NewActivityModal";
 import AllActivities from "../components/Activities/AllActivities";
+import ManualActivityModal from "../components/Activities/ManualActivityModal";
 
 class Overview extends Component {
   constructor(props) {
@@ -59,8 +60,10 @@ class Overview extends Component {
                   {this.state.username}
                 </span>
               </h1>
-
+              <div className="flex flex-col w-48 mx-auto">
               <NewActivityModal />
+              <ManualActivityModal />
+              </div>
             </div>
             <h2 className="mx-4 italic text-white text-center text-xl font-serif md:text-2xl">
               &quot;{this.state.randomQuote}&quot;

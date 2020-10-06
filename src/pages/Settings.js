@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import withAuthorization from "../components/Session/withAuthorization";
 import Navigation from "../components/Navigation";
-import { Label, Input, Button, HelperText } from "@windmill/react-ui";
+import { Label, Input, HelperText } from "@windmill/react-ui";
 import SettingsModal from "../components/Settings/SettingsModal";
 
 class Settings extends Component {

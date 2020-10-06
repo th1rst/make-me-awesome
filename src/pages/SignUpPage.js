@@ -1,4 +1,3 @@
-import { auth } from "firebase";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withFirebase } from "../components/Firebase/context";
