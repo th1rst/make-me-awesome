@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Navigation from "../components/Navigation";
 import MUIDataTable from "mui-datatables";
 import withAuthorization from "../components/Session/withAuthorization";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const columns = [
   "ID",
@@ -14,7 +15,15 @@ const columns = [
 ];
 
 const data = [
-  ["1", "Sport", "01-01-2020", "120", "Productive", "Workout", "OMG SO AMAZING!"],
+  [
+    "1",
+    "Sport",
+    "01-01-2020",
+    "120",
+    "Productive",
+    "Workout",
+    "OMG SO AMAZING!",
+  ],
   ["1", "Sport", "01-01-2020", "120", "Productive", "Workout"],
   ["1", "Sport", "01-01-2020", "120", "Productive", "Workout"],
   ["1", "Sport", "01-01-2020", "120", "Productive", "Workout"],
@@ -33,30 +42,52 @@ class AllActivities extends Component {
     };
   }
 
-  componentDidMount() {
-    this.listener = this.props.firebase
-      .user(this.state.authUser.uid)
-      .onSnapshot((snapshot) => {
-        this.setState({
-          firestoreActivities: snapshot.data().activities,
+  componentDidMount = async () => {
+    const response = await this.props.firebase.db
+      .collection("users")
+      .doc(`${this.state.authUser.uid}`)
+      .collection("activities")
+      .get()
+      .then(function (querySnapshot) {
+        const activityData = [];
+
+        querySnapshot.forEach(function (doc) {
+          activityData.push({
+            id: doc.id,
+            name: doc.data().name,
+            date: doc.data().date,
+            duration: doc.data().duration,
+            productiveness: doc.data().productiveness,
+            category: doc.data().category,
+            notes: doc.data().notes,
+          });
         });
+        return activityData;
       });
-  }
+    this.setState({ firestoreActivities: response });
+  };
+
+  handleClick = () => {
+    console.log(this.state.firestoreActivities);
+  };
 
   render() {
     return (
       <div>
         <Navigation />
-
-        <MUIDataTable
-          title={"All Activities Overview"}
-          data={data}
-          columns={columns}
-          options={options}
-        />
-        <button onClick={() => console.log(this.state.firestoreActivities)}>
-          CLICKME
-        </button>
+        {this.state.firestoreActivities ? (
+          <div>
+            <MUIDataTable
+              title={"All Activities Overview"}
+              data={data}
+              columns={columns}
+              options={options}
+            />
+            <button onClick={this.handleClick}>CLICKME</button>{" "}
+          </div>
+        ) : (
+          <LoadingSpinner />
+        )}
       </div>
     );
   }

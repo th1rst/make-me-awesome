@@ -4,6 +4,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import SignOutButton from "../components/SignOutButton";
 import { withFirebase } from "./Firebase/context";
 import { AiOutlineLoading } from "react-icons/ai";
+import withAuthorization from "./Session/withAuthorization";
 
 class Navigation extends Component {
   constructor() {
@@ -83,16 +84,19 @@ class Navigation extends Component {
         */}
         {this.state.isSidebarOpen === true ? (
           <div>
-            <div className="z-10 min-h-50 flex w-full max-w-xs p-4 bg-white absolute" style={{zIndex: "9999"}}>
+            <div
+              className="z-10 min-h-50 flex w-full max-w-xs p-4 bg-white absolute"
+              style={{ zIndex: "9999" }}
+            >
               <ul className="flex flex-col w-full">
                 <li className="my-px">
                   <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
                     <span className="flex items-center justify-center text-lg text-gray-400">
                       <svg
                         fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         className="h-6 w-6"
@@ -113,9 +117,9 @@ class Navigation extends Component {
                     <span className="flex items-center justify-center text-lg text-gray-400">
                       <svg
                         fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         className="h-6 w-6"
@@ -139,9 +143,9 @@ class Navigation extends Component {
                     <span className="flex items-center justify-center text-lg text-gray-400">
                       <svg
                         fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         className="h-6 w-6"
@@ -161,9 +165,9 @@ class Navigation extends Component {
                     <span className="flex items-center justify-center text-lg text-red-400">
                       <svg
                         fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         className="h-6 w-6"
@@ -185,7 +189,10 @@ class Navigation extends Component {
             --------------> USER MENU (PROFILE PICTURE CLICK) 
         */}
         {this.state.isUserMenuOpen === true ? (
-          <div className="w-64 max-h-50 absolute right-0 mr-2" style={{zIndex: "9999"}}>
+          <div
+            className="w-64 max-h-50 absolute right-0 mr-2"
+            style={{ zIndex: "9999" }}
+          >
             <div className="bg-white rounded overflow-hidden shadow-lg">
               <div className="text-center p-6 border-b">
                 <img
@@ -231,4 +238,6 @@ class Navigation extends Component {
   }
 }
 
-export default withFirebase(Navigation);
+const condition = (authUser) => !!authUser;
+
+export default withAuthorization(condition)(Navigation);

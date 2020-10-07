@@ -46,12 +46,10 @@ class SignInFormBase extends Component {
     event.preventDefault();
   };
 
-  handleEmailInput = (event) => {
-    this.setState({ email: event.target.value });
-  };
-
-  handlePasswordInput = (event) => {
-    this.setState({ password: event.target.value });
+  handleInput = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   };
 
   render() {
@@ -62,68 +60,89 @@ class SignInFormBase extends Component {
     return this.state.isLoggedIn ? (
       <Redirect to="/overview" />
     ) : (
-      <div>
-        <div className="container mt-10 max-w-md mx-auto xl:max-w-3xl h-full flex bg-white rounded-lg shadow-lg overflow-hidden border-4">
-          <div className="relative hidden xl:block xl:w-1/2 h-full">
-            <BackgroundSlider />
-          </div>
-          <div className="w-full xl:w-1/2 p-8">
-            <form onSubmit={this.onSubmit}>
-              <h1 className=" text-2xl font-bold">Sign in to your account</h1>
-              <div>
-                <span className="text-gray-600 text-sm">
-                  Don't have an account?
-                </span>
-                <span className="text-gray-700 text-sm font-semibold">
-                  <Link to="/signup"> Sign up</Link>
-                </span>
-              </div>
-              <div className="mb-4 mt-6">
-                <label
-                  className="block text-gray-700 text-sm font-semibold mb-2"
-                  htmlFor="email"
-                >
-                  Email
-                </label>
-                <input
-                  className="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline h-10"
-                  name="email"
-                  value={email}
-                  onChange={this.handleEmailInput}
-                  type="text"
-                  placeholder="Email Address"
-                />
-              </div>
-              <div className="mb-6 mt-6">
-                <label
-                  className="block text-gray-700 text-sm font-semibold mb-2"
-                  htmlFor="password"
-                >
-                  Password
-                </label>
-                <input
-                  className="text-sm bg-gray-200 appearance-none rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline h-10"
-                  name="password"
-                  value={password}
-                  onChange={this.handlePasswordInput}
-                  type="password"
-                  placeholder="Password"
-                />
-                <PasswordForgetLink className="inline-block align-baseline text-sm text-gray-600 hover:text-gray-800">
-                  Forgot Password?
-                </PasswordForgetLink>
-              </div>
-              <div className="flex w-full mt-8">
-                <button
-                  disabled={isInvalid}
-                  type="submit"
-                  className="w-full bg-gray-800 hover:bg-gray-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10"
-                >
-                  Sign in
-                </button>
-                {error && <p>{error.message}</p>}
-              </div>
-            </form>
+      <div className="container mx-auto">
+        <div className="flex justify-center px-6 my-12">
+          <div className="w-full xl:w-3/4 lg:w-11/12 flex border-2 rounded-lg border-gray-200">
+            <div className="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg">
+              <BackgroundSlider />
+            </div>
+
+            <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+              <h3 className="pt-4 text-2xl text-center">Welcome Back!</h3>
+              <form
+                className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
+                onSubmit={this.onSubmit}
+              >
+                <div className="mb-4">
+                  <label
+                    className="block mb-2 text-sm font-bold text-gray-700"
+                    htmlFor="username"
+                  >
+                    Email
+                  </label>
+                  <input
+                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    name="email"
+                    value={email}
+                    onChange={this.handleInput}
+                    type="text"
+                    placeholder="Email Address"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    className="block mb-2 text-sm font-bold text-gray-700"
+                    for="password"
+                  >
+                    Password
+                  </label>
+                  <input
+                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    name="password"
+                    value={password}
+                    onChange={this.handleInput}
+                    type="password"
+                    placeholder="Password"
+                  />
+                </div>
+                <div className="mb-4">
+                  <input
+                    className="mr-2 leading-tight"
+                    type="checkbox"
+                    id="checkbox_id"
+                  />
+                  <label className="text-sm" for="checkbox_id">
+                    Remember Me
+                  </label>
+                </div>
+                <div className="mb-6 text-center">
+                  <button
+                    className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                    disabled={isInvalid}
+                    type="submit"
+                  >
+                    Sign In
+                  </button>
+                  {error ? (
+                    <p className="mt-2 text-red-500">{error.message}</p>
+                  ) : null}
+                </div>
+                <hr className="mb-6 border-t" />
+                <div className="text-center">
+                  <Link
+                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                    to="/signup"
+                  >
+                    Create an Account
+                  </Link>
+                </div>
+                <div className="text-center">
+                  <PasswordForgetLink className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800">
+                    Forgot Password?
+                  </PasswordForgetLink>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
