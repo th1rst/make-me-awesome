@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase/context";
-import { Link } from "react-router-dom";
 import { Label, Select, Input, HelperText } from "@windmill/react-ui";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { DatePicker } from "react-rainbow-components";
@@ -14,6 +13,7 @@ const defaultProductivityTypes = [
 ];
 
 const defaultState = {
+  authUser: JSON.parse(localStorage.getItem("authUser")),
   showModal: false,
   activityName: "",
   categoryName: defaultCategories[0],
@@ -67,6 +67,50 @@ class ManualActivityModal extends Component {
     }
     return 0;
   }
+
+  sendActivity = () => {
+    // --- PREPARE AND FORMAT DATA ---
+    const userID = this.state.authUser.uid;
+    const name = this.state.activityName;
+    const date = this.state.date.toLocaleDateString("en-US");
+    const productiveness = this.state.productivityType;
+    const category = this.state.categoryName;
+    let notes;
+
+    this.state.notes
+      ? (notes = this.state.notes)
+      : (notes = "No notes available.");
+
+    let duration;
+    //if user inputs the duration in minutes, take this value
+    if (this.state.activityType === "Timer") {
+      duration = this.state.activityDuration;
+    }
+    //otherwise, calculate it from HowOften + HowLong
+    else {
+      duration = this.calculateActivityTime().toString();
+    }
+
+    // --- SEND DATA TO FIRESTORE ---
+    this.props.firebase.db
+      .collection("users")
+      .doc(`${userID}`)
+      .collection("activities")
+      .add({
+        name: name,
+        date: date,
+        duration: duration,
+        category: category,
+        productiveness: productiveness,
+        notes: notes,
+      })
+      .then((documentReference) => {
+        console.log("document reference ID", documentReference.id);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   render() {
     const { activityName } = this.state;
@@ -170,6 +214,7 @@ class ManualActivityModal extends Component {
                             ) : (
                               <i>(Activity Name)</i>
                             )}
+                            ?
                           </span>
                           <Input
                             name="howOftenCount"
@@ -218,9 +263,23 @@ class ManualActivityModal extends Component {
                     <Label>
                       <span className="font-bold">When?</span>
                       <DatePicker
+                        className="mb-5"
                         value={this.state.date}
                         onChange={(value) => this.setState({ date: value })}
                       />
+                    </Label>
+
+                    <Label>
+                      <span className="font-bold">Any Notes?</span>
+                      <div className="w-full md:w-full px-3 mb-2 mt-2">
+                        <textarea
+                          className="mt-1 rounded border border-gray-200 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
+                          placeholder="Share your thoughts."
+                          name="notes"
+                          value={this.state.notes}
+                          onChange={this.handleInput}
+                        ></textarea>
+                      </div>
                     </Label>
                   </div>
 
@@ -238,7 +297,7 @@ class ManualActivityModal extends Component {
                       {this.state.productivityType.toLowerCase()} activity{" "}
                       {this.state.activityName
                         ? this.state.activityName
-                        : "(Name)"}
+                        : "(Activity Name)"}
                       : {this.calculateActivityTime()} Minutes.
                     </HelperText>
                   )}

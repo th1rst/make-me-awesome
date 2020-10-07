@@ -83,7 +83,7 @@ class Navigation extends Component {
         */}
         {this.state.isSidebarOpen === true ? (
           <div>
-            <div className="z-10 min-h-50 flex w-full max-w-xs p-4 bg-white absolute">
+            <div className="z-10 min-h-50 flex w-full max-w-xs p-4 bg-white absolute" style={{zIndex: "9999"}}>
               <ul className="flex flex-col w-full">
                 <li className="my-px">
                   <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
@@ -106,8 +106,8 @@ class Navigation extends Component {
                   </div>
                 </li>
                 <li className="my-px">
-                  <a
-                    href="#"
+                  <Link
+                    to="/all-activities"
                     className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
                   >
                     <span className="flex items-center justify-center text-lg text-gray-400">
@@ -123,8 +123,8 @@ class Navigation extends Component {
                         <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
                       </svg>
                     </span>
-                    <span className="ml-3">Activities Summary</span>
-                  </a>
+                    <span className="ml-3">All Activities</span>
+                  </Link>
                 </li>
                 <li className="my-px">
                   <span className="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase">
@@ -185,7 +185,7 @@ class Navigation extends Component {
             --------------> USER MENU (PROFILE PICTURE CLICK) 
         */}
         {this.state.isUserMenuOpen === true ? (
-          <div className="z-10 w-64 max-h-50 absolute right-0 mr-2">
+          <div className="w-64 max-h-50 absolute right-0 mr-2" style={{zIndex: "9999"}}>
             <div className="bg-white rounded overflow-hidden shadow-lg">
               <div className="text-center p-6 border-b">
                 <img
