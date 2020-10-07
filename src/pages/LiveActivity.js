@@ -15,17 +15,26 @@ import {
 import { FaExclamationTriangle } from "react-icons/fa";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { FaRegClock } from "react-icons/fa";
+import ServerResponseModal from "../components/ServerResponseModal";
 
-class SingleActivity extends Component {
+class LiveActivity extends Component {
   constructor(props) {
     super(props);
     this.state = {
       authUser: JSON.parse(localStorage.getItem("authUser")),
       showWarningModal: false,
-      timeOfActivity: 0,
+      activityName: this.props.location.state.activityName,
+      categoryName: this.props.location.state.categoryName,
+      activityType: this.props.location.state.activityType,
+      productivityType: this.props.location.state.productivityType,
+      activityDuration: 0,
       activityCount: 0,
       timePerCount: 5,
+      date: new Date(),
+      errorMessage: "",
+      successMessage: "",
     };
+
     this.handleShowWarningModal = this.handleShowWarningModal.bind(this);
   }
 
@@ -59,46 +68,73 @@ class SingleActivity extends Component {
       stringOfTime.substring(0, stringOfTime.length - 3) / 60
     );
 
-    this.setState({ timeOfActivity: formattedTimeInMinutes });
+    this.setState({ activityDuration: formattedTimeInMinutes });
   }
 
-  calculateCounterTime = () =>
-    this.state.activityCount * this.state.timePerCount;
+  calculateActivityTime() {
+    return this.state.activityCount * this.state.timePerCount;
+  }
 
   sendActivity = () => {
-    /*
-    
-    commented out to not bloat the database. code is working
+    // --- PREPARE AND FORMAT DATA ---
+    const userID = this.state.authUser.uid;
+    const name = this.state.activityName;
+    const date = this.state.date.toLocaleDateString("en-US");
+    const productiveness = this.state.productivityType;
+    const category = this.state.categoryName;
+    let notes;
 
+    this.state.notes
+      ? (notes = this.state.notes)
+      : (notes = "No notes available.");
 
+    let duration;
+    //if user inputs the duration in minutes, take this value
+    if (this.state.activityType === "Timer") {
+      duration = this.state.activityDuration;
+    }
+    //otherwise, calculate it from HowOften + HowLong
+    else {
+      duration = this.calculateActivityTime().toString();
+    }
+
+    // --- SEND DATA TO FIRESTORE ---
     this.props.firebase.db
+      .collection("users")
+      .doc(`${userID}`)
       .collection("activities")
       .add({
-        //test values
-        category: "productive",
-        date: "09162020",
-        duration: "120",
-        name: "Sport",
+        name: name,
+        date: date,
+        duration: duration,
+        category: category,
+        productiveness: productiveness,
+        notes: notes,
       })
-      .then((documentReference) => {
-        console.log("document reference ID", documentReference.id);
+      .then(() => {
+        this.setState({
+          successMessage: "Sucessfully saved activity!",
+          showServerResponseModal: true,
+        });
+        setTimeout(() => {
+          this.props.history.push("/overview");
+        }, 3000);
       })
       .catch((error) => {
-        console.log(error.message);
+        this.setState({
+          errorMessage: error.message,
+          showServerResponseModal: true,
+        });
+        setTimeout(() => {
+          this.props.history.push("/overview");
+        }, 3000);
       });
-    
-    */
-    console.log("activity saved!");
   };
 
   render() {
-    const { activityName, categoryName, activityType, productivityType } = {
-      ...this.props.location.state,
-    };
-
     return (
       <div>
-        {activityName ? (
+        {this.state.activityName ? (
           <div>
             <Navigation />
             <div className="mx-auto h-screen p-4 lg:p-24 bg-gray-200">
@@ -119,26 +155,26 @@ class SingleActivity extends Component {
                   <div className="absolute inset-0 w-full h-full flex items-center justify-center fill-current text-white">
                     <div className="flex flex-col justify-evenly text-center">
                       <h1 className="my-3 text-4xl font-semibold uppercase text-center">
-                        {activityName}
+                        {this.state.activityName}
                       </h1>
-                      {activityType === "Timer" ? (
+                      {this.state.activityType === "Timer" ? (
                         <>
                           <FaRegClock className="w-20 h-20 self-center" />
                           <h1 className="mt-2 text-2xl font-semibold uppercase text-center">
-                            {activityType}
+                            {this.state.activityType}
                           </h1>
                         </>
                       ) : (
                         <>
                           <FiPlusSquare className="w-20 h-20 self-center" />
                           <h1 className="mt-2 text-2xl font-semibold uppercase text-center">
-                            {activityType}
+                            {this.state.activityType}
                           </h1>
                         </>
                       )}
 
                       <div className="my-3">
-                        {this.checkProductivity(productivityType)}
+                        {this.checkProductivity(this.state.productivityType)}
                       </div>
                     </div>
                   </div>
@@ -146,12 +182,12 @@ class SingleActivity extends Component {
                 <div className="w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg">
                   <div className="flex flex-col mx-auto items-center text-center pb-4 md:pr-12 md:pl-6 md:py-6">
                     <p className="absolute top-0 mt-2 text-white text-xl font-semibold text-center md:text-gray-600">
-                      Category: {categoryName}
+                      Category: {this.state.categoryName}
                     </p>
 
                     {/* ---------- TIMER ----------*/}
 
-                    {activityType === "Timer" ? (
+                    {this.state.activityType === "Timer" ? (
                       <Timer
                         initialTime={0}
                         startImmediately={false}
@@ -214,7 +250,7 @@ class SingleActivity extends Component {
                           <button
                             className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                             onClick={() => {
-                              this.calculateCounterTime();
+                              this.calculateActivityTime();
                               this.setState({
                                 activityCount: this.state.activityCount - 1,
                               });
@@ -229,7 +265,7 @@ class SingleActivity extends Component {
                           <button
                             className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                             onClick={() => {
-                              this.calculateCounterTime();
+                              this.calculateActivityTime();
                               this.setState({
                                 activityCount: this.state.activityCount + 1,
                               });
@@ -242,7 +278,7 @@ class SingleActivity extends Component {
                           <button
                             className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                             onClick={() => {
-                              this.calculateCounterTime();
+                              this.calculateActivityTime();
                               this.setState({
                                 timePerCount: this.state.timePerCount - 1,
                               });
@@ -259,7 +295,7 @@ class SingleActivity extends Component {
                           <button
                             className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                             onClick={() => {
-                              this.calculateCounterTime();
+                              this.calculateActivityTime();
                               this.setState({
                                 timePerCount: this.state.timePerCount + 1,
                               });
@@ -269,8 +305,8 @@ class SingleActivity extends Component {
                           </button>
                         </div>
                         <p className="font-semibold mt-4">
-                          Total time spent on {activityName}:{" "}
-                          {this.calculateCounterTime()} Minutes
+                          Total time spent on {this.state.activityName}:{" "}
+                          {this.calculateActivityTime()} Minutes
                         </p>
                       </>
                     )}
@@ -295,9 +331,9 @@ class SingleActivity extends Component {
                       <textarea
                         className="rounded border border-gray-200 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
                         placeholder="Share your thoughts."
-                        name="notesInput"
-                        value={this.state.notesInput}
-                        onChange={() => this.handleInput}
+                        name="notes"
+                        value={this.state.notes}
+                        onChange={this.handleInput}
                       ></textarea>
                     </div>
                     <div className="w-full md:w-full flex items-start md:w-full px-3"></div>
@@ -323,6 +359,7 @@ class SingleActivity extends Component {
                     </button>
 
                     <button
+                      type="button"
                       className="w-26 h-12 m-2 bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center transition duration-100"
                       onClick={this.sendActivity}
                     >
@@ -392,9 +429,16 @@ class SingleActivity extends Component {
         ) : (
           <h1>Please start your activity correctly.</h1>
         )}
+
+        {this.state.showServerResponseModal ? (
+          <ServerResponseModal
+            errorMessage={this.state.errorMessage}
+            successMessage={this.state.successMessage}
+          />
+        ) : null}
       </div>
     );
   }
 }
 
-export default withFirebase(SingleActivity);
+export default withFirebase(LiveActivity);

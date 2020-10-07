@@ -4,10 +4,20 @@ const defaultState = {
   showModal: true,
 };
 
-class SettingsModal extends Component {
+class ServerResponseModal extends Component {
   constructor(props) {
     super(props);
     this.state = { ...defaultState };
+  }
+
+  componentDidMount() {
+    //make modal disappear automatically after 5 seconds
+    setTimeout(
+      function () {
+        this.setState({ showModal: false });
+      }.bind(this),
+      5000
+    );
   }
 
   handleShowModal() {
@@ -20,7 +30,7 @@ class SettingsModal extends Component {
         {this.state.showModal ? (
           <>
             {this.props.errorMessage === "" ? (
-              <div className="absolute right-0 bottom-0 flex flex-col">
+              <div className="fixed z-50 right-0 bottom-0 flex flex-col">
                 <div className="flex bg-green-200 max-w-sm mb-4">
                   <div className="w-16 bg-green-500">
                     <div
@@ -50,7 +60,7 @@ class SettingsModal extends Component {
                 </div>
               </div>
             ) : (
-              <div className="absolute right-0 bottom-0 flex flex-col">
+              <div className="fixed z-50 right-0 bottom-0 flex flex-col">
                 <div className="flex bg-red-200 max-w-sm mb-4">
                   <div className="w-16 bg-red-500">
                     <div
@@ -97,4 +107,4 @@ class SettingsModal extends Component {
   }
 }
 
-export default SettingsModal;
+export default ServerResponseModal;

@@ -3,6 +3,7 @@ import { withFirebase } from "../Firebase/context";
 import { Label, Select, Input, HelperText } from "@windmill/react-ui";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { DatePicker } from "react-rainbow-components";
+import ServerResponseModal from "../ServerResponseModal";
 
 const defaultCategories = ["Work", "Leisure Time", "Workout"];
 const defaultActivityTypes = ["Timer", "Counter"];
@@ -20,6 +21,8 @@ const defaultState = {
   activityType: defaultActivityTypes[0],
   productivityType: defaultProductivityTypes[0],
   date: new Date(),
+  errorMessage: "",
+  successMessage: "",
 };
 
 class ManualActivityModal extends Component {
@@ -104,11 +107,19 @@ class ManualActivityModal extends Component {
         productiveness: productiveness,
         notes: notes,
       })
-      .then((documentReference) => {
-        console.log("document reference ID", documentReference.id);
+      .then(() => {
+        this.setState({
+          successMessage: "Sucessfully saved activity!",
+          showModal: false,
+          showServerResponseModal: true,
+        });
       })
       .catch((error) => {
-        console.log(error.message);
+        this.setState({
+          errorMessage: error.message,
+          showModal: false,
+          showServerResponseModal: true,
+        });
       });
   };
 
@@ -337,6 +348,13 @@ class ManualActivityModal extends Component {
             </div>
             <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
           </>
+        ) : null}
+
+        {this.state.showServerResponseModal ? (
+          <ServerResponseModal
+            errorMessage={this.state.errorMessage}
+            successMessage={this.state.successMessage}
+          />
         ) : null}
       </>
     );

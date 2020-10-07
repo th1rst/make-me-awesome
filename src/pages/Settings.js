@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import withAuthorization from "../components/Session/withAuthorization";
 import Navigation from "../components/Navigation";
 import { Label, Input, HelperText } from "@windmill/react-ui";
-import SettingsModal from "../components/Settings/SettingsModal";
+import ServerResponseModal from "../components/ServerResponseModal";
 
 class Settings extends Component {
   constructor(props) {
@@ -172,7 +172,7 @@ class Settings extends Component {
         </button>
 
         {this.state.showModal ? (
-          <SettingsModal
+          <ServerResponseModal
             error={this.state.hasError}
             errorMessage={this.state.errorMessage}
             successMessage={this.state.successMessage}

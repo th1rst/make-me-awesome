@@ -14,7 +14,7 @@ const columns = [
 ];
 
 const data = [
-  ["1", "Sport", "01-01-2020", "120", "Productive", "Workout", "OMG SO AMAZING! ASDASDASD"],
+  ["1", "Sport", "01-01-2020", "120", "Productive", "Workout", "OMG SO AMAZING!"],
   ["1", "Sport", "01-01-2020", "120", "Productive", "Workout"],
   ["1", "Sport", "01-01-2020", "120", "Productive", "Workout"],
   ["1", "Sport", "01-01-2020", "120", "Productive", "Workout"],
