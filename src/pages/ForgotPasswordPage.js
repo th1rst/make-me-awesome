@@ -1,20 +1,13 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Label, Input, HelperText } from "@windmill/react-ui";
+import { Label, Input } from "@windmill/react-ui";
 import { withFirebase } from "../components/Firebase/context";
-
-const ForgotPasswordPage = () => (
-  <div>
-    <PasswordForgetForm />
-  </div>
-);
 
 const defaultState = {
   email: "",
   error: null,
 };
 
-class PasswordForgetFormBase extends Component {
+class ForgotPasswordPage extends Component {
   constructor(props) {
     super(props);
     this.state = { ...defaultState };
@@ -103,19 +96,5 @@ class PasswordForgetFormBase extends Component {
   }
 }
 
-const PasswordForgetLink = () => (
-  <p>
-    <Link
-      className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-      to="/forgot"
-    >
-      Forgot Password?
-    </Link>
-  </p>
-);
 
-export default ForgotPasswordPage;
-
-const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
-
-export { PasswordForgetForm, PasswordForgetLink };
+export default withFirebase(ForgotPasswordPage)

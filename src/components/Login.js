@@ -1,17 +1,7 @@
 import React, { Component } from "react";
-import { Link, withRouter, Redirect } from "react-router-dom";
-import { compose } from "recompose";
-import FirebaseContext, { withFirebase } from "../components/Firebase/context";
-import { PasswordForgetLink } from "../pages/ForgotPasswordPage";
+import { Link, Redirect } from "react-router-dom";
+import { withFirebase } from "../components/Firebase/context";
 import BackgroundSlider from "./BackgroundSlider";
-
-const SignInPage = () => (
-  <div>
-    <FirebaseContext.Consumer>
-      {(firebase) => <SignInFormBase firebase={firebase} />}
-    </FirebaseContext.Consumer>
-  </div>
-);
 
 const defaultState = {
   email: "",
@@ -20,7 +10,7 @@ const defaultState = {
   isLoggedIn: false,
 };
 
-class SignInFormBase extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { ...defaultState };
@@ -92,7 +82,7 @@ class SignInFormBase extends Component {
                 <div className="mb-4">
                   <label
                     className="block mb-2 text-sm font-bold text-gray-700"
-                    for="password"
+                    htmlFor="password"
                   >
                     Password
                   </label>
@@ -111,7 +101,7 @@ class SignInFormBase extends Component {
                     type="checkbox"
                     id="checkbox_id"
                   />
-                  <label className="text-sm" for="checkbox_id">
+                  <label className="text-sm" htmlFor="checkbox_id">
                     Remember Me
                   </label>
                 </div>
@@ -137,9 +127,14 @@ class SignInFormBase extends Component {
                   </Link>
                 </div>
                 <div className="text-center">
-                  <PasswordForgetLink className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800">
-                    Forgot Password?
-                  </PasswordForgetLink>
+                  <p>
+                    <Link
+                      className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                      to="/forgot"
+                    >
+                      Forgot Password?
+                    </Link>
+                  </p>
                 </div>
               </form>
             </div>
@@ -150,8 +145,4 @@ class SignInFormBase extends Component {
   }
 }
 
-const SignInForm = compose(withRouter, withFirebase)(SignInFormBase);
-
-export default SignInPage;
-
-export { SignInForm };
+export default withFirebase(Login)

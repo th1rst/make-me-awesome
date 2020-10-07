@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import SignOutButton from "../components/SignOutButton";
-import { withFirebase } from "./Firebase/context";
 import { AiOutlineLoading } from "react-icons/ai";
 import withAuthorization from "./Session/withAuthorization";
 
@@ -158,10 +157,7 @@ class Navigation extends Component {
                   </Link>
                 </li>
                 <li className="my-px">
-                  <a
-                    href="#"
-                    className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-                  >
+                  <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
                     <span className="flex items-center justify-center text-lg text-red-400">
                       <svg
                         fill="none"
@@ -178,7 +174,7 @@ class Navigation extends Component {
                     <span className="ml-3">
                       <SignOutButton />
                     </span>
-                  </a>
+                  </div>
                 </li>
               </ul>
             </div>

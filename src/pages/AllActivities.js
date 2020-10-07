@@ -14,21 +14,6 @@ const columns = [
   "Notes",
 ];
 
-const data = [
-  [
-    "1",
-    "Sport",
-    "01-01-2020",
-    "120",
-    "Productive",
-    "Workout",
-    "OMG SO AMAZING!",
-  ],
-  ["1", "Sport", "01-01-2020", "120", "Productive", "Workout"],
-  ["1", "Sport", "01-01-2020", "120", "Productive", "Workout"],
-  ["1", "Sport", "01-01-2020", "120", "Productive", "Workout"],
-];
-
 const options = {
   filterType: "checkbox",
 };
@@ -39,6 +24,7 @@ class AllActivities extends Component {
     this.state = {
       authUser: JSON.parse(localStorage.getItem("authUser")),
       firestoreActivities: undefined,
+      data: undefined,
     };
   }
 
@@ -65,10 +51,19 @@ class AllActivities extends Component {
         return activityData;
       });
     this.setState({ firestoreActivities: response });
+    this.implementData();
   };
 
-  handleClick = () => {
-    console.log(this.state.firestoreActivities);
+  implementData = () => {
+    const newData = [];
+    //map over each activity returned from firestore
+    this.state.firestoreActivities.map((activity) =>
+      //push each value of into a new subarray
+      newData.push(Object.values(activity))
+    );
+
+    //set newly sorted data in state
+    this.setState({ data: newData });
   };
 
   render() {
@@ -79,11 +74,10 @@ class AllActivities extends Component {
           <div>
             <MUIDataTable
               title={"All Activities Overview"}
-              data={data}
+              data={this.state.data}
               columns={columns}
               options={options}
             />
-            <button onClick={this.handleClick}>CLICKME</button>{" "}
           </div>
         ) : (
           <LoadingSpinner />

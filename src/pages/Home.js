@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SignInPage from "../components/Login";
+import Login from "../components/Login";
 
 export default class Home extends Component {
   render() {
@@ -26,7 +26,7 @@ export default class Home extends Component {
               🏆
             </span>
           </h1>
-          <SignInPage />
+          <Login />
         </div>
       </div>
     );
