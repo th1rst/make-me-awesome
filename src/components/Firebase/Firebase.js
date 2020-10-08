@@ -46,23 +46,18 @@ class Firebase {
           .collection("users")
           .doc(`${authUser.uid}`)
           .get()
-          .then((snapshot) => {
-            const userData = snapshot.data();
-
+          .then(() => {
             authUser = {
               uid: authUser.uid,
               email: authUser.email,
               photoUrl: authUser.photoURL
             };
-
             next(authUser);
           });
       } else {
         fallback();
       }
     });
-
-  user = (uid) => this.db.collection("users").doc(`${uid}`);
 }
 
 export default Firebase;

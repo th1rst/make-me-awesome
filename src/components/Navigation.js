@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import SignOutButton from "../components/SignOutButton";
-import { AiOutlineLoading } from "react-icons/ai";
+
 import withAuthorization from "./Session/withAuthorization";
 
 class Navigation extends Component {
@@ -10,6 +10,7 @@ class Navigation extends Component {
     super();
     this.state = {
       authUser: JSON.parse(localStorage.getItem("authUser")),
+      username: undefined,
       isSidebarOpen: false,
       isUserMenuOpen: false,
       loading: true,
@@ -17,10 +18,18 @@ class Navigation extends Component {
   }
 
   componentDidMount() {
-    if (this.state.authUser) {
-      this.setState({ loading: false });
-    }
+    this.getUserData();
   }
+
+  getUserData = async () => {
+    await this.props.firebase.db
+      .collection("users")
+      .doc(`${this.state.authUser.uid}`)
+      .get()
+      .then((response) => {
+        this.setState({ username: response.data().name, loading: false });
+      });
+  };
 
   handleSidebarExpand() {
     this.setState({ isSidebarOpen: !this.state.isSidebarOpen });
@@ -59,20 +68,16 @@ class Navigation extends Component {
 
             <ul className="flex items-center">
               <li className="h-10 w-10 cursor-pointer">
-                {this.state.loading ? (
-                  <AiOutlineLoading />
-                ) : (
-                  <img
-                    className="h-full w-full rounded-full mx-auto object-cover"
-                    src={
-                      this.state.authUser.photoURL
-                        ? `${this.state.authUser.photoURL}`
-                        : `${defaultImage}`
-                    }
-                    alt="userImg"
-                    onClick={() => this.handleUserMenuExpand()}
-                  />
-                )}
+                <img
+                  className="h-full w-full rounded-full mx-auto object-cover"
+                  src={
+                    this.state.authUser.photoURL
+                      ? `${this.state.authUser.photoURL}`
+                      : `${defaultImage}`
+                  }
+                  alt="userImg"
+                  onClick={() => this.handleUserMenuExpand()}
+                />
               </li>
             </ul>
           </nav>
@@ -200,7 +205,9 @@ class Navigation extends Component {
                   }
                   alt="user placeholder"
                 />
-                <p className="pt-2 text-lg font-semibold">User XYZ</p>
+                <p className="pt-2 text-lg font-semibold">
+                  {this.state.loading ? "Username" : this.state.username}
+                </p>
                 <p className="text-sm text-gray-600">
                   {this.state.authUser.email}
                 </p>

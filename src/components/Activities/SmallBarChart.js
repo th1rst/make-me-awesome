@@ -24,7 +24,7 @@ class SmallBarChart extends Component {
       series: [
         {
           name: "series-1",
-          data: [49, 60, 70, 91]
+          data: [91, 70, 60, 49]
         }
       ]
     };

@@ -53,19 +53,22 @@ class AllActivities extends Component {
         return activityData;
       });
     this.setState({ firestoreActivities: response });
-    this.implementData();
+    this.formatData();
   };
 
-  implementData = () => {
-    const newData = [];
-    //map over each activity returned from firestore
-    this.state.firestoreActivities.map((activity) =>
-      //push each value of key into a new subarray
-      newData.push(Object.values(activity))
-    );
+  formatData = () => {
+    /* 
+      -> map over each activity returned from firestore, push each value of key into a new subarray
+      -> set newly sorted data in state to be displayed in table
 
-    //set newly sorted data in state to be displayed in table
-    this.setState({ data: newData });
+                     format: [ ["ID", "Activity Name", "Date", "Duration", "Productiveness", "Category", "Notes",], [ ... ], [ ... ], ]
+      example formattedData: [ ["1NKf8xy4k9dIU0bs5eKf", "Watching TV", "10/5/2020", "135", "Unproductive", "Leisure Time", "Was it too much?"], [ ... ], [ ... ], ]
+    */
+    const formattedData = [];
+    this.state.firestoreActivities.map((activity) =>
+      formattedData.push(Object.values(activity))
+    );
+    this.setState({ data: formattedData });
   };
 
   render() {
