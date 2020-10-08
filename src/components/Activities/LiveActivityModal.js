@@ -47,7 +47,7 @@ class NewActivityModal extends Component {
     return (
       <>
         <button
-          className="mt-10 px-4 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500 transition duration-100"
+          className="w-48 m-4 px-4 py-2 font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline transition duration-150"
           type="button"
           onClick={() => this.handleShowModal()}
         >

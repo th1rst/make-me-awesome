@@ -16,6 +16,8 @@ const columns = [
 
 const options = {
   filterType: "checkbox",
+  rowsPerPage: 15,
+  rowsPerPageOptions: [15, 30, 100],
 };
 
 class AllActivities extends Component {
@@ -58,11 +60,11 @@ class AllActivities extends Component {
     const newData = [];
     //map over each activity returned from firestore
     this.state.firestoreActivities.map((activity) =>
-      //push each value of into a new subarray
+      //push each value of key into a new subarray
       newData.push(Object.values(activity))
     );
 
-    //set newly sorted data in state
+    //set newly sorted data in state to be displayed in table
     this.setState({ data: newData });
   };
 

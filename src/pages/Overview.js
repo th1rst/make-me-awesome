@@ -6,6 +6,7 @@ import ManualActivityModal from "../components/Activities/ManualActivityModal";
 import SmallBarChart from "../components/Activities/SmallBarChart";
 import SmallDonutChart from "../components/Activities/SmallDonutChart";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { Link } from "react-router-dom";
 
 class Overview extends Component {
   constructor(props) {
@@ -57,20 +58,31 @@ class Overview extends Component {
               backgroundImage: `url("https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")`,
             }}
           >
-            <div className="flex flex-col items-center justify-evenly h-full w-full bg-gray-900 bg-opacity-50">
-              <div className="text-center">
+            <div className="flex flex-col items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
+              <div className="w-2/3 text-center">
                 <h1 className="text-white text-3xl font-semibold uppercase md:text-3xl">
                   Welcome back,{" "}
                   <span className="underline text-blue-400">
                     {this.state.username}
                   </span>
                 </h1>
-                <div className="flex flex-col w-48 mx-auto">
+                <div className="mt-10 flex flex-row flex-wrap items-center justify-around w-auto mx-auto">
+                  
+                  <Link to="/all-activities">
+                    <button
+                      className="w-48 m-4 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline transition duration-150"
+                      type="button"
+                    >
+                      Show All
+                    </button>
+                  </Link>
+
                   <LiveActivityModal />
+
                   <ManualActivityModal />
                 </div>
               </div>
-              <h2 className="mx-4 italic text-white text-center text-xl font-serif md:text-2xl">
+              <h2 className="mt-10 p-4 italic text-white text-center text-xl font-serif md:text-2xl">
                 &quot;{this.state.randomQuote}&quot;
               </h2>
             </div>

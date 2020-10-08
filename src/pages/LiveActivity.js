@@ -86,7 +86,7 @@ class LiveActivity extends Component {
 
     this.state.notes
       ? (notes = this.state.notes)
-      : (notes = "No notes available.");
+      : (notes = " ");
 
     let duration;
     //if user inputs the duration in minutes, take this value

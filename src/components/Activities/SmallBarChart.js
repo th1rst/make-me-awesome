@@ -11,9 +11,15 @@ class SmallBarChart extends Component {
         chart: {
           id: "basic-bar"
         },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+          }
+        },
         xaxis: {
-          categories: [1996, 1997, 1998, 1999]
-        }
+          categories: [1996, 1997, 1998, 1999],
+          reversed: true,
+        },
       },
       series: [
         {
