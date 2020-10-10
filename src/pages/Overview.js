@@ -75,7 +75,6 @@ class Overview extends Component {
   };
 
   render() {
-    console.log(this.state.firestoreActivities);
     return (
       <>
         {this.state.loading ? (
@@ -151,7 +150,9 @@ class Overview extends Component {
                       </div>
 
                       <div>
-                        <SmallBarChart />
+                        <SmallBarChart
+                          productive={true} firestoreActivities={this.state.firestoreActivities}
+                        />
                       </div>
                     </div>
 
@@ -164,7 +165,7 @@ class Overview extends Component {
                       </div>
 
                       <div>
-                        <SmallBarChart />
+                        <SmallBarChart productive={false} firestoreActivities={this.state.firestoreActivities}/>
                       </div>
                     </div>
                   </div>

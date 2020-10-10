@@ -10,16 +10,6 @@ class ServerResponseModal extends Component {
     this.state = { ...defaultState };
   }
 
-  componentDidMount() {
-    //make modal disappear automatically after 5 seconds
-    setTimeout(
-      function () {
-        this.setState({ showModal: false });
-      }.bind(this),
-      5000
-    );
-  }
-
   handleShowModal() {
     this.setState({ showModal: !this.state.showModal });
   }

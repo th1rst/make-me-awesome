@@ -20,9 +20,14 @@ const defaultState = {
   categoryName: defaultCategories[0],
   activityType: defaultActivityTypes[0],
   productivityType: defaultProductivityTypes[0],
+  activityDuration: "",
+  howOftenCount: undefined,
+  howLongPerCount: undefined,
   date: new Date(),
+  notes: "",
   errorMessage: "",
   successMessage: "",
+  showServerResponseModal: false,
 };
 
 class ManualActivityModal extends Component {
@@ -80,9 +85,7 @@ class ManualActivityModal extends Component {
     const category = this.state.categoryName;
     let notes;
 
-    this.state.notes
-      ? (notes = this.state.notes)
-      : (notes = " ");
+    this.state.notes ? (notes = this.state.notes) : (notes = " ");
 
     let duration;
     //if user inputs the duration in minutes, take this value
@@ -114,6 +117,14 @@ class ManualActivityModal extends Component {
           showServerResponseModal: true,
         });
       })
+      .then(() =>
+        setTimeout(
+          function () {
+            this.setState({ ...defaultState });
+          }.bind(this),
+          5000
+        )
+      )
       .catch((error) => {
         this.setState({
           errorMessage: error.message,
@@ -124,8 +135,7 @@ class ManualActivityModal extends Component {
   };
 
   render() {
-    const { activityName } = this.state;
-    const isInvalid = activityName === "";
+    const isInvalid = this.state.activityName === "";
 
     return (
       <>
@@ -163,7 +173,7 @@ class ManualActivityModal extends Component {
                             ? "Please name your Activity"
                             : `${this.state.activityName}`
                         }
-                        value={activityName}
+                        value={this.state.activityName}
                         onChange={this.handleInput}
                         valid={!isInvalid}
                       />
@@ -212,7 +222,9 @@ class ManualActivityModal extends Component {
                           } for (in minutes)?`}
                           value={this.state.activityDuration}
                           onChange={this.handleInput}
-                          valid={!isInvalid}
+                          valid={this.validateNumbersOnly(
+                            this.state.activityDuration
+                          )}
                         />
                       </Label>
                     ) : (

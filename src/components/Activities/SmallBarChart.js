@@ -9,25 +9,40 @@ class SmallBarChart extends Component {
     this.state = {
       options: {
         chart: {
-          id: "basic-bar"
+          id: "basic-bar",
         },
         plotOptions: {
           bar: {
             horizontal: true,
-          }
+          },
         },
         xaxis: {
-          categories: [1996, 1997, 1998, 1999],
+          categories: ["1.", "2.", "3.", "4.", "5."],
           reversed: true,
         },
       },
       series: [
         {
-          name: "series-1",
-          data: [91, 70, 60, 49]
-        }
-      ]
+          name: "Count",
+          data: [91, 70, 60, 49, 23],
+        },
+      ],
     };
+  }
+
+  componentDidMount() {
+    this.filterActivitiesByProductivity("Productive");
+  }
+
+  filterActivitiesByProductivity(productiveness) {
+    const sortedArray = [];
+
+    this.props.firestoreActivities.map((entry) =>
+      entry.productiveness === productiveness
+        ? sortedArray.push(entry.name)
+        : null
+    );
+    console.log(sortedArray)
   }
 
   render() {
