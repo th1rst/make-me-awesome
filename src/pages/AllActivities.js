@@ -3,6 +3,7 @@ import Navigation from "../components/Navigation";
 import MUIDataTable from "mui-datatables";
 import withAuthorization from "../components/Session/withAuthorization";
 import LoadingSpinner from "../components/LoadingSpinner";
+import Footer from "../components/Footer";
 
 const columns = [
   "ID",
@@ -78,12 +79,15 @@ class AllActivities extends Component {
         <Navigation />
         {this.state.firestoreActivities ? (
           <div>
-            <MUIDataTable
-              title={"All Activities Overview"}
-              data={this.state.data}
-              columns={columns}
-              options={options}
-            />
+            <div>
+              <MUIDataTable
+                title={"All Activities Overview"}
+                data={this.state.data}
+                columns={columns}
+                options={options}
+              />
+            </div>
+            <Footer />
           </div>
         ) : (
           <LoadingSpinner />

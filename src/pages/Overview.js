@@ -91,7 +91,6 @@ class Overview extends Component {
   }
 
   render() {
-    console.log(this.state.daysToDisplay);
     return (
       <>
         {this.state.loading ? (
@@ -134,7 +133,7 @@ class Overview extends Component {
                 </h2>
               </div>
               <div className="flex flex-col items-center">
-                <h1 className="mt-4 font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
+                <h1 className="mt-4 mb-8 font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
                   Overview
                 </h1>
 
@@ -162,7 +161,7 @@ class Overview extends Component {
                   </Select>
                 </Label>
 
-                <div className="px-5 py-6 mx-auto">
+                <div className="py-6 mx-auto">
                   <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
                     <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
                       Last{" "}
