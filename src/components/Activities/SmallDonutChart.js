@@ -14,24 +14,15 @@ class SmallDonutChart extends Component {
         chart: {
           type: "donut",
         },
-        responsive: [
-          {
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200,
-              },
-              legend: {
-                position: "bottom",
-              },
-            },
-          },
-        ],
       },
     };
   }
 
   componentDidMount() {
+    this.formatDataForChart();
+  }
+
+  componentWillReceiveProps() {
     this.formatDataForChart();
   }
 
@@ -67,8 +58,6 @@ class SmallDonutChart extends Component {
       // sort direction = filterList = Labels (no further sorting necessary)
       dataArray.push(durationOfFilter);
     });
-
-    console.log(dataArray);
     this.setState({ series: dataArray });
   }
 

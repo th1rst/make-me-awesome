@@ -79,6 +79,10 @@ class SmallBarChart extends Component {
     this.formatDataForChart(`${this.props.categoryToDisplay}`);
   }
 
+  componentWillReceiveProps() {
+    this.formatDataForChart(`${this.props.categoryToDisplay}`);
+  }
+
   formatDataForChart(productiveness) {
     // --- filter by Date (i.e. "last 7 days", "last 30 days").
     //      parameter is given via props
@@ -175,6 +179,7 @@ class SmallBarChart extends Component {
   }
 
   render() {
+    console.log("Chart props: ", this.props.daysToFilter)
     return (
       <div className="app">
         <div className="row">

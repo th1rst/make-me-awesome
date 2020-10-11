@@ -7,6 +7,8 @@ import SmallBarChart from "../components/Activities/SmallBarChart";
 import SmallDonutChart from "../components/Activities/SmallDonutChart";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
+import { Label, Select } from "@windmill/react-ui";
 
 class Overview extends Component {
   constructor(props) {
@@ -17,6 +19,7 @@ class Overview extends Component {
       username: null,
       loading: true,
       randomQuote: "",
+      daysToDisplay: 7,
     };
   }
 
@@ -74,13 +77,27 @@ class Overview extends Component {
       .then((data) => this.setState({ randomQuote: data[random].text }));
   };
 
+  handleInput = (event) => {
+    this.setState(
+      {
+        [event.target.name]: event.target.value,
+      },
+      this.handleSubmit
+    );
+  };
+
+  handleSubmit() {
+    this.forceUpdate();
+  }
+
   render() {
+    console.log(this.state.daysToDisplay);
     return (
       <>
         {this.state.loading ? (
           <LoadingSpinner />
         ) : (
-          <div>
+          <>
             <Navigation />
             <div
               className="w-full bg-cover bg-center shadow-xl"
@@ -121,11 +138,37 @@ class Overview extends Component {
                   Overview
                 </h1>
 
-                {/* ---- LAST 7 DAYS ---- */}
+                <Label>
+                  <span className="sm:text-3xl text-2xl text-center my-1">
+                    Show last
+                  </span>
+                  <Select
+                    name="daysToDisplay"
+                    className="mb-5 mt-2"
+                    onChange={this.handleInput}
+                  >
+                    <option value={7} key={7}>
+                      7 days
+                    </option>
+                    <option value={30} key={30}>
+                      30 days
+                    </option>
+                    <option value={90} key={90}>
+                      90 days
+                    </option>
+                    <option value={365} key={365}>
+                      Year
+                    </option>
+                  </Select>
+                </Label>
+
                 <div className="px-5 py-6 mx-auto">
                   <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
                     <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
-                      Last 7 Days
+                      Last{" "}
+                      {parseInt(this.state.daysToDisplay) === 365
+                        ? "Year"
+                        : `${this.state.daysToDisplay} Days`}
                     </h1>
                     <span className="my-4 w-24 h-1 bg-blue-400 rounded-full" />
                   </div>
@@ -140,7 +183,7 @@ class Overview extends Component {
 
                       <div>
                         <SmallDonutChart
-                          daysToFilter={7}
+                          daysToFilter={parseInt(this.state.daysToDisplay)}
                           categoryToDisplay={"Productive"}
                           firestoreActivities={this.state.firestoreActivities}
                         />
@@ -157,7 +200,7 @@ class Overview extends Component {
 
                       <div>
                         <SmallBarChart
-                          daysToFilter={7}
+                          daysToFilter={parseInt(this.state.daysToDisplay)}
                           categoryToDisplay={"Productive"}
                           firestoreActivities={this.state.firestoreActivities}
                         />
@@ -174,7 +217,7 @@ class Overview extends Component {
 
                       <div>
                         <SmallBarChart
-                          daysToFilter={7}
+                          daysToFilter={parseInt(this.state.daysToDisplay)}
                           categoryToDisplay={"Neutral / Necessary"}
                           firestoreActivities={this.state.firestoreActivities}
                         />
@@ -191,85 +234,7 @@ class Overview extends Component {
 
                       <div>
                         <SmallBarChart
-                          daysToFilter={7}
-                          categoryToDisplay={"Unproductive"}
-                          firestoreActivities={this.state.firestoreActivities}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="px-5 py-6 mx-auto">
-                  <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
-                    <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
-                      Last 30 Days
-                    </h1>
-                    <span className="my-4 w-24 h-1 bg-blue-400 rounded-full" />
-                  </div>
-                  <div className="flex justify-center flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
-                    <div className="mx-5 mb-16 w-70 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
-                      <div className="inline-flex">
-                        <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-purple-100">
-                          <div className="h-2 w-2 rounded-full m-1 bg-purple-500 "></div>
-                        </div>
-                        <div className="flex-1 text-sm">Summary</div>
-                      </div>
-
-                      <div>
-                        <SmallDonutChart
-                          daysToFilter={30}
-                          categoryToDisplay={"Productive"}
-                          firestoreActivities={this.state.firestoreActivities}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mx-5 mb-16 w-70 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
-                      <div className="inline-flex">
-                        <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-green-100">
-                          <div className="h-2 w-2 rounded-full m-1 bg-green-500 "></div>
-                        </div>
-                        <div className="text-sm">Top Productive</div>
-                      </div>
-
-                      <div>
-                        <SmallBarChart
-                          daysToFilter={30}
-                          categoryToDisplay={"Productive"}
-                          firestoreActivities={this.state.firestoreActivities}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mx-5 mb-16 w-70 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
-                      <div className="inline-flex">
-                        <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-yellow-200">
-                          <div className="h-2 w-2 rounded-full m-1 bg-yellow-500 "></div>
-                        </div>
-                        <div className="text-sm">Top Necessary</div>
-                      </div>
-
-                      <div>
-                        <SmallBarChart
-                          daysToFilter={30}
-                          categoryToDisplay={"Neutral / Necessary"}
-                          firestoreActivities={this.state.firestoreActivities}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mx-5 mb-16 w-70 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
-                      <div className="inline-flex">
-                        <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-red-100">
-                          <div className="h-2 w-2 rounded-full m-1 bg-red-500 "></div>
-                        </div>
-                        <div className="text-sm">Top Unproductive</div>
-                      </div>
-
-                      <div>
-                        <SmallBarChart
-                          daysToFilter={30}
+                          daysToFilter={parseInt(this.state.daysToDisplay)}
                           categoryToDisplay={"Unproductive"}
                           firestoreActivities={this.state.firestoreActivities}
                         />
@@ -278,8 +243,9 @@ class Overview extends Component {
                   </div>
                 </div>
               </div>
+              <Footer />
             </div>
-          </div>
+          </>
         )}
       </>
     );
