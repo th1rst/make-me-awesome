@@ -65,9 +65,10 @@ class AllActivities extends Component {
       example formattedData: [ ["1NKf8xy4k9dIU0bs5eKf", "Watching TV", "10/5/2020", "135", "Unproductive", "Leisure Time", "Was it too much?"], [ ... ], [ ... ], ]
     */
     const formattedData = [];
-    this.state.firestoreActivities.map((activity) =>
-      formattedData.push(Object.values(activity))
-    );
+    this.state.firestoreActivities
+      .sort((a, b) => new Date(b.date) - new Date(a.date)) // sort by date (newest to oldest)
+      .map((activity) => formattedData.push(Object.values(activity)));
+
     this.setState({ data: formattedData });
   };
 

@@ -9,21 +9,66 @@ class SmallBarChart extends Component {
     this.state = {
       options: {
         chart: {
-          id: "basic-bar",
+          type: "bar",
+          height: 380,
         },
         plotOptions: {
           bar: {
+            barHeight: "100%",
+            distributed: true,
             horizontal: true,
+            dataLabels: {
+              position: "bottom",
+            },
           },
         },
+        dataLabels: {
+          enabled: true,
+          textAnchor: "start",
+          style: {
+            colors: ["#fff"],
+          },
+          formatter: function (val, opt) {
+            return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
+          },
+          offsetX: 0,
+          dropShadow: {
+            enabled: true,
+          },
+        },
+        stroke: {
+          width: 1,
+          colors: ["#fff"],
+        },
         xaxis: {
-          categories: ["1.", "2.", "3.", "4.", "5."],
-          reversed: true,
+          categories: ["A", "B", "C", "D", "E"],
+        },
+        yaxis: {
+          labels: {
+            show: false,
+          },
+        },
+        title: {
+          text: "(in hours)",
+          align: "center",
+          floating: true,
+        },
+        tooltip: {
+          theme: "dark",
+          x: {
+            show: false,
+          },
+          y: {
+            title: {
+              formatter: function () {
+                return "";
+              },
+            },
+          },
         },
       },
       series: [
         {
-          name: "Count",
           data: [91, 70, 60, 49, 23],
         },
       ],
@@ -31,21 +76,33 @@ class SmallBarChart extends Component {
   }
 
   componentDidMount() {
-    this.formatDataForChart("Productive");
+    this.formatDataForChart(`${this.props.categoryToDisplay}`);
   }
 
   formatDataForChart(productiveness) {
+    // --- filter by Date (i.e. "last 7 days", "last 30 days").
+    //      parameter is given via props
+    let date = new Date();
+    date.setDate(date.getDate() - `${this.props.daysToFilter}`);
+    const endDate = date.toLocaleDateString("en-US");
+
+    const filteredByDateArray = [];
+    this.props.firestoreActivities.forEach((activity) => {
+      if (new Date(activity.date) >= new Date(endDate)) {
+        filteredByDateArray.push(activity);
+      }
+    });
+
     // --- get all activities of (function parameter), i.e. "productive"
     const sortedByProcutivenessArray = [];
-
-    this.props.firestoreActivities.map((entry) =>
+    filteredByDateArray.map((entry) =>
       entry.productiveness === productiveness
         ? sortedByProcutivenessArray.push(entry)
         : null
     );
 
-    // --- get names in list, remove uppercase letters, remove multiple entries
-    //      result: (8 * "Workout" + 3 * "workout") will result in "workout"
+    // --- get names in list, remove uppercase letters for better comparison, remove multiple entries
+    //      result: (8 x "Workout" + 3 x "workout") will result in "workout"
     const uniqueNames = Array.from(
       new Set(
         sortedByProcutivenessArray.map((entry) => entry.name.toLowerCase())
@@ -72,11 +129,49 @@ class SmallBarChart extends Component {
     });
 
     // --- sort activities from highest to lowest duration, get the top 5 entries
-    const result = combinedDurationsArray
+    const top5HighestToLowest = combinedDurationsArray
       .sort((activity1, activity2) => activity1.duration < activity2.duration)
       .slice(0, 5);
 
-    console.log(result);
+    // --- make it look pretty again (Capitalize First Letters)
+    const result = [];
+    top5HighestToLowest.forEach((activity) => {
+      result.push({
+        name: activity.name.replace(/\w\S*/g, function (string) {
+          return (
+            string.charAt(0).toUpperCase() + string.substr(1).toLowerCase()
+          );
+        }),
+        duration: activity.duration,
+      });
+    });
+
+    // --- push result in two seperate arrays (Apexcharts wants seperate Labels and Data)
+    const labelsArray = [];
+    const dataArray = [];
+
+    result.forEach((entry) => {
+      labelsArray.push(entry.name);
+      // display time spent in hours + one decimal).
+      // this is done after calculations and sorting to get best results.
+      //   ---> result: values before: "194" (minutes), after: "3.2" (hours)
+      dataArray.push(
+        (Math.round((entry.duration / 60) * 100) / 100).toFixed(1)
+      );
+    });
+
+    // --- set state
+    this.setState({
+      options: {
+        ...this.state.options,
+        xaxis: { ...this.state.options.xaxis, categories: labelsArray },
+      },
+      series: [
+        {
+          data: dataArray,
+        },
+      ],
+    });
   }
 
   render() {
