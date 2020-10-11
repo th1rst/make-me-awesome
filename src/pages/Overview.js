@@ -139,7 +139,11 @@ class Overview extends Component {
                       </div>
 
                       <div>
-                        <SmallDonutChart />
+                        <SmallDonutChart
+                          daysToFilter={7}
+                          categoryToDisplay={"Productive"}
+                          firestoreActivities={this.state.firestoreActivities}
+                        />
                       </div>
                     </div>
 
@@ -213,7 +217,11 @@ class Overview extends Component {
                       </div>
 
                       <div>
-                        <SmallDonutChart />
+                        <SmallDonutChart
+                          daysToFilter={30}
+                          categoryToDisplay={"Productive"}
+                          firestoreActivities={this.state.firestoreActivities}
+                        />
                       </div>
                     </div>
 
