@@ -179,7 +179,6 @@ class SmallBarChart extends Component {
   }
 
   render() {
-    console.log("Chart props: ", this.props.daysToFilter)
     return (
       <div className="app">
         <div className="row">

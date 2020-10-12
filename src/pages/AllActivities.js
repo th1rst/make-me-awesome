@@ -79,13 +79,15 @@ class AllActivities extends Component {
         <Navigation />
         {this.state.firestoreActivities ? (
           <div>
-            <div>
-              <MUIDataTable
-                title={"All Activities Overview"}
-                data={this.state.data}
-                columns={columns}
-                options={options}
-              />
+            <div className="w-auto min-h-screen">
+              <div className="w-auto h-auto">
+                <MUIDataTable
+                  title={"All Activities Overview"}
+                  data={this.state.data}
+                  columns={columns}
+                  options={options}
+                />
+              </div>
             </div>
             <Footer />
           </div>

@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import Footer from "../components/Footer";
-import Navigation from "../components/Navigation";
 
 export default class PrivacyPolicy extends Component {
   render() {
     return (
       <div>
-        <Navigation />
         <div className="flex justify-center">
           <div className="mt-4 w-2/3 h-auto text-justify">
-            <h1 className="text-2xl text-center font-bold mb-2">
+            <h1 className="text-2xl text-center font-bold mb-10">
               Privacy Policy for MakeMeAwesome
             </h1>
 
@@ -158,7 +155,7 @@ export default class PrivacyPolicy extends Component {
 
             <h2 className="font-bold mt-6">Children's Information</h2>
 
-            <p>
+            <p className="mb-20">
               Another part of our priority is adding protection for children
               while using the internet. We encourage parents and guardians to
               observe, participate in, and/or monitor and guide their online
@@ -173,7 +170,6 @@ export default class PrivacyPolicy extends Component {
             </p>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
