@@ -9,6 +9,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import { Label, Select } from "@windmill/react-ui";
+import QuickActivity from "../components/Activities/QuickActivity";
 
 class Overview extends Component {
   constructor(props) {
@@ -27,11 +28,12 @@ class Overview extends Component {
     // Get random quote
     this.getQuote();
 
-    // Get user activities and user data (currently: username only)
-    // Two calls, can't be combined. Firestore doesn't support
+    // Get user activities, user data and (if available) QuickActivities.
+    // Several calls, can't be combined. Firestore doesn't support
     // fetching multiple collections in the same document
     this.getActivityData();
     this.getUserData();
+    this.getQuickActivities();
   };
 
   getActivityData = async () => {
@@ -65,8 +67,36 @@ class Overview extends Component {
       .doc(`${this.state.authUser.uid}`)
       .get()
       .then((response) => {
-        this.setState({ username: response.data().name, loading: false });
+        this.setState({
+          username: response.data().name,
+          hasQuickActivities: response.data().hasQuickActivities,
+          loading: false,
+        });
       });
+  };
+
+  getQuickActivities = async () => {
+    const response = await this.props.firebase.db
+      .collection("users")
+      .doc(`${this.state.authUser.uid}`)
+      .collection("quickActivities")
+      .get()
+      .then(function (querySnapshot) {
+        const quickActivityData = [];
+
+        querySnapshot.forEach(function (doc) {
+          quickActivityData.push({
+            id: doc.id,
+            name: doc.data().name,
+            date: doc.data().date,
+            duration: doc.data().duration,
+            productiveness: doc.data().productiveness,
+            category: doc.data().category,
+          });
+        });
+        return quickActivityData;
+      });
+    this.setState({ quickActivities: response });
   };
 
   getQuote = async function () {
@@ -133,6 +163,11 @@ class Overview extends Component {
                 </h2>
               </div>
               <div className="flex flex-col items-center">
+                {/* ----------- QUICK ACTIVITY ----------- */}
+                <div className="mb-8">
+                  {this.state.hasQuickActivities ? <QuickActivity /> : null}
+                </div>
+
                 <h1 className="mt-4 mb-8 font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
                   Overview
                 </h1>
@@ -143,7 +178,7 @@ class Overview extends Component {
                   </span>
                   <Select
                     name="daysToDisplay"
-                    className="mb-5 mt-2"
+                    className="my-2"
                     onChange={this.handleInput}
                   >
                     <option value={7} key={7}>
@@ -160,17 +195,9 @@ class Overview extends Component {
                     </option>
                   </Select>
                 </Label>
-
-                <div className="py-6 mx-auto">
-                  <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
-                    <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
-                      Last{" "}
-                      {parseInt(this.state.daysToDisplay) === 365
-                        ? "Year"
-                        : `${this.state.daysToDisplay} Days`}
-                    </h1>
-                    <span className="my-4 w-24 h-1 bg-blue-400 rounded-full" />
-                  </div>
+                <span className="my-8 w-24 h-1 bg-blue-400 rounded-full" />
+                <div className="mx-auto">
+                  <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center"></div>
                   <div className="flex justify-center w-auto flex-wrap sm:-m-4 mx-4 mb-10 mt-4">
                     <div className="mx-5 mb-16 w-70 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
                       <div className="inline-flex">

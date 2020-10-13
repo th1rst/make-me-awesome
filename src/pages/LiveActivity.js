@@ -84,9 +84,7 @@ class LiveActivity extends Component {
     const category = this.state.categoryName;
     let notes;
 
-    this.state.notes
-      ? (notes = this.state.notes)
-      : (notes = " ");
+    this.state.notes ? (notes = this.state.notes) : (notes = " ");
 
     let duration;
     //if user inputs the duration in minutes, take this value
@@ -384,10 +382,10 @@ class LiveActivity extends Component {
 
               {this.state.showWarningModal ? (
                 <div
-                  className="absolute top-0 flex items-center justify-center w-screen h-screen"
+                  className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                   onClick={this.handleShowWarningModal}
                 >
-                  <div className="z-50 md:w-1/3 sm:w-full rounded-lg shadow-lg bg-white border-2 border-orange-200">
+                  <div className="relative z-50 md:w-1/3 sm:w-full rounded-lg shadow-lg bg-white border-2 border-orange-200">
                     <div className="flex justify-between border-b border-gray-100 px-5 py-4">
                       <div className="inline-flex">
                         <FaExclamationTriangle className="mt-1 text-orange-500" />
