@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
-import SignOutButton from "../components/SignOutButton";
+import { FaPowerOff, FaQuestion } from "react-icons/fa";
+import { MdSettings } from "react-icons/md";
 
 import withAuthorization from "./Session/withAuthorization";
 
@@ -162,7 +163,11 @@ class Navigation extends Component {
                   </Link>
                 </li>
                 <li className="my-px">
-                  <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
+                  <Link
+                    to="/"
+                    onClick={this.props.firebase.doSignOut}
+                    className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
+                  >
                     <span className="flex items-center justify-center text-lg text-red-400">
                       <svg
                         fill="none"
@@ -176,10 +181,8 @@ class Navigation extends Component {
                         <path d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
                       </svg>
                     </span>
-                    <span className="ml-3">
-                      <SignOutButton />
-                    </span>
-                  </div>
+                    <span className="ml-3">Logout</span>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -191,7 +194,7 @@ class Navigation extends Component {
         */}
         {this.state.isUserMenuOpen === true ? (
           <div
-            className="w-64 max-h-50 absolute right-0 mr-2"
+            className="w-64 max-h-50 absolute rounded-xl border right-0 mr-2"
             style={{ zIndex: "9999" }}
           >
             <div className="bg-white rounded overflow-hidden shadow-lg">
@@ -211,27 +214,36 @@ class Navigation extends Component {
                 <p className="text-sm text-gray-600">
                   {this.state.authUser.email}
                 </p>
-                <div className="mt-5">
-                  <Link
-                    to="/settings"
-                    className="border rounded-full py-2 px-4 text-xs font-semibold text-gray-700 hover:bg-gray-200"
-                  >
-                    Settings
-                  </Link>
-                </div>
               </div>
               <div>
+                <Link
+                  to="/settings"
+                  className="px-4 py-2 pb-4 hover:bg-gray-100 flex"
+                >
+                  <MdSettings className="mr-2 text-blue-500" />
+                  <p className="text-sm my-auto font-medium text-gray-800 leading-none">
+                    Settings
+                  </p>
+                </Link>
                 <Link
                   to="/FAQ"
                   className="px-4 py-2 pb-4 hover:bg-gray-100 flex"
                 >
-                  <p className="text-sm font-medium text-gray-800 leading-none">
+                  <FaQuestion className="mr-2 text-blue-500" />
+                  <p className="text-sm my-auto font-medium text-gray-800 leading-none">
                     FAQ
                   </p>
                 </Link>
-                <div className="px-4 py-2 pb-4 hover:bg-gray-100 flex">
-                  <SignOutButton />
-                </div>
+                <Link
+                  to="/"
+                  onClick={this.props.firebase.doSignOut}
+                  className="px-4 py-2 pb-4 hover:bg-gray-100 flex"
+                >
+                  <FaPowerOff className="mr-2 text-blue-500" />
+                  <p className="text-sm my-auto font-medium text-gray-800 leading-none">
+                    Logout
+                  </p>
+                </Link>
               </div>
             </div>
           </div>
