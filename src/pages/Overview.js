@@ -70,7 +70,6 @@ class Overview extends Component {
         this.setState({
           username: response.data().name,
           hasQuickActivities: response.data().hasQuickActivities,
-          loading: false,
         });
       });
   };
@@ -92,11 +91,12 @@ class Overview extends Component {
             duration: doc.data().duration,
             productiveness: doc.data().productiveness,
             category: doc.data().category,
+            activityPictureURL: doc.data().activityPictureURL
           });
         });
         return quickActivityData;
       });
-    this.setState({ quickActivities: response });
+    this.setState({ quickActivities: response, loading: false, });
   };
 
   getQuote = async function () {
@@ -121,6 +121,7 @@ class Overview extends Component {
   }
 
   render() {
+    console.log(this.state.quickActivities)
     return (
       <>
         {this.state.loading ? (
@@ -165,7 +166,19 @@ class Overview extends Component {
               <div className="flex flex-col items-center">
                 {/* ----------- QUICK ACTIVITY ----------- */}
                 <div className="mb-8">
-                  {this.state.hasQuickActivities ? <QuickActivity /> : null}
+                  {this.state.quickActivities
+                    ? this.state.quickActivities.map((activity) => (
+                        <QuickActivity
+                          name={activity.name}
+                          id={activity.id}
+                          category={activity.category}
+                          picture={activity.activityPictureURL}
+                          duration={activity.duration}
+                          productiveness={activity.productiveness}
+                          key={activity.id}
+                        />
+                      ))
+                    : null}
                 </div>
 
                 <h1 className="mt-4 mb-8 font-bold text-4xl md:text-5xl max-w-xl text-gray-900">

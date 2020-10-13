@@ -194,13 +194,13 @@ class Navigation extends Component {
         */}
         {this.state.isUserMenuOpen === true ? (
           <div
-            className="w-64 max-h-50 absolute rounded-xl border right-0 mr-2"
+            className="w-64 max-h-50 absolute rounded-xl right-0"
             style={{ zIndex: "9999" }}
           >
-            <div className="bg-white rounded overflow-hidden shadow-lg">
+            <div className="bg-white rounded-lg overflow-hidden shadow-xl border">
               <div className="text-center p-6 border-b">
                 <img
-                  className="h-24 w-24 rounded-full mx-auto object-cover"
+                  className="h-32 w-32 rounded-full mx-auto object-cover"
                   src={
                     this.state.authUser.photoURL
                       ? `${this.state.authUser.photoURL}`
@@ -218,7 +218,7 @@ class Navigation extends Component {
               <div>
                 <Link
                   to="/settings"
-                  className="px-4 py-2 pb-4 hover:bg-gray-100 flex"
+                  className="px-4 py-2 pb-4 mt-2 hover:bg-gray-100 flex"
                 >
                   <MdSettings className="mr-2 text-blue-500" />
                   <p className="text-sm my-auto font-medium text-gray-800 leading-none">

@@ -18,6 +18,14 @@ class QuickActivity extends Component {
   }
 
   render() {
+    const {
+      name,
+      category,
+      picture,
+      duration,
+      productiveness,
+    } = this.props;
+    console.log(this.props);
     return (
       <div className="flex flex-col items-center justify-evenly">
         <div>
@@ -32,7 +40,7 @@ class QuickActivity extends Component {
               <div className="relative mb-6">
                 <img
                   className="h-64 w-64 object-cover"
-                  src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
+                  src={`${picture}`}
                   alt="user specified activity"
                 />
                 <div
@@ -41,9 +49,9 @@ class QuickActivity extends Component {
                 >
                   <div className="mb-12">
                     <p className="text-white tracking-wide uppercase text-2xl font-bold">
-                      Training
+                      {name}
                     </p>
-                    <p className="text-gray-400 text-md">Productive</p>
+                    <p className="text-gray-400 text-md">{productiveness}</p>
                   </div>
                   <button
                     className="bg-gradient-to-r from-purple-400 to-pink-600 hover:from-purple-500 hover:to-pink-700 p-4 shadow-xl rounded-full focus:outline-none"
@@ -67,111 +75,11 @@ class QuickActivity extends Component {
               <div className="py-10 px-6 text-center tracking-wide grid grid-cols-2 gap-6">
                 <div className="posts">
                   <p className="text-gray-400 text-sm">Duration</p>
-                  <p className="text-md">90</p>
+                  <p className="text-md">{duration}</p>
                 </div>
                 <div className="followers">
                   <p className="text-gray-400 text-sm">Category</p>
-                  <p className="text-md">Workout</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-64 h-full flex justify-center items-center mx-12 my-4">
-            <div className="container mx-auto max-w-xs rounded-lg overflow-hidden shadow-lg my-2 bg-white">
-              <div className="relative mb-6">
-                <img
-                  className="h-64 w-64 object-cover"
-                  src="https://images.unsplash.com/photo-1500625597061-d472abd2afbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
-                  alt="user specified activity"
-                />
-                <div
-                  className="text-center absolute w-full"
-                  style={{ bottom: "-30px" }}
-                >
-                  <div className="mb-12">
-                    <p className="text-white tracking-wide uppercase text-2xl font-bold">
-                      Smoke Break
-                    </p>
-                    <p className="text-gray-400 text-md">Unproductive</p>
-                  </div>
-                  <button
-                    className="bg-gradient-to-r from-purple-400 to-pink-600 hover:from-purple-500 hover:to-pink-700 p-4 shadow-xl rounded-full focus:outline-none"
-                    onClick={this.handleAddActivityModal}
-                  >
-                    <svg
-                      viewBox="0 0 20 20"
-                      enableBackground="new 0 0 20 20"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        fill="#FFFFFF"
-                        d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
-                     C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
-                     C15.952,9,16,9.447,16,10z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div className="py-10 px-6 text-center tracking-wide grid grid-cols-2 gap-6">
-                <div className="posts">
-                  <p className="text-gray-400 text-sm">Duration</p>
-                  <p className="text-md">10</p>
-                </div>
-                <div className="followers">
-                  <p className="text-gray-400 text-sm">Category</p>
-                  <p className="text-md">Leisure</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-64 h-full flex justify-center items-center mx-12 my-4">
-            <div className="container mx-auto max-w-xs rounded-lg overflow-hidden shadow-lg my-2 bg-white">
-              <div className="relative mb-6">
-                <img
-                  className="h-64 w-64 object-cover"
-                  src="https://images.unsplash.com/photo-1543779256-9bf8857b428f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-                  alt="user specified activity"
-                />
-                <div
-                  className="text-center absolute w-full"
-                  style={{ bottom: "-30px" }}
-                >
-                  <div className="mb-12">
-                    <p className="text-white tracking-wide uppercase text-2xl font-bold">
-                      Walking Dog
-                    </p>
-                    <p className="text-gray-400 text-md">Neutral</p>
-                  </div>
-                  <button
-                    className="bg-gradient-to-r from-purple-400 to-pink-600 hover:from-purple-500 hover:to-pink-700 p-4 shadow-xl rounded-full focus:outline-none"
-                    onClick={this.handleAddActivityModal}
-                  >
-                    <svg
-                      viewBox="0 0 20 20"
-                      enableBackground="new 0 0 20 20"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        fill="#FFFFFF"
-                        d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
-                     C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
-                     C15.952,9,16,9.447,16,10z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div className="py-10 px-6 text-center tracking-wide grid grid-cols-2 gap-6">
-                <div className="posts">
-                  <p className="text-gray-400 text-sm">Duration</p>
-                  <p className="text-md">30</p>
-                </div>
-                <div className="followers">
-                  <p className="text-gray-400 text-sm">Category</p>
-                  <p className="text-md">Leisure</p>
+                  <p className="text-md">{category}</p>
                 </div>
               </div>
             </div>
