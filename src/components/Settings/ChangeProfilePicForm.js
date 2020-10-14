@@ -9,7 +9,7 @@ class ChangeProfilePicForm extends Component {
     this.state = {
       authUser: JSON.parse(localStorage.getItem("authUser")),
       photoUrlInput: "",
-      showModal: false,
+      showServerResponseModal: false,
       errorMessage: "",
       successMessage: "",
     };
@@ -34,13 +34,13 @@ class ChangeProfilePicForm extends Component {
           this.setState({
             successMessage:
               "Sucessfully updated profile picture. It may take a while for changes to be in effect.",
-            showModal: true,
+            showServerResponseModal: true,
           });
         })
         .then(() =>
           setTimeout(
             function () {
-              this.setState({ showModal: false });
+              this.setState({ showServerResponseModal: false });
             }.bind(this),
             5000
           )
@@ -48,9 +48,17 @@ class ChangeProfilePicForm extends Component {
         .catch((error) => {
           this.setState({
             errorMessage: error.message,
-            showModal: true,
+            showServerResponseModal: true,
           });
-        });
+        })
+        .then(() =>
+          setTimeout(
+            function () {
+              this.setState({ showServerResponseModal: false });
+            }.bind(this),
+            5000
+          )
+        );
     }
   }
 
@@ -74,7 +82,7 @@ class ChangeProfilePicForm extends Component {
           <span className="mr-2">Apply</span>
         </button>
 
-        {this.state.showModal ? (
+        {this.state.showServerResponseModal ? (
           <ServerResponseModal
             error={this.state.hasError}
             errorMessage={this.state.errorMessage}

@@ -5,22 +5,17 @@ import ChangeEmailForm from "../components/Settings/ChangeEmailForm";
 import ChangeProfilePicForm from "../components/Settings/ChangeProfilePicForm";
 import QuickActivitySettings from "../components/Settings/QuickActivitySettings";
 import { Card, Accordion, AccordionSection } from "react-rainbow-components";
-import { FaRegUser, FaStar } from "react-icons/fa";
+import { FaRegUser, FaStar, FaKey } from "react-icons/fa";
 import { GrMail } from "react-icons/gr";
 import { AiOutlinePicture } from "react-icons/ai"
 import BannerPictureForm from "../components/Settings/BannerPictureForm";
+import ChangePasswordForm from "../components/Settings/ChangePasswordForm";
 
 class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
       authUser: JSON.parse(localStorage.getItem("authUser")),
-      photoUrlInput: "",
-      newEmailInput: "",
-      currentEmailInput: "",
-      showModal: false,
-      errorMessage: "",
-      successMessage: "",
     };
   }
 
@@ -49,9 +44,15 @@ class Settings extends Component {
                 </AccordionSection>
                 <AccordionSection
                   icon={<GrMail className="inline-flex text-blue-400" />}
-                  label="Email Address"
+                  label="Change Your Email Address"
                 >
                   <ChangeEmailForm />
+                </AccordionSection>
+                <AccordionSection
+                  icon={<FaKey className="inline-flex text-blue-400" />}
+                  label="Change Your Password"
+                >
+                  <ChangePasswordForm />
                 </AccordionSection>
                 <AccordionSection
                   icon={<FaStar className="inline-flex text-blue-400" />}

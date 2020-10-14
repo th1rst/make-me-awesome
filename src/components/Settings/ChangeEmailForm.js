@@ -10,7 +10,7 @@ class ChangeEmailForm extends Component {
       authUser: JSON.parse(localStorage.getItem("authUser")),
       newEmailInput: "",
       currentEmailInput: "",
-      showModal: false,
+      showServerResponseModal: false,
       errorMessage: "",
       successMessage: "",
     };
@@ -31,7 +31,7 @@ class ChangeEmailForm extends Component {
       .then(() => {
         this.setState({
           successMessage: "Sucessfully updated your email address.",
-          showModal: true,
+          showServerResponseModal: true,
           currentEmailInput: "",
           newEmailInput: "",
           isEditingEmail: false,
@@ -48,9 +48,17 @@ class ChangeEmailForm extends Component {
       .catch((error) => {
         this.setState({
           errorMessage: error.message,
-          showModal: true,
+          showServerResponseModal: true,
         });
-      });
+      })
+      .then(() =>
+        setTimeout(
+          function () {
+            this.setState({ showServerResponseModal: false });
+          }.bind(this),
+          5000
+        )
+      );
   }
 
   checkCurrentEmailInput(userInput) {
@@ -130,7 +138,7 @@ class ChangeEmailForm extends Component {
           <span className="mr-2">Apply</span>
         </button>
 
-        {this.state.showModal ? (
+        {this.state.showServerResponseModal ? (
           <ServerResponseModal
             error={this.state.hasError}
             errorMessage={this.state.errorMessage}

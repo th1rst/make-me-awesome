@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import withAuthorization from "../Session/withAuthorization";
-import { Label, Input } from "@windmill/react-ui";
+import { Label, Input, HelperText } from "@windmill/react-ui";
 import ServerResponseModal from "../ServerResponseModal";
 
-class BannerPictureForm extends Component {
+class ChangePasswordForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       authUser: JSON.parse(localStorage.getItem("authUser")),
-      bannerUrlInput: "",
+      passwordOne: "",
+      passwordTwo: "",
       showServerResponseModal: false,
       errorMessage: "",
       successMessage: "",
     };
-    this.updateBanner = this.updateBanner.bind(this);
   }
 
   handleInput = (event) => {
@@ -22,18 +22,12 @@ class BannerPictureForm extends Component {
     });
   };
 
-  updateBanner() {
-    const userID = this.state.authUser.uid;
-    // --- SEND DATA TO FIRESTORE ---
-    this.props.firebase.db
-      .collection("users")
-      .doc(`${userID}`)
-      .update({
-        bannerURL: this.state.bannerUrlInput,
-      })
+  changePassword = async () => {
+    await this.props.firebase
+      .doPasswordUpdate(this.state.passwordOne)
       .then(() => {
         this.setState({
-          successMessage: "Sucessfully updated your banner picture! It may take a while for changes to be in effect.",
+          successMessage: "Sucessfully updated your password.",
           showServerResponseModal: true,
         });
       })
@@ -59,28 +53,48 @@ class BannerPictureForm extends Component {
           5000
         )
       );
-  }
+  };
 
   render() {
+    const isInvalid =
+      this.state.passwordOne !== this.state.passwordTwo ||
+      this.state.passwordOne === "";
+
     return (
       <div>
-        <Label className="my-5">
-          <span className="font-bold">Update your Banner Picture</span>
+        <Label>
+          <span className="font-bold">Change your password</span>
           <Input
-            name="bannerUrlInput"
-            className="mb-5 mt-1"
-            placeholder="Paste photo URL here"
+            type="password"
+            name="passwordOne"
+            className="mb-1 mt-1"
+            placeholder="Please set a new password"
+            value={this.state.passwordOne}
             onChange={this.handleInput}
+            valid={!isInvalid}
+          />
+          {!isInvalid ? (
+            <HelperText valid={true}>Passwords match.</HelperText>
+          ) : (
+            <HelperText valid={false}>Passwords do not match.</HelperText>
+          )}
+
+          <Input
+            type="password"
+            name="passwordTwo"
+            className="mb-1 mt-1"
+            placeholder="Repeat your new password"
+            value={this.state.passwordTwo}
+            onChange={this.handleInput}
+            valid={!isInvalid}
           />
         </Label>
-
         <button
           className="w-26 h-12 m-2 bg-white text-gray-800 font-bold rounded border-b-2 border-blue-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-          onClick={this.updateBanner}
+          onClick={this.changePassword}
         >
           <span className="mr-2">Apply</span>
         </button>
-
         {this.state.showServerResponseModal ? (
           <ServerResponseModal
             errorMessage={this.state.errorMessage}
@@ -94,4 +108,4 @@ class BannerPictureForm extends Component {
 
 const condition = (authUser) => !!authUser;
 
-export default withAuthorization(condition)(BannerPictureForm);
+export default withAuthorization(condition)(ChangePasswordForm);
