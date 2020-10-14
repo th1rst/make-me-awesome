@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 export default class ServerResponseModal extends Component {
   render() {
+    const { successMessage, errorMessage } = this.props;
     return (
       <>
         {this.props.errorMessage === "" ? (
@@ -21,7 +22,7 @@ export default class ServerResponseModal extends Component {
               </div>
               <div className="w-auto text-grey-darker items-center p-4">
                 <span className="text-lg font-bold pb-4">Success!</span>
-                <p className="leading-tight">{this.props.successMessage}</p>
+                <p className="leading-tight">{successMessage}</p>
               </div>
             </div>
           </div>
@@ -52,7 +53,7 @@ export default class ServerResponseModal extends Component {
               </div>
               <div className="w-auto text-black opacity-75 items-center p-4">
                 <span className="text-lg font-bold pb-4">Error!</span>
-                <p className="leading-tight">{this.props.errorMessage}</p>
+                <p className="leading-tight">{errorMessage}</p>
               </div>
             </div>
           </div>

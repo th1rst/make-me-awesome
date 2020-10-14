@@ -131,7 +131,15 @@ class ManualActivityModal extends Component {
           showModal: false,
           showServerResponseModal: true,
         });
-      });
+      })
+      .then(() =>
+        setTimeout(
+          function () {
+            this.setState({ showServerResponseModal: false });
+          }.bind(this),
+          5000
+        )
+      );
   };
 
   render() {

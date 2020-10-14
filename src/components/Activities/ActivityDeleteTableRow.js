@@ -47,7 +47,15 @@ class ActivityDeleteTableRow extends Component {
           errorMessage: error.message,
           showServerResponseModal: true,
         });
-      });
+      })
+      .then(() =>
+        setTimeout(
+          function () {
+            this.setState({ showServerResponseModal: false });
+          }.bind(this),
+          5000
+        )
+      );
   };
 
   render() {

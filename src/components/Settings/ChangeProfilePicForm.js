@@ -84,7 +84,6 @@ class ChangeProfilePicForm extends Component {
 
         {this.state.showServerResponseModal ? (
           <ServerResponseModal
-            error={this.state.hasError}
             errorMessage={this.state.errorMessage}
             successMessage={this.state.successMessage}
           />

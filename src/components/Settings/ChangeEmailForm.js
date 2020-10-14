@@ -40,7 +40,7 @@ class ChangeEmailForm extends Component {
       .then(() =>
         setTimeout(
           function () {
-            this.setState({ showModal: false });
+            this.setState({ showServerResponseModal: false });
           }.bind(this),
           5000
         )
@@ -74,6 +74,13 @@ class ChangeEmailForm extends Component {
   }
 
   render() {
+    const {
+      currentEmailInput,
+      newEmailInput,
+      showServerResponseModal,
+      errorMessage,
+      successMessage,
+    } = this.state;
     return (
       <div>
         {this.state.isEditingEmail ? (
@@ -83,9 +90,9 @@ class ChangeEmailForm extends Component {
               name="currentEmailInput"
               className="mb-1 mt-1"
               placeholder="Please enter your current email"
-              value={this.state.currentEmailInput}
+              value={currentEmailInput}
               onChange={this.handleInput}
-              valid={this.checkCurrentEmailInput(this.state.currentEmailInput)}
+              valid={this.checkCurrentEmailInput(currentEmailInput)}
             />
             {this.checkCurrentEmailInput(this.state.currentEmailInput) ? (
               <HelperText valid={true}>
@@ -101,11 +108,11 @@ class ChangeEmailForm extends Component {
               name="newEmailInput"
               className="mb-1 mt-1"
               placeholder="Please enter your new email"
-              value={this.state.newEmailInput}
+              value={newEmailInput}
               onChange={this.handleInput}
-              valid={this.validateEmailFormat(this.state.newEmailInput)}
+              valid={this.validateEmailFormat(newEmailInput)}
             />
-            {this.validateEmailFormat(this.state.newEmailInput) ? (
+            {this.validateEmailFormat(newEmailInput) ? (
               <br />
             ) : (
               <HelperText valid={false}>
@@ -138,11 +145,10 @@ class ChangeEmailForm extends Component {
           <span className="mr-2">Apply</span>
         </button>
 
-        {this.state.showServerResponseModal ? (
+        {showServerResponseModal ? (
           <ServerResponseModal
-            error={this.state.hasError}
-            errorMessage={this.state.errorMessage}
-            successMessage={this.state.successMessage}
+            errorMessage={errorMessage}
+            successMessage={successMessage}
           />
         ) : null}
       </div>

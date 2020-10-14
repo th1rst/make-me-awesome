@@ -56,9 +56,15 @@ class ChangePasswordForm extends Component {
   };
 
   render() {
-    const isInvalid =
-      this.state.passwordOne !== this.state.passwordTwo ||
-      this.state.passwordOne === "";
+    const {
+      passwordOne,
+      passwordTwo,
+      errorMessage,
+      successMessage,
+      showServerResponseModal,
+    } = this.state;
+
+    const isInvalid = passwordOne !== passwordTwo || passwordOne === "";
 
     return (
       <div>
@@ -69,7 +75,7 @@ class ChangePasswordForm extends Component {
             name="passwordOne"
             className="mb-1 mt-1"
             placeholder="Please set a new password"
-            value={this.state.passwordOne}
+            value={passwordOne}
             onChange={this.handleInput}
             valid={!isInvalid}
           />
@@ -84,7 +90,7 @@ class ChangePasswordForm extends Component {
             name="passwordTwo"
             className="mb-1 mt-1"
             placeholder="Repeat your new password"
-            value={this.state.passwordTwo}
+            value={passwordTwo}
             onChange={this.handleInput}
             valid={!isInvalid}
           />
@@ -95,10 +101,10 @@ class ChangePasswordForm extends Component {
         >
           <span className="mr-2">Apply</span>
         </button>
-        {this.state.showServerResponseModal ? (
+        {showServerResponseModal ? (
           <ServerResponseModal
-            errorMessage={this.state.errorMessage}
-            successMessage={this.state.successMessage}
+            errorMessage={errorMessage}
+            successMessage={successMessage}
           />
         ) : null}
       </div>

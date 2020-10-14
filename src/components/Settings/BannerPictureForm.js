@@ -33,7 +33,8 @@ class BannerPictureForm extends Component {
       })
       .then(() => {
         this.setState({
-          successMessage: "Sucessfully updated your banner picture! It may take a while for changes to be in effect.",
+          successMessage:
+            "Sucessfully updated your banner picture! It may take a while for changes to be in effect.",
           showServerResponseModal: true,
         });
       })
@@ -62,6 +63,7 @@ class BannerPictureForm extends Component {
   }
 
   render() {
+    const { errorMessage, successMessage } = this.state;
     return (
       <div>
         <Label className="my-5">
@@ -83,8 +85,8 @@ class BannerPictureForm extends Component {
 
         {this.state.showServerResponseModal ? (
           <ServerResponseModal
-            errorMessage={this.state.errorMessage}
-            successMessage={this.state.successMessage}
+            errorMessage={errorMessage}
+            successMessage={successMessage}
           />
         ) : null}
       </div>

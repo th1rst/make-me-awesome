@@ -41,6 +41,9 @@ class Navigation extends Component {
   }
 
   render() {
+    const { photoURL, email } = this.state.authUser;
+    const { username, loading, isSidebarOpen, isUserMenuOpen } = this.state;
+
     const defaultImage =
       "https://images.unsplash.com/photo-1592439120548-78ea7b42398e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
 
@@ -71,11 +74,7 @@ class Navigation extends Component {
               <li className="h-10 w-10 cursor-pointer">
                 <img
                   className="h-full w-full rounded-full mx-auto object-cover"
-                  src={
-                    this.state.authUser.photoURL
-                      ? `${this.state.authUser.photoURL}`
-                      : `${defaultImage}`
-                  }
+                  src={photoURL ? `${photoURL}` : `${defaultImage}`}
                   alt="userImg"
                   onClick={() => this.handleUserMenuExpand()}
                 />
@@ -87,7 +86,7 @@ class Navigation extends Component {
         {/* 
             --------------> SIDEBAR (HAMBURGER MENU) 
         */}
-        {this.state.isSidebarOpen === true ? (
+        {isSidebarOpen === true ? (
           <div>
             <div
               className="z-10 min-h-50 flex w-full max-w-xs p-4 bg-white absolute"
@@ -192,7 +191,7 @@ class Navigation extends Component {
         {/* 
             --------------> USER MENU (PROFILE PICTURE CLICK) 
         */}
-        {this.state.isUserMenuOpen === true ? (
+        {isUserMenuOpen ? (
           <div
             className="w-64 max-h-50 absolute rounded-xl right-0"
             style={{ zIndex: "9999" }}
@@ -201,19 +200,13 @@ class Navigation extends Component {
               <div className="text-center p-6 border-b">
                 <img
                   className="h-32 w-32 rounded-full mx-auto object-cover"
-                  src={
-                    this.state.authUser.photoURL
-                      ? `${this.state.authUser.photoURL}`
-                      : `${defaultImage}`
-                  }
+                  src={photoURL ? `${photoURL}` : `${defaultImage}`}
                   alt="user placeholder"
                 />
                 <p className="pt-2 text-lg font-semibold">
-                  {this.state.loading ? "Username" : this.state.username}
+                  {loading ? "Username" : username}
                 </p>
-                <p className="text-sm text-gray-600">
-                  {this.state.authUser.email}
-                </p>
+                <p className="text-sm text-gray-600">{email}</p>
               </div>
               <div>
                 <Link

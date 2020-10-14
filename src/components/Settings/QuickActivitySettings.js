@@ -105,7 +105,6 @@ class QuickActivitySettings extends Component {
       .then(() => {
         this.setState({
           successMessage: "Sucessfully saved QuickActivity!",
-          showModal: false,
           showServerResponseModal: true,
           activityName: "",
           categoryName: defaultCategories[0],
@@ -127,7 +126,6 @@ class QuickActivitySettings extends Component {
       .catch((error) => {
         this.setState({
           errorMessage: error.message,
-          showModal: false,
           showServerResponseModal: true,
         });
       });

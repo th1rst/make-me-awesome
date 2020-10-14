@@ -15,9 +15,9 @@ const defaultProductivityTypes = [
 const defaultState = {
   showModal: false,
   activityName: "",
-  categoryName: defaultCategories[0],
-  activityType: defaultActivityTypes[0],
-  productivityType: defaultProductivityTypes[0],
+  categoryName: "Work",
+  activityType: "Timer",
+  productivityType: "Productive",
 };
 
 class NewActivityModal extends Component {
@@ -41,7 +41,7 @@ class NewActivityModal extends Component {
   };
 
   render() {
-    const { activityName } = this.state;
+    const { activityName, showModal } = this.state;
     const isInvalid = activityName === "";
 
     return (
@@ -53,7 +53,7 @@ class NewActivityModal extends Component {
         >
           Start Live Activity
         </button>
-        {this.state.showModal ? (
+        {showModal ? (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
               <div className="relative w-4/5 my-6 mx-auto max-w-xl">
@@ -78,7 +78,7 @@ class NewActivityModal extends Component {
                         placeholder={
                           isInvalid
                             ? "Please name your Activity"
-                            : `${this.state.activityName}`
+                            : `${activityName}`
                         }
                         value={activityName}
                         onChange={this.handleInput}

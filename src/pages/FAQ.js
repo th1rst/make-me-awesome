@@ -120,12 +120,36 @@ export default class FAQ extends Component {
                   </details>
                   <details className="mb-4">
                     <summary className="cursor-pointer bg-blue-600 text-white font-semibold text-sm uppercase font-medium hover:bg-blue-500 focus:outline-none focus:bg-blue-500 rounded-md py-2 px-4">
+                      What are QuickActivities?
+                    </summary>
+
+                    <span className="text-justify text-center">
+                      <p>
+                        <b>They are pre-defined activities.</b>
+                        <br />
+                        <br />
+                        Everyone has certain activities that are being done
+                        everyday (for example{" "}
+                        <i>"Cooking Dinner for 30 minutes"</i> or{" "}
+                        <i>"Workout for 60 minutes"</i>).
+                        <br />
+                        You can define them once and they get added to your
+                        personal Overview. Once set up, you just have to click
+                        on the plus-icon and they automatically get tracked.
+                      </p>
+                    </span>
+                  </details>
+                  <details className="mb-4">
+                    <summary className="cursor-pointer bg-blue-600 text-white font-semibold text-sm uppercase font-medium hover:bg-blue-500 focus:outline-none focus:bg-blue-500 rounded-md py-2 px-4">
                       Will there be more features in the future?
                     </summary>
 
                     <span className="text-justify text-center">
                       <p>
-                        Absolutely! We are always looking to improve this site.
+                        <b>Absolutely!</b>
+                        <br />
+                        <br />
+                        We are always looking to improve this site.
                         <br />
                         If you have any criticism or suggestions, just click on
                         the little email icon on the bottom of the page and send
