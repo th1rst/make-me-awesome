@@ -42,23 +42,23 @@ class SmallDonutChart extends Component {
 
     const filterList = ["Productive", "Neutral / Necessary", "Unproductive"];
 
-    const dataArray = [];
-    filterList.forEach((filter) => {
-      let durationOfFilter = 0; // init
+    const result = [];
+    filterList.forEach((filterListEntry) => {
+      let durationOfFilterListEntry = 0; // init
 
       //  --> for each filter, search all activities and add up all the durations for that category
       //      result: { [name: "Productive", duration: 3830], [...] }
       filteredByDateArray.forEach((activity) => {
-        if (activity.productiveness === filter) {
+        if (activity.productiveness === filterListEntry) {
           let currentDuration = parseInt(activity.duration);
-          durationOfFilter += currentDuration;
+          durationOfFilterListEntry += currentDuration;
         }
       });
 
       // sort direction = filterList = Labels (no further sorting necessary)
-      dataArray.push(durationOfFilter);
+      result.push(durationOfFilterListEntry);
     });
-    this.setState({ series: dataArray });
+    this.setState({ series: result });
   }
 
   render() {

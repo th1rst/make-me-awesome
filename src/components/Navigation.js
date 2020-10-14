@@ -83,9 +83,8 @@ class Navigation extends Component {
           </nav>
         </div>
 
-        {/* 
-            --------------> SIDEBAR (HAMBURGER MENU) 
-        */}
+        {/* ------------- SIDEBAR (LEFT) ------------- */}
+
         {isSidebarOpen === true ? (
           <div>
             <div
@@ -188,9 +187,8 @@ class Navigation extends Component {
           </div>
         ) : null}
 
-        {/* 
-            --------------> USER MENU (PROFILE PICTURE CLICK) 
-        */}
+        {/* ------------- USER MENU (PROFILE PICTURE CLICK) ------------- */}
+
         {isUserMenuOpen ? (
           <div
             className="w-64 max-h-50 absolute rounded-xl right-0"

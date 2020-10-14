@@ -13,8 +13,8 @@ const columns = [
     options: {
       filter: false,
       customBodyRender: (value) => {
-         // ---- DELETE ENTRY FROM FIRESTORE + styling ----
-         //  --> moved to outside component to access "withFirebase" and improve readability
+        // ---- DELETE ENTRY FROM FIRESTORE + styling ----
+        //  --> moved to outside component to access "withFirebase" and improve readability
         return <ActivityDeleteTableRow activityId={value} />;
       },
     },
@@ -143,16 +143,17 @@ class AllActivities extends Component {
   };
 
   render() {
+    const { firestoreActivities, data } = this.state;
     return (
       <div>
         <Navigation />
-        {this.state.firestoreActivities ? (
+        {firestoreActivities ? (
           <div>
             <div className="w-auto min-h-screen">
               <div className="w-auto h-auto">
                 <MUIDataTable
                   title={"All Activities Overview"}
-                  data={this.state.data}
+                  data={data}
                   columns={columns}
                   options={options}
                 />

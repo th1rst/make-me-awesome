@@ -80,10 +80,14 @@ class ChangeEmailForm extends Component {
       showServerResponseModal,
       errorMessage,
       successMessage,
+      isEditingEmail,
     } = this.state;
+
     return (
       <div>
-        {this.state.isEditingEmail ? (
+        {/* ------------- HELPER TEXT ON ACTIVE ------------- */}
+
+        {isEditingEmail ? (
           <Label>
             <span className="font-bold">Change your email</span>
             <Input
@@ -94,7 +98,7 @@ class ChangeEmailForm extends Component {
               onChange={this.handleInput}
               valid={this.checkCurrentEmailInput(currentEmailInput)}
             />
-            {this.checkCurrentEmailInput(this.state.currentEmailInput) ? (
+            {this.checkCurrentEmailInput(currentEmailInput) ? (
               <HelperText valid={true}>
                 Your current email address is correct
               </HelperText>
@@ -121,21 +125,24 @@ class ChangeEmailForm extends Component {
             )}
           </Label>
         ) : (
-          <Label>
-            <span className="font-bold">Change your email</span>
-            <Input
-              className="mb-1 mt-1"
-              placeholder="Please enter current email"
-              onClick={() => this.setState({ isEditingEmail: true })}
-            />
-            <br />
-            <Input
-              className="mb-1 mt-1"
-              placeholder="Please enter your new email"
-              onClick={() => this.setState({ isEditingEmail: true })}
-            />
-            <br />
-          </Label>
+          <>
+            {/* ------------- NO HELPER TEXT (INACTIVE) ------------- */}
+            <Label>
+              <span className="font-bold">Change your email</span>
+              <Input
+                className="mb-1 mt-1"
+                placeholder="Please enter current email"
+                onClick={() => this.setState({ isEditingEmail: true })}
+              />
+              <br />
+              <Input
+                className="mb-1 mt-1"
+                placeholder="Please enter your new email"
+                onClick={() => this.setState({ isEditingEmail: true })}
+              />
+              <br />
+            </Label>
+          </>
         )}
 
         <button
@@ -144,6 +151,8 @@ class ChangeEmailForm extends Component {
         >
           <span className="mr-2">Apply</span>
         </button>
+
+        {/* ------------- SERVER RESPONSE MODAL ------------- */}
 
         {showServerResponseModal ? (
           <ServerResponseModal

@@ -101,6 +101,9 @@ class ChangePasswordForm extends Component {
         >
           <span className="mr-2">Apply</span>
         </button>
+
+        {/* ------------- SERVER RESPONSE MODAL ------------- */}
+
         {showServerResponseModal ? (
           <ServerResponseModal
             errorMessage={errorMessage}

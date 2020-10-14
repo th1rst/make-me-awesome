@@ -83,7 +83,7 @@ class SmallBarChart extends Component {
     this.formatDataForChart(`${this.props.categoryToDisplay}`);
   }
 
-  formatDataForChart(productiveness) {
+  formatDataForChart(productivityParam) {
     // --- filter by Date (i.e. "last 7 days", "last 30 days").
     //      parameter is given via props
     let date = new Date();
@@ -100,7 +100,7 @@ class SmallBarChart extends Component {
     // --- get all activities of (function parameter), i.e. "productive"
     const sortedByProcutivenessArray = [];
     filteredByDateArray.map((entry) =>
-      entry.productiveness === productiveness
+      entry.productiveness === productivityParam
         ? sortedByProcutivenessArray.push(entry)
         : null
     );

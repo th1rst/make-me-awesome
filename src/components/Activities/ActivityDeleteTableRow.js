@@ -59,9 +59,16 @@ class ActivityDeleteTableRow extends Component {
   };
 
   render() {
+    const {
+      showServerResponseModal,
+      showWarningModal,
+      errorMessage,
+      successMessage,
+    } = this.state;
+
     return (
       <div>
-        {this.state.showWarningModal ? (
+        {showWarningModal ? (
           <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
             onClick={this.handleShowWarningModal}
@@ -80,11 +87,9 @@ class ActivityDeleteTableRow extends Component {
                   </button>
                 </div>
               </div>
-
               <div className="px-10 py-5 text-gray-600">
                 Are you sure you want to delete the selected activity?
               </div>
-
               <div className="px-5 py-4 flex justify-end">
                 <button
                   type="button"
@@ -93,7 +98,6 @@ class ActivityDeleteTableRow extends Component {
                 >
                   Don't delete
                 </button>
-
                 <button
                   className="bg-red-500 mr-1 rounded text-sm py-2 px-3 text-white hover:bg-red-600 transition duration-150"
                   type="button"
@@ -115,10 +119,12 @@ class ActivityDeleteTableRow extends Component {
           </button>
         </div>
 
-        {this.state.showServerResponseModal ? (
+        {/* ------------- SERVER RESPONSE MODAL ------------- */}
+
+        {showServerResponseModal ? (
           <ServerResponseModal
-            errorMessage={this.state.errorMessage}
-            successMessage={this.state.successMessage}
+            errorMessage={errorMessage}
+            successMessage={successMessage}
           />
         ) : null}
       </div>

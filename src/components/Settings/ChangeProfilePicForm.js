@@ -63,6 +63,12 @@ class ChangeProfilePicForm extends Component {
   }
 
   render() {
+    const {
+      showServerResponseModal,
+      errorMessage,
+      successMessage,
+    } = this.state;
+    
     return (
       <div>
         <Label className="my-5">
@@ -82,10 +88,12 @@ class ChangeProfilePicForm extends Component {
           <span className="mr-2">Apply</span>
         </button>
 
-        {this.state.showServerResponseModal ? (
+        {/* ------------- SERVER RESPONSE MODAL ------------- */}
+
+        {showServerResponseModal ? (
           <ServerResponseModal
-            errorMessage={this.state.errorMessage}
-            successMessage={this.state.successMessage}
+            errorMessage={errorMessage}
+            successMessage={successMessage}
           />
         ) : null}
       </div>

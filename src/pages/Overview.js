@@ -121,10 +121,19 @@ class Overview extends Component {
   }
 
   render() {
-    console.log(this.state.quickActivities);
+    const {
+      loading,
+      bannerURL,
+      username,
+      randomQuote,
+      quickActivities,
+      daysToDisplay,
+      firestoreActivities,
+    } = this.state;
+
     return (
       <>
-        {this.state.loading ? (
+        {loading ? (
           <LoadingSpinner />
         ) : (
           <>
@@ -133,8 +142,8 @@ class Overview extends Component {
               className="w-full bg-cover bg-center shadow-xl"
               style={{
                 height: "32rem",
-                backgroundImage: this.state.bannerURL
-                  ? `url("${this.state.bannerURL}")`
+                backgroundImage: bannerURL
+                  ? `url("${bannerURL}")`
                   : `url("https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")`,
               }}
             >
@@ -142,9 +151,7 @@ class Overview extends Component {
                 <div className="w-2/3 text-center">
                   <h1 className="text-white text-3xl font-semibold uppercase md:text-3xl">
                     Welcome back,{" "}
-                    <span className="underline text-blue-400">
-                      {this.state.username}
-                    </span>
+                    <span className="underline text-blue-400">{username}</span>
                   </h1>
                   <div className="mt-10 flex flex-row flex-wrap items-center justify-around w-auto mx-auto">
                     <Link to="/all-activities">
@@ -162,12 +169,14 @@ class Overview extends Component {
                   </div>
                 </div>
                 <h2 className="mt-10 p-4 italic text-white text-center text-xl font-serif md:text-2xl">
-                  &quot;{this.state.randomQuote}&quot;
+                  &quot;{randomQuote}&quot;
                 </h2>
               </div>
               <div className="flex flex-col items-center">
-                {/* ----------- QUICK ACTIVITY ----------- */}
-                {this.state.quickActivities.length > 0 ? (
+
+                {/* ------------- QUICK ACTIVITIES ------------- */}
+
+                {quickActivities.length > 0 ? (
                   <div>
                     <h1 className="flex self-center mt-8 mb-8 font-bold text-3xl md:text-4xl max-w-xl text-gray-900">
                       Quick Activities
@@ -176,8 +185,8 @@ class Overview extends Component {
                 ) : null}
                 <div className="mb-8">
                   <div className="flex flex-row flex-wrap justify-around">
-                    {this.state.quickActivities
-                      ? this.state.quickActivities.map((activity) => (
+                    {quickActivities
+                      ? quickActivities.map((activity) => (
                           <QuickActivity
                             name={activity.name}
                             id={activity.id}
@@ -191,6 +200,8 @@ class Overview extends Component {
                       : null}
                   </div>
                 </div>
+                
+                {/* ------------- APEXCHARTS ------------- */}
 
                 <h1 className="mt-4 mb-8 font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
                   Overview
@@ -233,9 +244,9 @@ class Overview extends Component {
 
                       <div>
                         <SmallDonutChart
-                          daysToFilter={parseInt(this.state.daysToDisplay)}
+                          daysToFilter={parseInt(daysToDisplay)}
                           categoryToDisplay={"Productive"}
-                          firestoreActivities={this.state.firestoreActivities}
+                          firestoreActivities={firestoreActivities}
                         />
                       </div>
                     </div>
@@ -250,9 +261,9 @@ class Overview extends Component {
 
                       <div>
                         <SmallBarChart
-                          daysToFilter={parseInt(this.state.daysToDisplay)}
+                          daysToFilter={parseInt(daysToDisplay)}
                           categoryToDisplay={"Productive"}
-                          firestoreActivities={this.state.firestoreActivities}
+                          firestoreActivities={firestoreActivities}
                         />
                       </div>
                     </div>
@@ -267,9 +278,9 @@ class Overview extends Component {
 
                       <div>
                         <SmallBarChart
-                          daysToFilter={parseInt(this.state.daysToDisplay)}
+                          daysToFilter={parseInt(daysToDisplay)}
                           categoryToDisplay={"Neutral / Necessary"}
-                          firestoreActivities={this.state.firestoreActivities}
+                          firestoreActivities={firestoreActivities}
                         />
                       </div>
                     </div>
@@ -284,9 +295,9 @@ class Overview extends Component {
 
                       <div>
                         <SmallBarChart
-                          daysToFilter={parseInt(this.state.daysToDisplay)}
+                          daysToFilter={parseInt(daysToDisplay)}
                           categoryToDisplay={"Unproductive"}
-                          firestoreActivities={this.state.firestoreActivities}
+                          firestoreActivities={firestoreActivities}
                         />
                       </div>
                     </div>

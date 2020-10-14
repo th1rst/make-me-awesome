@@ -43,11 +43,11 @@ class Login extends Component {
   };
 
   render() {
-    const { email, password, error } = this.state;
+    const { email, password, error, isLoggedIn } = this.state;
 
     const isInvalid = password === "" || email === "";
 
-    return this.state.isLoggedIn ? (
+    return isLoggedIn ? (
       <Redirect to="/overview" />
     ) : (
       <div className="container mx-auto">

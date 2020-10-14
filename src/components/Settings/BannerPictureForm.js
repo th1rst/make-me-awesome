@@ -63,7 +63,12 @@ class BannerPictureForm extends Component {
   }
 
   render() {
-    const { errorMessage, successMessage } = this.state;
+    const {
+      errorMessage,
+      successMessage,
+      showServerResponseModal,
+    } = this.state;
+    
     return (
       <div>
         <Label className="my-5">
@@ -83,7 +88,9 @@ class BannerPictureForm extends Component {
           <span className="mr-2">Apply</span>
         </button>
 
-        {this.state.showServerResponseModal ? (
+        {/* ------------- SERVER RESPONSE MODAL ------------- */}
+
+        {showServerResponseModal ? (
           <ServerResponseModal
             errorMessage={errorMessage}
             successMessage={successMessage}

@@ -130,9 +130,23 @@ class LiveActivity extends Component {
   };
 
   render() {
+    const {
+      activityName,
+      activityType,
+      productivityType,
+      categoryName,
+      activityCount,
+      timePerCount,
+      notes,
+      showWarningModal,
+      showServerResponseModal,
+      errorMessage,
+      successMessage,
+    } = this.state;
+
     return (
       <div>
-        {this.state.activityName ? (
+        {activityName ? (
           <div>
             <Navigation />
             <div className="mx-auto h-screen p-4 lg:p-24 bg-gray-200">
@@ -153,26 +167,26 @@ class LiveActivity extends Component {
                   <div className="absolute inset-0 w-full h-full flex items-center justify-center fill-current text-white">
                     <div className="flex flex-col justify-evenly text-center">
                       <h1 className="my-3 text-4xl font-semibold uppercase text-center">
-                        {this.state.activityName}
+                        {activityName}
                       </h1>
-                      {this.state.activityType === "Timer" ? (
+                      {activityType === "Timer" ? (
                         <>
                           <FaRegClock className="w-20 h-20 self-center" />
                           <h1 className="mt-2 text-2xl font-semibold uppercase text-center">
-                            {this.state.activityType}
+                            {activityType}
                           </h1>
                         </>
                       ) : (
                         <>
                           <FiPlusSquare className="w-20 h-20 self-center" />
                           <h1 className="mt-2 text-2xl font-semibold uppercase text-center">
-                            {this.state.activityType}
+                            {activityType}
                           </h1>
                         </>
                       )}
 
                       <div className="my-3">
-                        {this.checkProductivity(this.state.productivityType)}
+                        {this.checkProductivity(productivityType)}
                       </div>
                     </div>
                   </div>
@@ -180,12 +194,12 @@ class LiveActivity extends Component {
                 <div className="w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg">
                   <div className="flex flex-col mx-auto items-center text-center pb-4 md:pr-12 md:pl-6 md:py-6">
                     <p className="absolute top-0 mt-2 text-white text-xl font-semibold text-center md:text-gray-600">
-                      Category: {this.state.categoryName}
+                      Category: {categoryName}
                     </p>
 
-                    {/* ---------- TIMER ----------*/}
+                    {/* ------------- TIMER VARIANT ------------- */}
 
-                    {this.state.activityType === "Timer" ? (
+                    {activityType === "Timer" ? (
                       <Timer
                         initialTime={0}
                         startImmediately={false}
@@ -242,7 +256,8 @@ class LiveActivity extends Component {
                       </Timer>
                     ) : (
                       <>
-                        {/* ---------- COUNTER ----------*/}
+
+                        {/* ------------- COUNTER VARIANT ------------- */}
 
                         <div className="flex flex-row items-center justify-evenly mx-auto">
                           <button
@@ -250,7 +265,7 @@ class LiveActivity extends Component {
                             onClick={() => {
                               this.calculateActivityTime();
                               this.setState({
-                                activityCount: this.state.activityCount - 1,
+                                activityCount: activityCount - 1,
                               });
                             }}
                           >
@@ -258,14 +273,14 @@ class LiveActivity extends Component {
                           </button>
 
                           <div className="flex items-center justify-center text-white text-4xl w-48 sm:w-64 h-20 my-2 mt-4 rounded-lg bg-indigo-900">
-                            Count: {this.state.activityCount}
+                            Count: {activityCount}
                           </div>
                           <button
                             className="w-16 h-14 flex items-center justify-center pl-2 m-1 bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-100"
                             onClick={() => {
                               this.calculateActivityTime();
                               this.setState({
-                                activityCount: this.state.activityCount + 1,
+                                activityCount: activityCount + 1,
                               });
                             }}
                           >
@@ -278,7 +293,7 @@ class LiveActivity extends Component {
                             onClick={() => {
                               this.calculateActivityTime();
                               this.setState({
-                                timePerCount: this.state.timePerCount - 1,
+                                timePerCount: timePerCount - 1,
                               });
                             }}
                           >
@@ -287,7 +302,7 @@ class LiveActivity extends Component {
 
                           <div className="flex items-center justify-center text-white text-2xl w-48 sm:w-64 h-20 my-2 rounded-lg bg-indigo-900">
                             Time per count: <br />
-                            {this.state.timePerCount} Minutes
+                            {timePerCount} Minutes
                           </div>
 
                           <button
@@ -295,7 +310,7 @@ class LiveActivity extends Component {
                             onClick={() => {
                               this.calculateActivityTime();
                               this.setState({
-                                timePerCount: this.state.timePerCount + 1,
+                                timePerCount: timePerCount + 1,
                               });
                             }}
                           >
@@ -303,7 +318,7 @@ class LiveActivity extends Component {
                           </button>
                         </div>
                         <p className="font-semibold mt-4">
-                          Total time spent on {this.state.activityName}:{" "}
+                          Total time spent on {activityName}:{" "}
                           {this.calculateActivityTime()} Minutes
                         </p>
                       </>
@@ -330,7 +345,7 @@ class LiveActivity extends Component {
                         className="rounded border border-gray-200 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
                         placeholder="Share your thoughts."
                         name="notes"
-                        value={this.state.notes}
+                        value={notes}
                         onChange={this.handleInput}
                       ></textarea>
                     </div>
@@ -380,7 +395,7 @@ class LiveActivity extends Component {
 
               {/* ---------- WARNING MODAL ON CLOSE ----------*/}
 
-              {this.state.showWarningModal ? (
+              {showWarningModal ? (
                 <div
                   className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                   onClick={this.handleShowWarningModal}
@@ -428,10 +443,12 @@ class LiveActivity extends Component {
           <h1>Please start your activity correctly.</h1>
         )}
 
-        {this.state.showServerResponseModal ? (
+        {/* ------------- SERVER RESPONSE MODAL ------------- */}
+
+        {showServerResponseModal ? (
           <ServerResponseModal
-            errorMessage={this.state.errorMessage}
-            successMessage={this.state.successMessage}
+            errorMessage={errorMessage}
+            successMessage={successMessage}
           />
         ) : null}
       </div>

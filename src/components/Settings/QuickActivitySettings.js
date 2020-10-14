@@ -175,15 +175,25 @@ class QuickActivitySettings extends Component {
   }
 
   render() {
-    const isInvalid =
-      this.state.activityName === "" || this.state.activityDuration === "";
+    const {
+      activityName,
+      activityDuration,
+      quickActivities,
+      activityPictureURL,
+      showServerResponseModal,
+      errorMessage,
+      successMessage,
+    } = this.state;
+
+    const isInvalid = activityName === "" || activityDuration === "";
+    
     return (
       <>
-        {!this.state.quickActivities ? (
+        {!quickActivities ? (
           <LoadingSpinner />
         ) : (
           <div>
-            {this.state.quickActivities.length === 0 ? (
+            {quickActivities.length === 0 ? (
               <p className="font-bold text-lg text-center">
                 You have not set up QuickActivities yet.
               </p>
@@ -194,7 +204,7 @@ class QuickActivitySettings extends Component {
                 </h1>
                 <div className="w-full h-auto border border-blue-100 rounded-lg">
                   <div className="flex flex-row flex-wrap justify-around">
-                    {this.state.quickActivities.map((quickActivity) => (
+                    {quickActivities.map((quickActivity) => (
                       <div className="flex flex-col w-auto mb-4">
                         <div className="w-64 h-auto flex justify-center items-center mx-4 my-2">
                           <div className="container mx-auto w-48 h-48 rounded-lg overflow-hidden shadow-lg my-2 bg-white hover:shadow-xl hover:border-gray-300">
@@ -267,7 +277,7 @@ class QuickActivitySettings extends Component {
                       name="activityName"
                       className="mb-5 mt-1"
                       placeholder="Please name your Activity"
-                      value={this.state.activityName}
+                      value={activityName}
                       onChange={this.handleInput}
                       valid={!isInvalid}
                     />
@@ -294,15 +304,11 @@ class QuickActivitySettings extends Component {
                       name="activityDuration"
                       className="mb-5 mt-1"
                       placeholder={`How long do you usually do ${
-                        this.state.activityName
-                          ? this.state.activityName
-                          : "(Name)"
+                        activityName ? activityName : "(Name)"
                       } for (in minutes)?`}
-                      value={this.state.activityDuration}
+                      value={activityDuration}
                       onChange={this.handleInput}
-                      valid={this.validateNumbersOnly(
-                        this.state.activityDuration
-                      )}
+                      valid={this.validateNumbersOnly(activityDuration)}
                     />
                   </Label>
 
@@ -326,7 +332,7 @@ class QuickActivitySettings extends Component {
                       name="activityPictureURL"
                       className="mb-5 mt-1"
                       placeholder="Please paste a URL of your desired Activity Picture"
-                      value={this.state.activityPictureURL}
+                      value={activityPictureURL}
                       onChange={this.handleInput}
                     />
                   </Label>
@@ -345,10 +351,13 @@ class QuickActivitySettings extends Component {
                 </div>
               </div>
             </div>
-            {this.state.showServerResponseModal ? (
+
+            {/* ------------- SERVER RESPONSE MODAL ------------- */}
+
+            {showServerResponseModal ? (
               <ServerResponseModal
-                errorMessage={this.state.errorMessage}
-                successMessage={this.state.successMessage}
+                errorMessage={errorMessage}
+                successMessage={successMessage}
               />
             ) : null}
           </div>

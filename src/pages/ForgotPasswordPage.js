@@ -72,7 +72,7 @@ class ForgotPasswordPage extends Component {
                       name="email"
                       className="my-1 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       placeholder="Your account's email address"
-                      value={this.state.email}
+                      value={email}
                       onChange={this.onChange}
                     />
                   </Label>
@@ -96,5 +96,4 @@ class ForgotPasswordPage extends Component {
   }
 }
 
-
-export default withFirebase(ForgotPasswordPage)
+export default withFirebase(ForgotPasswordPage);
