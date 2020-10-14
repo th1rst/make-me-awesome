@@ -5,6 +5,10 @@ import ChangeEmailForm from "../components/Settings/ChangeEmailForm";
 import ChangeProfilePicForm from "../components/Settings/ChangeProfilePicForm";
 import QuickActivitySettings from "../components/Settings/QuickActivitySettings";
 import { Card, Accordion, AccordionSection } from "react-rainbow-components";
+import { FaRegUser, FaStar } from "react-icons/fa";
+import { GrMail } from "react-icons/gr";
+import { AiOutlinePicture } from "react-icons/ai"
+import BannerPictureForm from "../components/Settings/BannerPictureForm";
 
 class Settings extends Component {
   constructor(props) {
@@ -31,13 +35,28 @@ class Settings extends Component {
           <div className="rainbow-m-around_xx-large">
             <Card className="w-3/4 mx-auto">
               <Accordion>
-                <AccordionSection label="Profile Picture">
+                <AccordionSection
+                  icon={<FaRegUser className="inline-flex text-blue-400" />}
+                  label="Profile Picture"
+                >
                   <ChangeProfilePicForm />
                 </AccordionSection>
-                <AccordionSection label="Email Address">
+                <AccordionSection
+                  icon={<AiOutlinePicture className="inline-flex text-blue-400" />}
+                  label="Banner Picture"
+                >
+                  <BannerPictureForm />
+                </AccordionSection>
+                <AccordionSection
+                  icon={<GrMail className="inline-flex text-blue-400" />}
+                  label="Email Address"
+                >
                   <ChangeEmailForm />
                 </AccordionSection>
-                <AccordionSection label="QuickActivities">
+                <AccordionSection
+                  icon={<FaStar className="inline-flex text-blue-400" />}
+                  label="QuickActivities"
+                >
                   <QuickActivitySettings />
                 </AccordionSection>
               </Accordion>

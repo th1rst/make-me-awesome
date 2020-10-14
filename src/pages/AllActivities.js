@@ -78,12 +78,6 @@ const columns = [
           <p className="font-serif text-base text-center italic">{value}</p>
         );
       },
-      onRowsDelete: (rowsDeleted) => {
-        const idsToDelete = this.state.data.map(
-          (d) => this.state.data[d.dataIndex].id
-        ); // array of all ids to to be deleted
-        console.log(idsToDelete);
-      },
     },
   },
 ];

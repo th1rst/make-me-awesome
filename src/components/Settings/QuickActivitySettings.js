@@ -107,6 +107,10 @@ class QuickActivitySettings extends Component {
           successMessage: "Sucessfully saved QuickActivity!",
           showModal: false,
           showServerResponseModal: true,
+          activityName: "",
+          categoryName: defaultCategories[0],
+          activityPictureURL: "",
+          activityDuration: "",
         });
       })
       .then(() => {

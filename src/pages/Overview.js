@@ -69,7 +69,7 @@ class Overview extends Component {
       .then((response) => {
         this.setState({
           username: response.data().name,
-          hasQuickActivities: response.data().hasQuickActivities,
+          bannerURL: response.data().bannerURL,
         });
       });
   };
@@ -133,7 +133,9 @@ class Overview extends Component {
               className="w-full bg-cover bg-center shadow-xl"
               style={{
                 height: "32rem",
-                backgroundImage: `url("https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")`,
+                backgroundImage: this.state.bannerURL
+                  ? `url("${this.state.bannerURL}")`
+                  : `url("https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")`,
               }}
             >
               <div className="flex flex-col items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">

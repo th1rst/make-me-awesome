@@ -155,23 +155,23 @@ class QuickActivity extends Component {
                     <div>
                       <div className="text-center">
                         <p className="font-bold">Name:</p>
-                        <p className="mb-4">Smoke Break</p>
+                        <p className="mb-4">{name}</p>
                       </div>
 
                       <div className="text-center">
                         <p className="font-bold">Productivity:</p>
-                        <p className="mb-4">Unproductive</p>
+                        <p className="mb-4">{productiveness}</p>
                       </div>
                     </div>
 
                     <div>
                       <div className="text-center">
                         <p className="font-bold">Duration:</p>
-                        <p className="mb-4">10</p>
+                        <p className="mb-4">{duration}</p>
                       </div>
                       <div className="text-center">
                         <p className="font-bold">Category:</p>
-                        <p className="mb-4">Leisure Time</p>
+                        <p className="mb-4">{category}</p>
                       </div>
                     </div>
                   </div>
