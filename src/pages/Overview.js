@@ -91,12 +91,12 @@ class Overview extends Component {
             duration: doc.data().duration,
             productiveness: doc.data().productiveness,
             category: doc.data().category,
-            activityPictureURL: doc.data().activityPictureURL
+            activityPictureURL: doc.data().activityPictureURL,
           });
         });
         return quickActivityData;
       });
-    this.setState({ quickActivities: response, loading: false, });
+    this.setState({ quickActivities: response, loading: false });
   };
 
   getQuote = async function () {
@@ -121,7 +121,7 @@ class Overview extends Component {
   }
 
   render() {
-    console.log(this.state.quickActivities)
+    console.log(this.state.quickActivities);
     return (
       <>
         {this.state.loading ? (
@@ -165,20 +165,29 @@ class Overview extends Component {
               </div>
               <div className="flex flex-col items-center">
                 {/* ----------- QUICK ACTIVITY ----------- */}
+                {this.state.quickActivities.length > 0 ? (
+                  <div>
+                    <h1 className="flex self-center mt-8 mb-8 font-bold text-3xl md:text-4xl max-w-xl text-gray-900">
+                      Quick Activities
+                    </h1>
+                  </div>
+                ) : null}
                 <div className="mb-8">
-                  {this.state.quickActivities
-                    ? this.state.quickActivities.map((activity) => (
-                        <QuickActivity
-                          name={activity.name}
-                          id={activity.id}
-                          category={activity.category}
-                          picture={activity.activityPictureURL}
-                          duration={activity.duration}
-                          productiveness={activity.productiveness}
-                          key={activity.id}
-                        />
-                      ))
-                    : null}
+                  <div className="flex flex-row flex-wrap justify-around">
+                    {this.state.quickActivities
+                      ? this.state.quickActivities.map((activity) => (
+                          <QuickActivity
+                            name={activity.name}
+                            id={activity.id}
+                            category={activity.category}
+                            picture={activity.activityPictureURL}
+                            duration={activity.duration}
+                            productiveness={activity.productiveness}
+                            key={activity.id}
+                          />
+                        ))
+                      : null}
+                  </div>
                 </div>
 
                 <h1 className="mt-4 mb-8 font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
