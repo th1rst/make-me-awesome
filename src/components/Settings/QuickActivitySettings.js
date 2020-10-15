@@ -206,7 +206,10 @@ class QuickActivitySettings extends Component {
                 <div className="w-full h-auto border border-gray-100 rounded-lg">
                   <div className="flex flex-row flex-wrap justify-around">
                     {quickActivities.map((quickActivity) => (
-                      <div className="flex flex-col w-auto mb-4">
+                      <div
+                        className="flex flex-col w-auto mb-4"
+                        key={quickActivity.id}
+                      >
                         <div className="w-64 h-auto flex justify-center items-center mx-4 my-2">
                           <div className="container mx-auto w-48 h-48 rounded-lg overflow-hidden shadow-lg my-2 bg-white hover:shadow-xl hover:border-gray-300">
                             <div className="relative mb-6">

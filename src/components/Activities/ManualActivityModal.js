@@ -12,27 +12,25 @@ const defaultProductivityTypes = [
   "Unproductive",
 ];
 
-const defaultState = {
-  authUser: JSON.parse(localStorage.getItem("authUser")),
-  showModal: false,
-  activityName: "",
-  categoryName: defaultCategories[0],
-  activityType: defaultActivityTypes[0],
-  productivityType: defaultProductivityTypes[0],
-  activityDuration: "",
-  howOftenCount: undefined,
-  howLongPerCount: undefined,
-  date: new Date(),
-  notes: "",
-  errorMessage: "",
-  successMessage: "",
-  showServerResponseModal: false,
-};
-
 class ManualActivityModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...defaultState };
+    this.state = {
+      authUser: JSON.parse(localStorage.getItem("authUser")),
+      showModal: false,
+      activityName: "",
+      categoryName: defaultCategories[0],
+      activityType: defaultActivityTypes[0],
+      productivityType: defaultProductivityTypes[0],
+      activityDuration: "",
+      howOftenCount: undefined,
+      howLongPerCount: undefined,
+      date: new Date(),
+      notes: "",
+      errorMessage: "",
+      successMessage: "",
+      showServerResponseModal: false,
+    };
   }
 
   handleShowModal() {
@@ -40,7 +38,7 @@ class ManualActivityModal extends Component {
   }
 
   handleCloseModal() {
-    this.setState({ ...defaultState });
+    this.setState({ showModal: false });
   }
 
   handleInput = (event) => {
@@ -119,7 +117,7 @@ class ManualActivityModal extends Component {
       .then(() =>
         setTimeout(
           function () {
-            this.setState({ ...defaultState });
+            this.setState({ showModal: false, showServerResponseModal: false });
           }.bind(this),
           5000
         )

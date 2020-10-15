@@ -1,6 +1,7 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -21,7 +22,9 @@ class Firebase {
     //Firebase API's
     this.auth = app.auth();
     this.db = app.firestore();
-    this.authUser = JSON.parse(localStorage.getItem("authUser"))
+    this.storage = app.storage();
+    this.storageRef = app.storage().ref();
+    this.authUser = JSON.parse(localStorage.getItem("authUser"));
   }
 
   // Auth API
@@ -50,7 +53,7 @@ class Firebase {
             authUser = {
               uid: authUser.uid,
               email: authUser.email,
-              photoUrl: authUser.photoURL
+              photoUrl: authUser.photoURL,
             };
             next(authUser);
           });
