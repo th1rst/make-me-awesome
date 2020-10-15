@@ -149,7 +149,7 @@ class Overview extends Component {
             >
               <div className="flex flex-col items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
                 <div className="w-2/3 text-center">
-                  <h1 className="text-white text-3xl font-semibold uppercase md:text-3xl">
+                  <h1 className="text-white text-3xl font-semibold uppercase">
                     Welcome back,{" "}
                     <span className="underline text-blue-400">{username}</span>
                   </h1>
@@ -173,18 +173,17 @@ class Overview extends Component {
                 </h2>
               </div>
               <div className="flex flex-col items-center">
-
                 {/* ------------- QUICK ACTIVITIES ------------- */}
 
                 {quickActivities.length > 0 ? (
                   <div>
-                    <h1 className="flex self-center mt-8 mb-8 font-bold text-3xl md:text-4xl max-w-xl text-gray-900">
+                    <h1 className="mt-8 font-bold text-4xl md:text-5xl text-gray-900">
                       Quick Activities
                     </h1>
                   </div>
                 ) : null}
                 <div className="mb-8">
-                  <div className="flex flex-row flex-wrap justify-around">
+                  <div className="flex flex-row flex-wrap justify-around p-12">
                     {quickActivities
                       ? quickActivities.map((activity) => (
                           <QuickActivity
@@ -200,14 +199,14 @@ class Overview extends Component {
                       : null}
                   </div>
                 </div>
-                
+
                 {/* ------------- APEXCHARTS ------------- */}
 
-                <h1 className="mt-4 mb-8 font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
+                <h1 className="mb-2 font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
                   Overview
                 </h1>
-
-                <Label>
+                <span className="mb-8 w-24 h-1 bg-blue-400 rounded-full" />
+                <Label className="mb-6">
                   <span className="sm:text-3xl text-2xl text-center my-1">
                     Show last
                   </span>
@@ -230,76 +229,81 @@ class Overview extends Component {
                     </option>
                   </Select>
                 </Label>
-                <span className="my-8 w-24 h-1 bg-blue-400 rounded-full" />
-                <div className="mx-auto">
-                  <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center"></div>
-                  <div className="flex justify-center w-auto flex-wrap sm:-m-4 mx-4 mb-10 mt-4">
-                    <div className="mx-5 mb-16 w-70 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
-                      <div className="inline-flex">
-                        <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-purple-100">
-                          <div className="h-2 w-2 rounded-full m-1 bg-purple-500 "></div>
-                        </div>
-                        <div className="flex-1 text-sm">Summary</div>
-                      </div>
 
-                      <div>
-                        <SmallDonutChart
-                          daysToFilter={parseInt(daysToDisplay)}
-                          categoryToDisplay={"Productive"}
-                          firestoreActivities={firestoreActivities}
-                        />
+                <div className="flex flex-wrap justify-center w-auto mb-32">
+                  {/* ------------- CHART CONTAINER ------------- */}
+                  <div className="mx-2 mb-4 shadow-xl rounded-lg border border-gray-100 overflow-hidden p-5">
+                    {/* ------------- CHART HEADER ------------- */}
+                    <div className="inline-flex">
+                      <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-purple-100">
+                        <div className="h-2 w-2 rounded-full m-1 bg-purple-500 "></div>
                       </div>
+                      <div className="flex-1 text-sm">Summary</div>
                     </div>
-
-                    <div className="mx-5 mb-16 w-70 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
-                      <div className="inline-flex">
-                        <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-green-100">
-                          <div className="h-2 w-2 rounded-full m-1 bg-green-500 "></div>
-                        </div>
-                        <div className="text-sm">Top Productive</div>
-                      </div>
-
-                      <div>
-                        <SmallBarChart
-                          daysToFilter={parseInt(daysToDisplay)}
-                          categoryToDisplay={"Productive"}
-                          firestoreActivities={firestoreActivities}
-                        />
-                      </div>
+                    {/* ------------- CHART  ------------- */}
+                    <div>
+                      <SmallDonutChart
+                        daysToFilter={parseInt(daysToDisplay)}
+                        categoryToDisplay={"Productive"}
+                        firestoreActivities={firestoreActivities}
+                      />
                     </div>
+                  </div>
 
-                    <div className="mx-5 mb-16 w-70 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
-                      <div className="inline-flex">
-                        <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-yellow-200">
-                          <div className="h-2 w-2 rounded-full m-1 bg-yellow-500 "></div>
-                        </div>
-                        <div className="text-sm">Top Necessary</div>
+                  {/* ------------- CHART CONTAINER ------------- */}
+                  <div className="mx-2 mb-4 shadow-xl rounded-lg border border-gray-100 overflow-hidden p-5">
+                    {/* ------------- CHART HEADER ------------- */}
+                    <div className="inline-flex">
+                      <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-green-100">
+                        <div className="h-2 w-2 rounded-full m-1 bg-green-500 "></div>
                       </div>
-
-                      <div>
-                        <SmallBarChart
-                          daysToFilter={parseInt(daysToDisplay)}
-                          categoryToDisplay={"Neutral / Necessary"}
-                          firestoreActivities={firestoreActivities}
-                        />
-                      </div>
+                      <div className="text-sm">Top Productive</div>
                     </div>
+                    {/* ------------- CHART  ------------- */}
+                    <div>
+                      <SmallBarChart
+                        daysToFilter={parseInt(daysToDisplay)}
+                        categoryToDisplay={"Productive"}
+                        firestoreActivities={firestoreActivities}
+                      />
+                    </div>
+                  </div>
 
-                    <div className="mx-5 mb-16 w-70 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
-                      <div className="inline-flex">
-                        <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-red-100">
-                          <div className="h-2 w-2 rounded-full m-1 bg-red-500 "></div>
-                        </div>
-                        <div className="text-sm">Top Unproductive</div>
+                  {/* ------------- CHART CONTAINER ------------- */}
+                  <div className="mx-2 mb-4 shadow-xl rounded-lg border border-gray-100 overflow-hidden p-5">
+                    {/* ------------- CHART HEADER ------------- */}
+                    <div className="inline-flex">
+                      <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-yellow-200">
+                        <div className="h-2 w-2 rounded-full m-1 bg-yellow-500 "></div>
                       </div>
+                      <div className="text-sm">Top Necessary</div>
+                    </div>
+                    {/* ------------- CHART  ------------- */}
+                    <div>
+                      <SmallBarChart
+                        daysToFilter={parseInt(daysToDisplay)}
+                        categoryToDisplay={"Neutral / Necessary"}
+                        firestoreActivities={firestoreActivities}
+                      />
+                    </div>
+                  </div>
 
-                      <div>
-                        <SmallBarChart
-                          daysToFilter={parseInt(daysToDisplay)}
-                          categoryToDisplay={"Unproductive"}
-                          firestoreActivities={firestoreActivities}
-                        />
+                  {/* ------------- CHART CONTAINER ------------- */}
+                  <div className="mx-2 mb-4 shadow-xl rounded-lg border border-gray-100 p-5">
+                    {/* ------------- CHART HEADER ------------- */}
+                    <div className="inline-flex">
+                      <div className="flex-1 h-4 w-4 m rounded-full m-1 bg-red-100">
+                        <div className="h-2 w-2 rounded-full m-1 bg-red-500 "></div>
                       </div>
+                      <div className="text-sm">Top Unproductive</div>
+                    </div>
+                    {/* ------------- CHART  ------------- */}
+                    <div>
+                      <SmallBarChart
+                        daysToFilter={parseInt(daysToDisplay)}
+                        categoryToDisplay={"Unproductive"}
+                        firestoreActivities={firestoreActivities}
+                      />
                     </div>
                   </div>
                 </div>

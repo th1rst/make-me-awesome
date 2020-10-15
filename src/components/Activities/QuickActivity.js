@@ -89,7 +89,7 @@ class QuickActivity extends Component {
         {/* ------------- QUICK ACTIVITY CARD ------------- */}
 
         <div className="flex flex-col items-center justify-evenly">
-          <div className="w-64 h-full flex justify-center items-center mx-12 my-4">
+          <div className="w-64 h-full flex justify-center items-center mx-8 my-4">
             <div className="container mx-auto max-w-xs rounded-lg overflow-hidden shadow-lg my-2 bg-white">
               <div className="relative mb-6">
                 <img
