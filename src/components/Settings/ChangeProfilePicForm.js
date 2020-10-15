@@ -71,7 +71,7 @@ class ChangeProfilePicForm extends Component {
     
     return (
       <div>
-        <Label className="my-5">
+        <Label className="my-2">
           <span className="font-bold">Update your Profile Picture</span>
           <Input
             name="photoUrlInput"

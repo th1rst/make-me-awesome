@@ -8,29 +8,32 @@ import { Card, Accordion, AccordionSection } from "react-rainbow-components";
 import { FaRegUser, FaStar, FaKey } from "react-icons/fa";
 import { GrMail } from "react-icons/gr";
 import { AiOutlinePicture } from "react-icons/ai";
-import BannerPictureForm from "../components/Settings/BannerPictureForm";
+import ChangeBannerPictureForm from "../components/Settings/ChangeBannerPictureForm";
 import ChangePasswordForm from "../components/Settings/ChangePasswordForm";
+import Footer from "../components/Footer";
 
 function Settings() {
   return (
     <div>
-      <div className="w-auto h-screen">
+      <div className="w-auto min-h-screen">
         <Navigation />
-        <h1 className="mt-4 mb-8 text-4xl md:text-3xl underline font-semibold uppercase text-center">
-          Settings
-        </h1>
+        <div className="my-8 flex justify-center items-center">
+          <h1 className="text-center font-bold text-4xl md:text-5xl max-w-xl text-gray-900">
+            Settings
+          </h1>
+        </div>
         <div className="rainbow-m-around_xx-large">
           <Card className="w-3/4 mx-auto">
             <Accordion>
               <AccordionSection
                 icon={<FaStar className="inline-flex text-blue-400" />}
-                label="QuickActivities"
+                label="Edit QuickActivities"
               >
                 <QuickActivitySettings />
               </AccordionSection>
               <AccordionSection
                 icon={<FaRegUser className="inline-flex text-blue-400" />}
-                label="Profile Picture"
+                label="Change Profile Picture"
               >
                 <ChangeProfilePicForm />
               </AccordionSection>
@@ -38,9 +41,9 @@ function Settings() {
                 icon={
                   <AiOutlinePicture className="inline-flex text-blue-400" />
                 }
-                label="Banner Picture"
+                label="Change Banner Picture"
               >
-                <BannerPictureForm />
+                <ChangeBannerPictureForm />
               </AccordionSection>
               <AccordionSection
                 icon={<GrMail className="inline-flex text-blue-400" />}
@@ -58,6 +61,7 @@ function Settings() {
           </Card>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

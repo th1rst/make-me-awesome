@@ -183,10 +183,11 @@ class QuickActivitySettings extends Component {
       showServerResponseModal,
       errorMessage,
       successMessage,
+      isEditingDuration,
     } = this.state;
 
     const isInvalid = activityName === "" || activityDuration === "";
-    
+
     return (
       <>
         {!quickActivities ? (
@@ -202,7 +203,7 @@ class QuickActivitySettings extends Component {
                 <h1 className="my-2 text-lg font-bold uppercase text-center">
                   Current QuickActivities:
                 </h1>
-                <div className="w-full h-auto border border-blue-100 rounded-lg">
+                <div className="w-full h-auto border border-gray-100 rounded-lg">
                   <div className="flex flex-row flex-wrap justify-around">
                     {quickActivities.map((quickActivity) => (
                       <div className="flex flex-col w-auto mb-4">
@@ -268,18 +269,19 @@ class QuickActivitySettings extends Component {
             <h1 className="mt-8 mb-2 text-xl font-bold text-center">
               Add QuickActivities
             </h1>
-            <div className="w-full h-auto border border-blue-100 rounded-lg">
+            <div className="w-full h-auto border border-gray-100 rounded-lg">
               <div className="mx-auto">
                 <div className="relative p-6 flex-auto">
                   <Label>
-                    <span className="font-bold">Name</span>
+                    <span className="font-bold">
+                      Name <span className="text-red-500">*</span>
+                    </span>
                     <Input
                       name="activityName"
                       className="mb-5 mt-1"
                       placeholder="Please name your Activity"
                       value={activityName}
                       onChange={this.handleInput}
-                      valid={!isInvalid}
                     />
                   </Label>
 
@@ -297,20 +299,38 @@ class QuickActivitySettings extends Component {
                       ))}
                     </Select>
                   </Label>
-
-                  <Label>
-                    <span className="font-bold">Duration (minutes)</span>
-                    <Input
-                      name="activityDuration"
-                      className="mb-5 mt-1"
-                      placeholder={`How long do you usually do ${
-                        activityName ? activityName : "(Name)"
-                      } for (in minutes)?`}
-                      value={activityDuration}
-                      onChange={this.handleInput}
-                      valid={this.validateNumbersOnly(activityDuration)}
-                    />
-                  </Label>
+                  {isEditingDuration ? (
+                    <Label>
+                      <span className="font-bold">
+                        Duration (minutes){" "}
+                        <span className="text-red-500">*</span>
+                      </span>
+                      <Input
+                        name="activityDuration"
+                        className="mb-5 mt-1"
+                        placeholder={`How long do you usually do ${
+                          activityName ? activityName : "(Name)"
+                        } for (in minutes)?`}
+                        value={activityDuration}
+                        onChange={this.handleInput}
+                        valid={this.validateNumbersOnly(activityDuration)}
+                      />
+                    </Label>
+                  ) : (
+                    <Label>
+                      <span className="font-bold">
+                        Duration (minutes){" "}
+                        <span className="text-red-500">*</span>
+                      </span>
+                      <Input
+                        className="mb-5 mt-1"
+                        placeholder="How long do you usually do (Name) for (in minutes)?"
+                        onClick={() =>
+                          this.setState({ isEditingDuration: true })
+                        }
+                      />
+                    </Label>
+                  )}
 
                   <Label>
                     <span className="font-bold">Productivity</span>

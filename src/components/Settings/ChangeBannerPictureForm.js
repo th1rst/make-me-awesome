@@ -3,7 +3,7 @@ import withAuthorization from "../Session/withAuthorization";
 import { Label, Input } from "@windmill/react-ui";
 import ServerResponseModal from "../ServerResponseModal";
 
-class BannerPictureForm extends Component {
+class ChangeBannerPictureForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,7 +71,7 @@ class BannerPictureForm extends Component {
     
     return (
       <div>
-        <Label className="my-5">
+        <Label className="my-2">
           <span className="font-bold">Update your Banner Picture</span>
           <Input
             name="bannerUrlInput"
@@ -103,4 +103,4 @@ class BannerPictureForm extends Component {
 
 const condition = (authUser) => !!authUser;
 
-export default withAuthorization(condition)(BannerPictureForm);
+export default withAuthorization(condition)(ChangeBannerPictureForm);
