@@ -5,7 +5,6 @@ import { withFirebase } from "../Firebase/context";
 class SmallDonutChart extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       series: [55, 41, 17],
       options: {
@@ -28,17 +27,13 @@ class SmallDonutChart extends Component {
 
   formatDataForChart() {
     // --- filter by Date (i.e. "last 7 days", "last 30 days").
-    //      parameter is given via props
     let date = new Date();
     date.setDate(date.getDate() - `${this.props.daysToFilter}`);
     const endDate = date.toLocaleDateString("en-US");
 
-    const filteredByDateArray = [];
-    this.props.firestoreActivities.forEach((activity) => {
-      if (new Date(activity.date) >= new Date(endDate)) {
-        filteredByDateArray.push(activity);
-      }
-    });
+    const filteredByDate = this.props.firestoreActivities.filter((activity) =>
+      new Date(activity.date) >= new Date(endDate) ? activity : null
+    );
 
     const filterList = ["Productive", "Neutral / Necessary", "Unproductive"];
 
@@ -46,9 +41,9 @@ class SmallDonutChart extends Component {
     filterList.forEach((filterListEntry) => {
       let durationOfFilterListEntry = 0; // init
 
-      //  --> for each filter, search all activities and add up all the durations for that category
+      //  --> for each filter/category, add up all the durations for that category
       //      result: { [name: "Productive", duration: 3830], [...] }
-      filteredByDateArray.forEach((activity) => {
+      filteredByDate.forEach((activity) => {
         if (activity.productiveness === filterListEntry) {
           let currentDuration = parseInt(activity.duration);
           durationOfFilterListEntry += currentDuration;

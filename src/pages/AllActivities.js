@@ -32,9 +32,8 @@ class AllActivities extends Component {
                       type="button"
                       onClick={() => {
                         this.deleteActivity(value).then(() => {
-                          const newData = [];
-                          this.state.firestoreActivities.filter((entry) =>
-                            entry.id !== value ? newData.push(entry) : null
+                          const newData = this.state.firestoreActivities.filter(
+                            (entry) => (entry.id !== value ? value : null)
                           );
                           this.setState({ firestoreActivities: newData });
                           this.formatData();
@@ -187,8 +186,7 @@ class AllActivities extends Component {
       .delete()
       .then(() => {
         this.setState({
-          successMessage:
-            "Activity successfully deleted. It may take a while for changes to be in effect.",
+          successMessage: "Activity successfully deleted.",
           showServerResponseModal: true,
         });
       })

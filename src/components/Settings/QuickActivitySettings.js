@@ -257,7 +257,7 @@ class QuickActivitySettings extends Component {
                             this.deleteQuickActivity(quickActivity.id)
                           }
                         >
-                          <span className="text-red-100 hover:text-red-500 inline-flex">
+                          <span className="text-red-500 md:text-red-100 hover:text-red-500 inline-flex">
                             <FaTrash />
                             <p className="ml-1"> delete</p>
                           </span>
