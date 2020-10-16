@@ -9,7 +9,6 @@ class ChangeProfilePicForm extends Component {
     super(props);
     this.state = {
       authUser: JSON.parse(localStorage.getItem("authUser")),
-      photoUrlInput: "",
       showServerResponseModal: false,
       errorMessage: "",
       successMessage: "",
@@ -53,7 +52,6 @@ class ChangeProfilePicForm extends Component {
             .child(`users/${userID}/images/profilePicture/${file.name}`)
             .getDownloadURL()
             .then((downloadURL) => {
-              console.log("File available at", downloadURL);
               this.props.firebase.auth.currentUser.updateProfile({
                 photoURL: downloadURL,
               });
@@ -107,7 +105,7 @@ class ChangeProfilePicForm extends Component {
           buttonText={
             <div className="w-full h-16 flex justify-center items-center">
               <BsImage className="mr-4 text-2xl text-blue-400" />
-              <p className="text-lg font-semibold">
+              <p className="sm:text-sm md:text-lg font-semibold">
                 {file === "" ? "Upload your Profile Picture." : null}
               </p>
             </div>
@@ -117,11 +115,7 @@ class ChangeProfilePicForm extends Component {
           onError={(error) => this.setState({ error: error })}
           onClear={() => this.setState({ file: "" })}
           triggerReset={this.state.reset}
-        >
-          <div className="input-button" type="button">
-            The file picker
-          </div>
-        </FilePicker>
+        ></FilePicker>
         <div className="file-details">
           {error ? <h4>Error: {error}</h4> : null}
         </div>
