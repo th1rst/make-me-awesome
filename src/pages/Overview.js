@@ -107,7 +107,7 @@ class Overview extends Component {
       .then((data) => this.setState({ randomQuote: data[random].text }));
   };
 
-  handleInput = (event) => {
+  handleChartChange = (event) => {
     this.setState(
       {
         [event.target.name]: event.target.value,
@@ -147,7 +147,7 @@ class Overview extends Component {
                   : `url("https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")`,
               }}
             >
-              <div className="flex flex-col items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
+              <div className="flex flex-col items-center justify-center h-full w-full bg-gray-900 bg-opacity-50 py-4">
                 <div className="w-2/3 text-center">
                   <h1 className="text-white text-3xl font-semibold uppercase">
                     Welcome back,{" "}
@@ -213,7 +213,7 @@ class Overview extends Component {
                   <Select
                     name="daysToDisplay"
                     className="my-2"
-                    onChange={this.handleInput}
+                    onChange={this.handleChartChange}
                   >
                     <option value={7} key={7}>
                       7 days

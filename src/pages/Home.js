@@ -16,7 +16,7 @@ export default class Home extends Component {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="mt-40">
+        <div className="absolute w-full mt-10 md:mt-16 lg:mt-40">
           <h1 className="font-bold text-center text-3xl">
             <span role="img" aria-label="trophy">
               🏆

@@ -53,7 +53,7 @@ const columns = [
           case "Neutral / Necessary":
             return (
               <Badge className="w-auto h-auto" type="neutral">
-                <p className="text-sm">{value}</p>
+                <p className="text-sm">Neutral</p>
               </Badge>
             );
           case "Unproductive":
@@ -83,6 +83,7 @@ const columns = [
 ];
 
 const options = {
+  selectableRows: false,
   filterType: "checkbox",
   rowsPerPage: 15,
   rowsPerPageOptions: [15, 30, 100],
@@ -102,6 +103,11 @@ class AllActivities extends Component {
   }
 
   componentDidMount = async () => {
+    await this.getData();
+    this.formatData();
+  };
+
+  getData = async () => {
     const response = await this.props.firebase.db
       .collection("users")
       .doc(`${this.state.authUser.uid}`)
@@ -124,7 +130,6 @@ class AllActivities extends Component {
         return activityData;
       });
     this.setState({ firestoreActivities: response });
-    this.formatData();
   };
 
   formatData = () => {

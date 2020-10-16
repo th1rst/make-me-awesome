@@ -30,7 +30,8 @@ class ActivityDeleteTableRow extends Component {
       .delete()
       .then(() => {
         this.setState({
-          successMessage: "Activity successfully deleted.",
+          successMessage:
+            "Activity successfully deleted. It may take a while for changes to be in effect.",
           showServerResponseModal: true,
         });
       })
@@ -109,12 +110,12 @@ class ActivityDeleteTableRow extends Component {
             </div>
           </div>
         ) : null}
-        <div className="flex flex-row align-items">
-          <p className="italic">{this.props.activityId}</p>
+        <div className="flex flex-row flex-wrap align-items">
+          <p className="mt-2 italic">{this.props.activityId}</p>
           <button type="button" onClick={() => this.handleShowWarningModal()}>
             <span className="text-red-100 hover:text-red-500 inline-flex">
-              <FaTrash className="ml-4" />
-              <p className="ml-1"> delete</p>
+              <FaTrash className="mt-2 ml-4" />
+              <p className="mt-2 ml-1"> delete</p>
             </span>
           </button>
         </div>

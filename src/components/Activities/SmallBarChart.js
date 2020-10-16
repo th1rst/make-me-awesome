@@ -187,7 +187,7 @@ class SmallBarChart extends Component {
               options={this.state.options}
               series={this.state.series}
               type="bar"
-              width="380"
+              width="350"
             />
           </div>
         </div>
