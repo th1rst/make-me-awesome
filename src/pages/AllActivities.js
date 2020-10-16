@@ -5,92 +5,8 @@ import withAuthorization from "../components/Session/withAuthorization";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Footer from "../components/Footer";
 import { Badge } from "@windmill/react-ui";
-import ActivityDeleteTableRow from "../components/Activities/ActivityDeleteTableRow";
-
-const columns = [
-  {
-    name: "ID",
-    options: {
-      filter: false,
-      customBodyRender: (value) => {
-        // ---- DELETE ENTRY FROM FIRESTORE + styling ----
-        //  --> moved to outside component to access "withFirebase" and improve readability
-        return <ActivityDeleteTableRow activityId={value} />;
-      },
-    },
-  },
-  {
-    name: "Activity Name",
-    options: {
-      filter: false,
-      customBodyRender: (value) => {
-        return <p className="font-bold text-base underline">{value}</p>;
-      },
-    },
-  },
-  "Date",
-  {
-    name: "Duration (min.)",
-    options: {
-      filter: false,
-      customBodyRender: (value) => {
-        return <p className="font-bold">{value}</p>;
-      },
-    },
-  },
-  {
-    name: "Productiveness",
-    options: {
-      filter: false,
-      customBodyRender: (value) => {
-        switch (value) {
-          case "Productive":
-            return (
-              <Badge className="w-auto h-auto" type="success">
-                <p className="text-sm">{value}</p>
-              </Badge>
-            );
-          case "Neutral / Necessary":
-            return (
-              <Badge className="w-auto h-auto" type="neutral">
-                <p className="text-sm">Neutral</p>
-              </Badge>
-            );
-          case "Unproductive":
-            return (
-              <Badge className="w-auto h-auto" type="danger">
-                <p className="text-sm">{value}</p>
-              </Badge>
-            );
-          default:
-            break;
-        }
-      },
-    },
-  },
-  "Category",
-  {
-    name: "Notes",
-    options: {
-      filter: false,
-      customBodyRender: (value) => {
-        return (
-          <p className="font-serif text-base text-center italic">{value}</p>
-        );
-      },
-    },
-  },
-];
-
-const options = {
-  selectableRows: false,
-  filterType: "checkbox",
-  rowsPerPage: 15,
-  rowsPerPageOptions: [15, 30, 100],
-  customHeadRender: (value) => {
-    return <h1 className="text-xl font-bold">{value}</h1>;
-  },
-};
+import { FaTrash } from "react-icons/fa";
+import ServerResponseModal from "../components/ServerResponseModal";
 
 class AllActivities extends Component {
   constructor(props) {
@@ -99,7 +15,118 @@ class AllActivities extends Component {
       authUser: JSON.parse(localStorage.getItem("authUser")),
       firestoreActivities: undefined,
       data: undefined,
+      errorMessage: "",
+      successMessage: "",
+      showServerResponseModal: false,
+      columns: [
+        {
+          name: "ID",
+          options: {
+            filter: false,
+            customBodyRender: (value) => {
+              return (
+                <>
+                  <div className="flex flex-row flex-wrap align-items">
+                    <p className="mt-2 italic">{value}</p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        this.deleteActivity(value).then(() => {
+                          const newData = [];
+                          this.state.firestoreActivities.filter((entry) =>
+                            entry.id !== value ? newData.push(entry) : null
+                          );
+                          this.setState({ firestoreActivities: newData });
+                          this.formatData();
+                        });
+                      }}
+                    >
+                      <span className="text-red-500 md:text-red-100 hover:text-red-500 inline-flex">
+                        <FaTrash className="mt-2 ml-4" />
+                        <p className="mt-2 ml-1"> delete</p>
+                      </span>
+                    </button>
+                  </div>
+                </>
+              );
+            },
+          },
+        },
+        {
+          name: "Activity Name",
+          options: {
+            filter: false,
+            customBodyRender: (value) => {
+              return <p className="font-bold text-base underline">{value}</p>;
+            },
+          },
+        },
+        "Date",
+        {
+          name: "Duration (min.)",
+          options: {
+            filter: false,
+            customBodyRender: (value) => {
+              return <p className="font-bold">{value}</p>;
+            },
+          },
+        },
+        {
+          name: "Productiveness",
+          options: {
+            filter: false,
+            customBodyRender: (value) => {
+              switch (value) {
+                case "Productive":
+                  return (
+                    <Badge className="w-auto h-auto" type="success">
+                      <p className="text-sm">{value}</p>
+                    </Badge>
+                  );
+                case "Neutral / Necessary":
+                  return (
+                    <Badge className="w-auto h-auto" type="neutral">
+                      <p className="text-sm">Neutral</p>
+                    </Badge>
+                  );
+                case "Unproductive":
+                  return (
+                    <Badge className="w-auto h-auto" type="danger">
+                      <p className="text-sm">{value}</p>
+                    </Badge>
+                  );
+                default:
+                  break;
+              }
+            },
+          },
+        },
+        "Category",
+        {
+          name: "Notes",
+          options: {
+            filter: false,
+            customBodyRender: (value) => {
+              return (
+                <p className="font-serif text-base text-center italic">
+                  {value}
+                </p>
+              );
+            },
+          },
+        },
+      ],
+      options: {
+        selectableRows: false,
+        filterType: "checkbox",
+        rowsPerPage: 15,
+        rowsPerPageOptions: [15, 30, 100],
+        customHeadRender: (value) => {
+          return <h1 className="text-xl font-bold">{value}</h1>;
+        },
+      },
     };
+    this.handleShowWarningModal = this.handleShowWarningModal.bind(this);
   }
 
   componentDidMount = async () => {
@@ -147,8 +174,59 @@ class AllActivities extends Component {
     this.setState({ data: formattedData });
   };
 
+  handleShowWarningModal() {
+    this.setState({ showWarningModal: !this.state.showWarningModal });
+  }
+
+  deleteActivity = async (activityID) => {
+    await this.props.firebase.db
+      .collection("users")
+      .doc(`${this.state.authUser.uid}`)
+      .collection("activities")
+      .doc(`${activityID}`)
+      .delete()
+      .then(() => {
+        this.setState({
+          successMessage:
+            "Activity successfully deleted. It may take a while for changes to be in effect.",
+          showServerResponseModal: true,
+        });
+      })
+      .then(() =>
+        setTimeout(
+          function () {
+            this.setState({ showServerResponseModal: false });
+          }.bind(this),
+          5000
+        )
+      )
+      .catch((error) => {
+        this.setState({
+          errorMessage: error.message,
+          showServerResponseModal: true,
+        });
+      })
+      .then(() =>
+        setTimeout(
+          function () {
+            this.setState({ showServerResponseModal: false });
+          }.bind(this),
+          5000
+        )
+      );
+  };
+
   render() {
-    const { firestoreActivities, data } = this.state;
+    const {
+      firestoreActivities,
+      data,
+      showServerResponseModal,
+      errorMessage,
+      successMessage,
+      columns,
+      options,
+    } = this.state;
+
     return (
       <div>
         <Navigation />
@@ -169,6 +247,15 @@ class AllActivities extends Component {
         ) : (
           <LoadingSpinner />
         )}
+
+        {/* ------------- SERVER RESPONSE MODAL ------------- */}
+
+        {showServerResponseModal ? (
+          <ServerResponseModal
+            errorMessage={errorMessage}
+            successMessage={successMessage}
+          />
+        ) : null}
       </div>
     );
   }
