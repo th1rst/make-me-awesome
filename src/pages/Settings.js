@@ -22,8 +22,8 @@ function Settings() {
             Settings
           </h1>
         </div>
-        <div className="rainbow-m-around_xx-large">
-          <Card className="w-3/4 mx-auto">
+        <div className="rainbow-m-around_xx-large px-2">
+          <Card className="w-full md:w-3/4 mx-auto">
             <Accordion>
               <AccordionSection
                 icon={<FaStar className="inline-flex text-blue-400" />}

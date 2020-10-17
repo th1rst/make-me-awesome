@@ -144,7 +144,7 @@ class Overview extends Component {
                 height: "32rem",
                 backgroundImage: bannerURL
                   ? `url("${bannerURL}")`
-                  : `url("https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")`,
+                  : `url("https://images.unsplash.com/photo-1500856056008-859079534e9e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80")`,
               }}
             >
               <div className="flex flex-col items-center justify-center h-full w-full bg-gray-900 bg-opacity-50 py-4">
@@ -168,7 +168,7 @@ class Overview extends Component {
                     <ManualActivityModal />
                   </div>
                 </div>
-                <h2 className="mt-10 p-4 italic text-white text-center text-xl font-serif md:text-2xl">
+                <h2 className="mt-10 p-4 italic text-white text-center text-md font-serif md:text-2xl">
                   &quot;{randomQuote}&quot;
                 </h2>
               </div>

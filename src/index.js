@@ -13,7 +13,7 @@ import customTheme from "./customWindmillTheme";
 ReactDOM.render(
   <React.StrictMode>
     <FirebaseContext.Provider value={new Firebase()}>
-      <Router>
+      <Router basename="/portfolio/make-me-awesome/">
         <ScrollToTop>
           <Windmill theme={customTheme}>
             <App />

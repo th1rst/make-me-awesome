@@ -269,8 +269,8 @@ class QuickActivitySettings extends Component {
               </div>
             )}
 
-            <h1 className="mt-8 mb-2 text-xl font-bold text-center">
-              Add QuickActivities
+            <h1 className="mt-8 mb-2 text-lg font-bold uppercase text-center">
+              Add QuickActivity
             </h1>
             <div className="w-full h-auto border border-gray-100 rounded-lg">
               <div className="mx-auto">
