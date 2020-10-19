@@ -112,12 +112,18 @@ class ManualActivityModal extends Component {
           successMessage: "Sucessfully saved activity!",
           showModal: false,
           showServerResponseModal: true,
+          activityName: "",
+          categoryName: defaultCategories[0],
+          activityType: defaultActivityTypes[0],
+          productivityType: defaultProductivityTypes[0],
+          activityDuration: "",
+          notes: "",
         });
       })
       .then(() =>
         setTimeout(
           function () {
-            this.setState({ showModal: false, showServerResponseModal: false });
+            this.setState({ showServerResponseModal: false });
           }.bind(this),
           5000
         )
