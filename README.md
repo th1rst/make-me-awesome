@@ -1,9 +1,12 @@
 # Make Me Awesome
 
+
+![homescreen](https://kochannek.com/portfolio/make-me-awesome/loginoverview.gif)
+
 [Project Demo Here](https://kochannek.com/portfolio/make-me-awesome/)
 
 **Login Credentials:**
-*john@doe.com*, *asdf1234*
+*john@doe.com*, *testuser123*
 
 A while ago, a friend of mine asked me if I could build a "personal improvement" Webapp for him where he could track his activities and see where he spends his time on (productive tasks vs. unproductive tasks) so he could improve himself and his time management. It sounded boring at first, but the more I thought about it, the more I liked the idea because it's more "interactive" than the Sites I've built before... and since I was looking for a new project idea anyways, I thought I'd go for it.
 
@@ -14,7 +17,7 @@ While this project took me significantly longer than anticipated (because after 
 ## Technologies used
 
 **Frontend / UI:**
-- React
+- React, React Router, React Context, HOC's
 - Tailwind CSS
 - Rainbow UI + Windmill UI Components
 - React-Icons
@@ -27,6 +30,20 @@ While this project took me significantly longer than anticipated (because after 
 - Google Firebase Auth
 - Google Firestore
 
+**Misc:**
+- type.fit API (random motivational quote)
+
+## Features
+- User Account
+- Personalized Homescreen + Navbar
+- Fully customizable "Quick Activities" (or none at all)
+- Custom Profile Picture (upload)
+- Custom Banner Picture (upload)
+- Overview about **all** activities chronologically with filtering
+- "Live Activities" (Stopwatch, Counter)
+- Manually enter activities (with Date Picker, aka "in the past")
+- Visual overview via Apexcharts over time spent in each category (Productive, Neutral, Unproductive) with the top 5 activities of each category (may vary with user input)
+- FAQ Page
 
 ## Roadblocks I've hit
 Whenever I touch a new Project, I try to challenge myself and use at least one technology I want to learn that I don't know already. In this case, I picked Auth (Firebase), Cloud Storage (Firestore) and a CSS Framework (Tailwind) - so three new technologies at once. And oh boy, it was tough. So what roadblocks did I hit?
@@ -40,7 +57,11 @@ Working with User Authentication for the first time was very time-consuming. In 
 MUIDatatables and Apexcharts are amazing Projects but formatting the data so they display the desired outcome was much harder than anticipated. 
 
 **ApexCharts:** Since I wanted to write only one algorithm and only pass it props to sort, it was challenging. It gets passed two props: days (how many days to filter, i.e *last 7 days* or *last 30 days*) and category (i.e. *productive*, *neutral*, *unproductive*).
-But after a full day of figuring out the correct way to map, filter and sort the data, I got the desired result - and hopefully in an elegant and well-documented way.
+But after a full day of figuring out the correct way to map, filter and sort the data, I got the desired result - and hopefully in an elegant and well-documented way. 
+
+After filling the Database with about 400 more or less meaningful activities, the results look like this:
+
+![GIF](https://kochannek.com/portfolio/make-me-awesome/activities_charts.gif)
 
 **MUIDataTable:** I had to figure out a way to use MUIDT's "customBodyRender" Method to delete the specific activity a) in Google Firestore and b) the specific table row. I moved the customBodyRender options to state and went with a solution of passing the customBodyRender the inner value (in this case: firestore ID) as parameter which then passes it on to "deleteActivity" which deletes it from Firestore and re-renders the table. It was hard since I had to work within certain boundaries (customBodyRender) but it works flawlessly.
 

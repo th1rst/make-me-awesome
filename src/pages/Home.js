@@ -16,17 +16,19 @@ export default class Home extends Component {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="absolute w-full mt-10 md:mt-16 lg:mt-40">
-          <h1 className="font-bold text-center text-3xl">
-            <span role="img" aria-label="trophy">
-              🏆
-            </span>
-            Make Me Awesome
-            <span role="img" aria-label="trophy">
-              🏆
-            </span>
-          </h1>
-          <Login />
+        <div className="flex h-screen">
+          <div className="my-auto w-full">
+            <h1 className="font-bold text-center text-3xl">
+              <span role="img" aria-label="trophy">
+                🏆
+              </span>
+              Make Me Awesome
+              <span role="img" aria-label="trophy">
+                🏆
+              </span>
+            </h1>
+            <Login />
+          </div>
         </div>
       </div>
     );
