@@ -79,8 +79,8 @@ class SmallBarChart extends Component {
     this.formatDataForChart(`${this.props.categoryToDisplay}`);
   }
 
-  componentWillReceiveProps() {
-    this.formatDataForChart(`${this.props.categoryToDisplay}`);
+  async componentWillReceiveProps() {
+    this.formatDataForChart(`${await this.props.categoryToDisplay}`);
   }
 
   formatDataForChart(productivityParam) {

@@ -21,7 +21,8 @@ class SmallDonutChart extends Component {
     this.formatDataForChart();
   }
 
-  componentWillReceiveProps() {
+  async componentWillReceiveProps() {
+    await this.props.daysToFilter
     this.formatDataForChart();
   }
 
