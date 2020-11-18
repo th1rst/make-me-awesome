@@ -34,7 +34,7 @@ function Overview(props) {
       .doc(`${authUser.uid}`)
       .collection("activities")
       .get()
-      .then(function (querySnapshot) {
+      .then((querySnapshot) => {
         const activityData = [];
 
         querySnapshot.forEach(function (doc) {
@@ -73,7 +73,7 @@ function Overview(props) {
       .then(function (querySnapshot) {
         const quickActivityData = [];
 
-        querySnapshot.forEach(function (doc) {
+        querySnapshot.forEach((doc) => {
           quickActivityData.push({
             id: doc.id,
             name: doc.data().name,
@@ -129,9 +129,7 @@ function Overview(props) {
                       Show All
                     </button>
                   </Link>
-
                   <LiveActivityModal />
-
                   <ManualActivityModal />
                 </div>
               </div>
@@ -208,7 +206,7 @@ function Overview(props) {
                   {/* ------------- CHART  ------------- */}
                   <div>
                     <SmallDonutChart
-                      daysToFilter={parseInt(daysToDisplay)}
+                      daysToFilter={daysToDisplay}
                       categoryToDisplay={"Productive"}
                       firestoreActivities={firestoreActivities}
                     />
@@ -227,7 +225,7 @@ function Overview(props) {
                   {/* ------------- CHART  ------------- */}
                   <div>
                     <SmallBarChart
-                      daysToFilter={parseInt(daysToDisplay)}
+                      daysToFilter={daysToDisplay}
                       categoryToDisplay={"Productive"}
                       firestoreActivities={firestoreActivities}
                     />
@@ -246,7 +244,7 @@ function Overview(props) {
                   {/* ------------- CHART  ------------- */}
                   <div>
                     <SmallBarChart
-                      daysToFilter={parseInt(daysToDisplay)}
+                      daysToFilter={daysToDisplay}
                       categoryToDisplay={"Neutral / Necessary"}
                       firestoreActivities={firestoreActivities}
                     />
@@ -265,7 +263,7 @@ function Overview(props) {
                   {/* ------------- CHART  ------------- */}
                   <div>
                     <SmallBarChart
-                      daysToFilter={parseInt(daysToDisplay)}
+                      daysToFilter={daysToDisplay}
                       categoryToDisplay={"Unproductive"}
                       firestoreActivities={firestoreActivities}
                     />

@@ -70,7 +70,7 @@ After filling the Database with about 400 more or less meaningful activities, th
 - I feel like I am making too many calls to the server. This could probably be improved by creating a context + consumer.
 - Code could be destructured into Components further
 - Tailwind CSS classNames can get a bit overwhelming so I'm sure I've made some unneccessary classes here and there.
-- I am using the "old" Class Components instead of React Hooks but I will take on Hooks in my next project. I felt like three new technologies were enough.
+- ~~I am using the "old" Class Components instead of React Hooks but I will take on Hooks in my next project. I felt like three new technologies were enough.~~ Updated almost all Components from class-based to functional including Hooks.
 
 
 Other than that, I am extremely happy with the result!
