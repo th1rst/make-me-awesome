@@ -105,7 +105,6 @@ function Overview(props) {
       ) : (
         <>
           <Navigation />
-          {console.log(daysToDisplay)}
           <div
             className="w-full bg-cover bg-center shadow-xl"
             style={{
